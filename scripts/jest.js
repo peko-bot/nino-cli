@@ -1,8 +1,9 @@
 module.exports = {
   bail: true,
   verbose: true,
-  setupFiles: ['./setup.js'],
+  setupFiles: ['<rootDir>/scripts/setup.js'],
   moduleFileExtensions: ['js', 'jsx', 'json'],
+  rootDir: process.cwd(),
   testPathIgnorePatterns: ['/node_modules/', 'node'],
   testRegex: '.*\\.test\\.js$',
   transformIgnorePatterns: [
