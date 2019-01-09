@@ -1,7 +1,9 @@
+const path = require('path');
+
 module.exports = {
   bail: true,
   verbose: true,
-  setupFiles: ['<rootDir>/scripts/setup.js'],
+  setupFiles: [path.join(__dirname, 'setup.js')],
   moduleFileExtensions: ['js', 'jsx', 'json'],
   rootDir: process.cwd(),
   testPathIgnorePatterns: ['/node_modules/', 'node'],
