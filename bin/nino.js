@@ -11,6 +11,7 @@ program
     'koei [options]',
     'to build and write static files to `config.output`',
   )
+  .command('test [options]', 'run test, using jest and enzyme')
   .parse(process.argv);
 
 process.on('SIGINT', function() {
