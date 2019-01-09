@@ -1,5 +1,7 @@
+const path = require('path');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   commonModule: {
@@ -40,5 +42,15 @@ module.exports = {
         collapseWhitespace: true,
       },
     }),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(process.cwd(), 'src/assets'),
+        to: path.join(process.cwd(), 'dist/lib/main/assets'),
+      },
+      {
+        from: path.join(process.cwd(), 'src/mock'),
+        to: path.join(process.cwd(), 'dist/lib/main/mock'),
+      },
+    ]),
   ],
 };

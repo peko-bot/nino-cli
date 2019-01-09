@@ -4,7 +4,7 @@ const program = require('commander');
 const info = require('../package.json');
 
 program
-  .version(info.version)
+  .version(info.version, '-v, --version')
   .usage('[command] [options]')
   .command('go [options]', 'to start a server, for development')
   .command(

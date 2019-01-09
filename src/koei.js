@@ -5,26 +5,24 @@ const TohoLogPlugin = require('toho-log-plugin');
 const { commonModule, commonPlugin } = require('../options/webpack.common');
 
 exports.koei = program => {
-  const dev = !!process.argv.toString().includes('development');
+  let dev = !!program.dev;
+  let watch = !!program.watch;
   let plugins = commonPlugin;
+  let outputPath = program.output || 'dist/lib/main';
 
   // plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
-
   plugins.push(new TohoLogPlugin({ dev }));
 
-  !dev &&
-    plugins.push(
-      new CleanWebpackPlugin(['dist'], {
-        verbose: false,
-      }),
-    );
+  plugins.push(
+    new CleanWebpackPlugin(['dist'], {
+      root: process.cwd(),
+      verbose: false,
+    }),
+  );
 
   const options = {
     mode: dev ? 'development' : 'production',
-    watch: dev,
-    devServer: {
-      port: 9099,
-    },
+    watch,
     resolve: {
       extensions: ['.js', '.jsx'],
     },
@@ -33,7 +31,7 @@ exports.koei = program => {
       main: path.join(process.cwd(), 'src'),
     },
     output: {
-      path: path.join(process.cwd(), 'dist/lib/main'),
+      path: path.join(process.cwd(), outputPath),
       filename: '[name].js',
       chunkFilename: dev
         ? 'vendor/[name].[chunkHash:8].js'
@@ -43,7 +41,7 @@ exports.koei = program => {
     module: commonModule,
   };
 
-  dev && webpack(options).watch({}, () => {});
+  watch && webpack(options).watch({}, () => {});
 
-  !dev && webpack(options).run();
+  !watch && webpack(options).run();
 };
