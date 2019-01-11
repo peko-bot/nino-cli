@@ -1,4 +1,3 @@
-const path = require('path');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -10,7 +9,7 @@ const {
 
 injectRequire();
 
-const babelConfig = require('../babel/babelCommonConfig')(false);
+const babelConfig = require('../babel/babelCommonConfig')();
 
 module.exports = {
   commonModule: {
@@ -52,12 +51,12 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: path.join(process.cwd(), 'src/assets'),
-        to: path.join(process.cwd(), 'dist/lib/main/assets'),
+        from: getProjectPath('src/assets'),
+        to: getProjectPath('dist/lib/main/assets'),
       },
       {
-        from: path.join(process.cwd(), 'src/mock'),
-        to: path.join(process.cwd(), 'dist/lib/main/mock'),
+        from: getProjectPath('src/mock'),
+        to: getProjectPath('dist/lib/main/mock'),
       },
     ]),
   ],

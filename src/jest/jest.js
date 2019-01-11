@@ -1,13 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  bail: true,
-  verbose: true,
   setupFiles: [path.join(__dirname, 'setup.js')],
   moduleFileExtensions: ['js', 'jsx', 'json'],
   rootDir: process.cwd(),
   testPathIgnorePatterns: ['/node_modules/', 'node'],
   testRegex: '.*\\.test\\.js$',
+  transform: { '\\.js$': path.join(__dirname, './preprocessor.js') },
   transformIgnorePatterns: [
     '/dist/',
     'node_modules/[^/]+?/(?!(es|node_modules)/)', // Ignore modules without es dir
