@@ -5,6 +5,7 @@ A custom-made cli for daily coding using react, includes
 - `jest` for test
 - `webpack-dev-server` for development
 - `webpack` for production
+- you won't need `babel-plugin-import` for `antd` or `antd-mobile` or a `.babelrc`
 
 I just need a cli to integration all of them, and my wifi ~~wife~~ is Nino for now, so named this repo.
 
