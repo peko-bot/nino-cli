@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const TohoLogPlugin = require('toho-log-plugin');
-const { commonModule, commonPlugin } = require('../options/webpack.common');
+const { commonModule, commonPlugin } = require('./webpack/commonConfig');
 
 exports.koei = program => {
   let dev = !!program.dev;

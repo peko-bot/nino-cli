@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TohoLogPlugin = require('toho-log-plugin');
-const { commonModule, commonPlugin } = require('../options/webpack.common');
+const { commonModule, commonPlugin } = require('./webpack/commonConfig');
 
 exports.go = program => {
   // const configFile = path.join(

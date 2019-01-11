@@ -2,6 +2,15 @@ const path = require('path');
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const {
+  getProjectPath,
+  resolve,
+  injectRequire,
+} = require('../babel/projectHelper');
+
+injectRequire();
+
+const babelConfig = require('../babel/babelCommonConfig')(false);
 
 module.exports = {
   commonModule: {
@@ -24,9 +33,8 @@ module.exports = {
       {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        loader: resolve('babel-loader'),
+        options: babelConfig,
       },
     ],
   },
