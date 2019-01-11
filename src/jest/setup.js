@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+require('@babel/polyfill');
 if (typeof window !== 'undefined') {
   global.window.resizeTo = (width, height) => {
     global.window.innerWidth = width || global.window.innerWidth;
