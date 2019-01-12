@@ -17,10 +17,14 @@ function runCmd(cmd, args, callback) {
   });
 }
 
-exports.test = () => {
+exports.test = program => {
   // jest --config jest.js --verbose=false
+  const isUpdate = !!program.update;
   const jestBin = require.resolve('jest/bin/jest');
   const jestConfig = path.join(__dirname, '../src/jest/jest.js');
-  const args = [jestBin, '--config', jestConfig];
+  let args = [jestBin, '--config', jestConfig];
+  if (isUpdate) {
+    args.push('-u');
+  }
   runCmd('node', args);
 };
