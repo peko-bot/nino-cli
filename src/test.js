@@ -9,10 +9,17 @@ function runCmd(cmd, args, callback) {
   });
   // for test
   // ls.stdout.on('data', (data) => {
+  // eslint-disable-next-line
+  // console.log(`${data}`);
+  // });
+  // ls.stderr.on('data', data => {
+  //   // eslint-disable-next-line
   //   console.log(`${data}`);
   // });
-  // ls.stderr.on('data', data => console.log(`${data}`))
   ls.on('close', code => {
+    if (code !== 0) {
+      throw Error('check test cases please.');
+    }
     callback && callback(code);
   });
 }
