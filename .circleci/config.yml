@@ -38,6 +38,9 @@ workflows:
   build:
     jobs:
       - setup
+      - test:
+          requires:
+            - setup
       - lint:
           requires:
             - setup
