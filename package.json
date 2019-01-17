@@ -8,6 +8,7 @@
   },
   "scripts": {
     "lint": "npx eslint .",
+    "test": "jest",
     "prettier": "node ./scripts/prettier.js",
     "lint-staged": "lint-staged",
     "pub": "npm config set registry=https://registry.npmjs.org && npm publish && npm config set registry=https://registry.npm.taobao.org"
@@ -61,9 +62,10 @@
     "toho-log-plugin": "^1.0.12",
     "url-loader": "^1.1.2",
     "webpack": "^4.28.3",
-    "webpackbar": "^3.1.5",
     "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.2.1",
+    "webpackbar": "^3.1.5"
   },
   "config": {
     "commitizen": {

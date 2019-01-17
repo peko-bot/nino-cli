@@ -1,9 +1,9 @@
 const path = require('path');
-const webpack = require('webpack');
-const webpackDevServer = require('webpack-dev-server');
 const TohoLogPlugin = require('toho-log-plugin');
-const { commonModule, commonPlugin } = require('./webpack/commonConfig');
-const { getProjectPath } = require('./babel/projectHelper.js');
+const { commonModule, commonPlugin } = require('../webpack/commonConfig');
+const { getProjectPath } = require('../babel/projectHelper.js');
+const merge = require('webpack-merge');
+const fs = require('fs');
 
 const defaultDevServerOptions = {
   port: 9099,
@@ -42,24 +42,23 @@ const getDefaultConfig = program => {
 
   if (configFile) {
     configFile = path.join(getProjectPath(program.config));
-    const { webpack, devServer } = fs.existsSync(configFile)
-      ? require(configFile)
-      : null;
+    // fs.existsSync(configFile) &&
+    const customizedConfig = require(configFile);
     if (!customizedConfig) {
       throw Error('check nino.go.js, there is something wrong with it.');
     }
-    webpackConfig = Object.assign({}, defaultWebpackConfig, webpack);
-    devServerConfig = Object.assign({}, defaultDevServerOptions, devServer);
+    webpackConfig = merge(defaultWebpackConfig, customizedConfig.webpack);
+    devServerConfig = merge(
+      defaultDevServerOptions,
+      customizedConfig.devServer,
+    );
   }
 
   return { webpackConfig, devServerConfig };
 };
 
-exports.go = program => {
-  const { webpackConfig, devServerConfig } = getDefaultConfig(program);
-
-  const compiler = webpack(webpackConfig);
-  const server = new webpackDevServer(compiler, devServerConfig);
-
-  server.listen(devServerConfig.port, devServerConfig.host);
+module.exports = {
+  defaultDevServerOptions,
+  defaultWebpackConfig,
+  getDefaultConfig,
 };
