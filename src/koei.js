@@ -32,7 +32,7 @@ const getDefaultConfig = program => {
     },
     plugins: [
       ...commonPlugin,
-      new TohoLogPlugin({ dev }),
+      new TohoLogPlugin({ dev, isPray: false }),
       new CleanWebpackPlugin(['dist'], {
         root: getProjectPath(),
         verbose: false,

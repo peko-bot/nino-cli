@@ -58,7 +58,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "style-loader": "^0.23.0",
-    "toho-log-plugin": "^1.0.11",
+    "toho-log-plugin": "^1.0.12",
     "url-loader": "^1.1.2",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.1",
@@ -78,5 +78,8 @@
       "npx eslint .",
       "git add"
     ]
+  },
+  "devDependencies": {
+    "webpackbar": "^3.1.5"
   }
 }

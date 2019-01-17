@@ -1,6 +1,7 @@
 // const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackBar = require('webpackbar');
 const {
   getProjectPath,
   resolve,
@@ -59,5 +60,9 @@ module.exports = {
         to: getProjectPath('dist/lib/main/mock'),
       },
     ]),
+    new WebpackBar({
+      name: '少女祈祷中...  ',
+      color: 'cyanBright',
+    }),
   ],
 };

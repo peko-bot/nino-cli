@@ -28,7 +28,10 @@ const defaultWebpackConfig = {
     filename: '[name].js',
     chunkFilename: 'vendor/[name].[chunkHash:8].js',
   },
-  plugins: [...commonPlugin, new TohoLogPlugin({ defaultWords: true })],
+  plugins: [
+    ...commonPlugin,
+    new TohoLogPlugin({ defaultWords: true, isPray: false }),
+  ],
   module: commonModule,
 };
 
