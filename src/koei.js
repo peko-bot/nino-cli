@@ -3,24 +3,19 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const TohoLogPlugin = require('toho-log-plugin');
 const { commonModule, commonPlugin } = require('./webpack/commonConfig');
+const { getProjectPath } = require('./babel/projectHelper.js');
 
-exports.koei = program => {
-  let dev = !!program.dev;
-  let watch = !!program.watch;
-  let plugins = commonPlugin;
-  let outputPath = program.output || 'dist/lib/main';
+// maybe there is a bug
+// getProjectPath('dist/lib/main')
+// this can't release entry file to correct place
+const defaultOutput = path.join(process.cwd(), 'dist/lib/main');
+const getDefaultConfig = program => {
+  const dev = !!program.dev;
+  let configFile = program.config;
+  const watch = !!program.watch;
+  let webpackConfig = {};
 
-  // plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
-  plugins.push(new TohoLogPlugin({ dev }));
-
-  plugins.push(
-    new CleanWebpackPlugin(['dist'], {
-      root: process.cwd(),
-      verbose: false,
-    }),
-  );
-
-  const options = {
+  const defaultWebpackConfig = {
     mode: dev ? 'development' : 'production',
     watch,
     resolve: {
@@ -28,20 +23,45 @@ exports.koei = program => {
     },
     devtool: dev ? 'source-map' : '',
     entry: {
-      main: path.join(process.cwd(), 'src'),
+      ninoninoni: getProjectPath('src'),
     },
     output: {
-      path: path.join(process.cwd(), outputPath),
+      path: getProjectPath(defaultOutput),
       filename: '[name].js',
-      chunkFilename: dev
-        ? 'vendor/[name].[chunkHash:8].js'
-        : 'vendor/[name].js',
+      chunkFilename: 'vendor/[name].js',
     },
-    plugins,
+    plugins: [
+      ...commonPlugin,
+      new TohoLogPlugin({ dev }),
+      new CleanWebpackPlugin(['dist'], {
+        root: getProjectPath(),
+        verbose: false,
+      }),
+    ],
     module: commonModule,
   };
 
-  watch && webpack(options).watch({}, () => {});
+  if (configFile) {
+    configFile = getProjectPath(program.config);
+    const customizedConfig = fs.existsSync(configFile)
+      ? require(configFile)
+      : null;
+    if (!customizedConfig) {
+      throw Error('check nino.koei.js, there is something wrong with it.');
+    }
+    webpackConfig = Object.assign({}, defaultWebpackConfig, customizedConfig);
+  } else {
+    defaultWebpackConfig.output.path = program.output || defaultOutput;
+    webpackConfig = defaultWebpackConfig;
+  }
 
-  !watch && webpack(options).run();
+  return { webpackConfig };
+};
+
+exports.koei = program => {
+  const { webpackConfig, watch } = getDefaultConfig(program);
+
+  watch && webpack(webpackConfig).watch({}, () => {});
+
+  !watch && webpack(webpackConfig).run();
 };
