@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const { getDefaultConfig } = require('./hander');
+const { getDefaultConfig } = require('./handler');
 
 exports.koei = program => {
   const { webpackConfig, watch } = getDefaultConfig(program);
