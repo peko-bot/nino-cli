@@ -1,21 +1,19 @@
 const path = require('path');
-const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const TohoLogPlugin = require('toho-log-plugin');
-const { commonModule, commonPlugin } = require('./webpack/commonConfig');
-const { getProjectPath } = require('./babel/projectHelper.js');
+const { commonModule, commonPlugin } = require('../webpack/commonConfig');
+const { getProjectPath } = require('../babel/projectHelper.js');
+const merge = require('webpack-merge');
 
 // maybe there is a bug
 // getProjectPath('dist/lib/main')
 // this can't release entry file to correct place
 const defaultOutput = path.join(process.cwd(), 'dist/lib/main');
-const getDefaultConfig = program => {
-  const dev = !!program.dev;
-  let configFile = program.config;
-  const watch = !!program.watch;
-  let webpackConfig = {};
 
-  const defaultWebpackConfig = {
+const getDefaultWebpackConfig = program => {
+  const dev = !!program.dev;
+  const watch = !!program.watch;
+  const config = {
     mode: dev ? 'development' : 'production',
     watch,
     resolve: {
@@ -41,27 +39,28 @@ const getDefaultConfig = program => {
     module: commonModule,
   };
 
+  return config;
+};
+
+const getDefaultConfig = program => {
+  let configFile = program.config;
+  let webpackConfig = {};
+  const config = getDefaultWebpackConfig(program);
+
   if (configFile) {
     configFile = getProjectPath(program.config);
-    const customizedConfig = fs.existsSync(configFile)
-      ? require(configFile)
-      : null;
+    // fs.existsSync(configFile)
+    const customizedConfig = require(configFile);
     if (!customizedConfig) {
       throw Error('check nino.koei.js, there is something wrong with it.');
     }
-    webpackConfig = Object.assign({}, defaultWebpackConfig, customizedConfig);
+    webpackConfig = merge(config, customizedConfig);
   } else {
-    defaultWebpackConfig.output.path = program.output || defaultOutput;
-    webpackConfig = defaultWebpackConfig;
+    // defaultWebpackConfig.output.path = program.output || defaultOutput;
+    webpackConfig = config;
   }
 
   return { webpackConfig };
 };
 
-exports.koei = program => {
-  const { webpackConfig, watch } = getDefaultConfig(program);
-
-  watch && webpack(webpackConfig).watch({}, () => {});
-
-  !watch && webpack(webpackConfig).run();
-};
+module.exports = { getDefaultConfig, getDefaultWebpackConfig };
