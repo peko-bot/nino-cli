@@ -8,7 +8,7 @@ const merge = require('webpack-merge');
 // maybe there is a bug
 // getProjectPath('dist/lib/main')
 // this can't release entry file to correct place
-const defaultOutput = path.join(process.cwd(), 'dist/lib/main');
+const defaultOutput = path.join('dist/lib/main/');
 
 const getDefaultWebpackConfig = program => {
   const dev = !!program.dev;
