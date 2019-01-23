@@ -2,7 +2,8 @@ const webpack = require('webpack');
 const { getDefaultConfig } = require('./handler');
 
 exports.koei = program => {
-  const { webpackConfig, watch } = getDefaultConfig(program);
+  const { webpackConfig } = getDefaultConfig(program);
+  const watch = !!program.watch;
 
   watch && webpack(webpackConfig).watch({}, () => {});
 

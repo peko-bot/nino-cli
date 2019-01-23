@@ -12,10 +12,8 @@ const defaultOutput = path.join('dist/lib/main/');
 
 const getDefaultWebpackConfig = program => {
   const dev = !!program.dev;
-  const watch = !!program.watch;
   const config = {
     mode: dev ? 'development' : 'production',
-    watch,
     resolve: {
       extensions: ['.js', '.jsx'],
     },
