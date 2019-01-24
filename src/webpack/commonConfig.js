@@ -2,6 +2,7 @@
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackBar = require('webpackbar');
+const fs = require('fs');
 const {
   getProjectPath,
   resolve,
@@ -11,6 +12,48 @@ const {
 injectRequire();
 
 const babelConfig = require('../babel/babelCommonConfig')();
+
+let commonPlugin = [
+  new htmlWebpackPlugin({
+    template: './src/index.html',
+    hash: true,
+    minify: {
+      minifyJS: true,
+      minifyCSS: true,
+      removeComments: true,
+      collapseWhitespace: true,
+    },
+  }),
+  new WebpackBar({
+    name: '少女祈祷中...  ',
+    color: 'cyanBright',
+  }),
+];
+
+let copyFiles = [];
+const copyFilePaths = [
+  {
+    from: 'src/assets',
+    to: 'dist/lib/main/assets',
+  },
+  {
+    from: 'src/mock',
+    to: 'dist/lib/main/mock',
+  },
+];
+
+for (let item of copyFilePaths) {
+  if (fs.existsSync(getProjectPath(item.from))) {
+    copyFiles.push({
+      from: getProjectPath(item.from),
+      to: getProjectPath(item.to),
+    });
+  }
+}
+
+if (copyFiles.length !== 0) {
+  commonPlugin.push(new CopyWebpackPlugin(copyFiles));
+}
 
 module.exports = {
   commonModule: {
@@ -38,31 +81,5 @@ module.exports = {
       },
     ],
   },
-  commonPlugin: [
-    new htmlWebpackPlugin({
-      // 生成html
-      template: './src/index.html',
-      hash: true,
-      minify: {
-        minifyJS: true,
-        minifyCSS: true,
-        removeComments: true,
-        collapseWhitespace: true,
-      },
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: getProjectPath('src/assets'),
-        to: getProjectPath('dist/lib/main/assets'),
-      },
-      {
-        from: getProjectPath('src/mock'),
-        to: getProjectPath('dist/lib/main/mock'),
-      },
-    ]),
-    new WebpackBar({
-      name: '少女祈祷中...  ',
-      color: 'cyanBright',
-    }),
-  ],
+  commonPlugin,
 };
