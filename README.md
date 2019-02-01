@@ -1,10 +1,13 @@
 # nino-cli
 
+![nino-cli](./docs/nino-cli.jpg)
+
 A custom-made cli for daily coding using react, includes
 
 - `jest` for test
 - `webpack-dev-server` for development
 - `webpack` for production
+- `babel` at 7
 - you won't need `babel-plugin-import` for `antd` or `antd-mobile` or a `.babelrc`
 - you also won't need add options of `jest` or `enzyme`, <a href="#test">just add one line in your test file</a>
 
@@ -16,13 +19,13 @@ https://twitter.com/5Hanayome_anime/status/1074898723581251584
 
 # usage
 
-``` bash
+```bash
 npm install --save nino-cli
 ```
 
 then add scripts in `package.json`, like below,
 
-``` json
+```json
 "scripts": {
   "start": "nino go",
   "test": "nino test",
@@ -32,7 +35,8 @@ then add scripts in `package.json`, like below,
 ```
 
 ## how to config test
-``` diff
+
+```diff
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 + import 'nino-cli/scripts/setup';
