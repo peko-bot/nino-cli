@@ -1,15 +1,11 @@
-const {
-  getDefaultConfig,
-  defaultDevServerOptions,
-  defaultWebpackConfig,
-} = require('../go/handler');
+const { getDefaultConfig } = require('../go/handler');
 const merge = require('webpack-merge');
 
 describe('nino go', () => {
   it('default config', () => {
     const config = getDefaultConfig({});
-    expect(config.devServerConfig).toEqual(defaultDevServerOptions);
-    expect(config.webpackConfig).toEqual(defaultWebpackConfig);
+    expect(config.devServerConfig).toEqual(config.defaultDevServerOptions);
+    expect(config.webpackConfig).toEqual(config.defaultWebpackConfig);
   });
 
   it('custom config file', () => {
@@ -17,10 +13,10 @@ describe('nino go', () => {
       config: './test-case/nino.go',
     });
     expect(config.devServerConfig).toEqual(
-      merge(defaultDevServerOptions, { port: 9098 }),
+      merge(config.defaultDevServerOptions, { port: 9098 }),
     );
     expect(config.webpackConfig).toEqual(
-      merge(defaultWebpackConfig, { watch: true }),
+      merge(config.defaultWebpackConfig, { watch: true }),
     );
   });
 });

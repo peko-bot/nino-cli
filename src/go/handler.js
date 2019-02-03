@@ -53,7 +53,12 @@ const getDefaultConfig = program => {
     );
   }
 
-  return { webpackConfig, devServerConfig };
+  return {
+    webpackConfig,
+    devServerConfig,
+    defaultDevServerOptions,
+    defaultWebpackConfig,
+  };
 };
 
 module.exports = {
