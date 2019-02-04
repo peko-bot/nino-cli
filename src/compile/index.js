@@ -1,7 +1,7 @@
 const babel = require('@babel/core');
 const path = require('path');
-const fs = require('fs');
-const fse = require('fs-extra');
+// const fs = require('fs');
+const fs = require('fs-extra');
 const { getProjectPath, injectRequire } = require('../babel/projectHelper');
 injectRequire();
 const babelConfig = require('../babel/babelCommonConfig')();
@@ -22,9 +22,10 @@ const walk = dir => {
 };
 
 exports.compile = program => {
-  const entry = path.join(getProjectPath(), program.entry || 'src');
-  // const output = path.join(getProjectPath(), program.output || 'lib');
-  const files = walk(entry).filter(
+  const entry = program.entry || 'src';
+  const output = program.output || 'lib';
+  const entryPath = path.join(getProjectPath(), program.entry || 'src');
+  const files = walk(entryPath).filter(
     f =>
       f.indexOf('test') < 0 &&
       f.indexOf('css') < 0 &&
@@ -36,7 +37,7 @@ exports.compile = program => {
     for (let file of files) {
       const fileContent = fs.readFileSync(file, 'utf8');
       const result = babel.transformSync(fileContent, babelConfig);
-      fse.outputFileSync(file.replace('src', 'lib'), result.code);
+      fs.outputFileSync(file.replace(entry, output), result.code);
     }
   } catch (error) {
     throw Error('compile error: ' + error);
