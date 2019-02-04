@@ -10,8 +10,6 @@ function resolve(moduleName) {
   return require.resolve(moduleName);
 }
 
-// We need hack the require to ensure use package module first
-// For example, `typescript` is required by `gulp-typescript` but provided by `antd`
 let injected = false;
 function injectRequire() {
   if (injected) return;
