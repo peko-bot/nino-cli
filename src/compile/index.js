@@ -1,6 +1,5 @@
 const babel = require('@babel/core');
 const path = require('path');
-// const fs = require('fs');
 const fs = require('fs-extra');
 const { getProjectPath, injectRequire } = require('../babel/projectHelper');
 injectRequire();
