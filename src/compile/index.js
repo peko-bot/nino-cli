@@ -27,16 +27,20 @@ exports.compile = program => {
   const files = walk(entryPath).filter(
     f =>
       f.indexOf('test') < 0 &&
-      f.indexOf('css') < 0 &&
       f.indexOf('html') < 0 &&
       f.indexOf('demo') < 0 &&
       f.indexOf('mock') < 0,
   );
   try {
     for (let file of files) {
-      const fileContent = fs.readFileSync(file, 'utf8');
-      const result = babel.transformSync(fileContent, babelConfig);
-      fs.outputFileSync(file.replace(entry, output), result.code);
+      const outputPath = file.replace(entry, output);
+      if (file.includes('.css')) {
+        fs.copySync(file, outputPath);
+      } else {
+        const fileContent = fs.readFileSync(file, 'utf8');
+        const result = babel.transformSync(fileContent, babelConfig);
+        fs.outputFileSync(outputPath, result.code);
+      }
     }
   } catch (error) {
     throw Error('compile error: ' + error);
