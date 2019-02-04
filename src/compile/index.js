@@ -1,6 +1,7 @@
 const babel = require('@babel/core');
 const path = require('path');
 const fs = require('fs');
+const fse = require('fs-extra');
 const { getProjectPath, injectRequire } = require('../babel/projectHelper');
 injectRequire();
 const babelConfig = require('../babel/babelCommonConfig')();
@@ -29,15 +30,15 @@ exports.compile = program => {
       f.indexOf('css') < 0 &&
       f.indexOf('html') < 0 &&
       f.indexOf('demo') < 0 &&
-      f.indexOf('mock') < 0 &&
-      f[0].indexOf('.') !== 0,
+      f.indexOf('mock') < 0,
   );
-  for (let file of files) {
-    const fileContent = fs.readFileSync(file, 'utf8');
-    const result = babel.transformSync(fileContent, babelConfig);
-    fs.writeFileSync(
-      'E:\\Github\\mini-xmind\\lib\\' + path.basename(file),
-      result.code,
-    );
+  try {
+    for (let file of files) {
+      const fileContent = fs.readFileSync(file, 'utf8');
+      const result = babel.transformSync(fileContent, babelConfig);
+      fse.outputFileSync(file.replace('src', 'lib'), result.code);
+    }
+  } catch (error) {
+    throw Error('compile error: ' + error);
   }
 };
