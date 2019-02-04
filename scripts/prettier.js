@@ -12,7 +12,7 @@
 const chalk = require('chalk');
 const glob = require('glob');
 const prettier = require('prettier');
-const fs = require('fs');
+const fs = require('fs-extra');
 const prettierConfigPath = require.resolve('../.prettierrc');
 let didError = false;
 

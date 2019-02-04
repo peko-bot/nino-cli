@@ -12,6 +12,7 @@ program
     'to build and write static files to `config.output`',
   )
   .command('test [options]', 'run test, using jest and enzyme')
+  .command('compile [options]', 'es6 -> es5')
   .parse(process.argv);
 
 process.on('SIGINT', function() {

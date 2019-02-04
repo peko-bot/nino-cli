@@ -2,7 +2,7 @@
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackBar = require('webpackbar');
-const fs = require('fs');
+const fs = require('fs-extra');
 const {
   getProjectPath,
   resolve,

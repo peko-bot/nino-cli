@@ -3,7 +3,7 @@ const TohoLogPlugin = require('toho-log-plugin');
 const { commonModule, commonPlugin } = require('../webpack/commonConfig');
 const { getProjectPath } = require('../babel/projectHelper.js');
 const merge = require('webpack-merge');
-const fs = require('fs');
+const fs = require('fs-extra');
 
 const getDefaultConfig = program => {
   const entry = program.entry;
