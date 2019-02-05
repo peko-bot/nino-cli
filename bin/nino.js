@@ -2,6 +2,7 @@
 
 const program = require('commander');
 const info = require('../package.json');
+const proc = program.runningCommand;
 
 program
   .version(info.version, '-v, --version')
@@ -16,6 +17,13 @@ program
   .parse(process.argv);
 
 process.on('SIGINT', function() {
-  program.runningCommand && program.runningCommand.kill('SIGKILL');
+  proc && proc.kill('SIGKILL');
   process.exit(0);
 });
+
+if (proc) {
+  proc.on('error', () => {
+    process.exit(1);
+  });
+  proc.on('close', process.exit.bind(process));
+}
