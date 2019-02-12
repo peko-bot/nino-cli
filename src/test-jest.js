@@ -7,39 +7,30 @@ function runCmd(cmd, args, callback) {
     // keep color
     stdio: 'inherit',
   });
-  // for test
-  // ls.stdout.on('data', (data) => {
-  // eslint-disable-next-line
-  // console.log(`${data}`);
-  // });
-  // ls.stderr.on('data', data => {
-  //   // eslint-disable-next-line
-  //   console.log(`${data}`);
-  // });
   ls.on('close', code => {
     if (code !== 0) {
-      throw Error('check test cases please.');
+      process.exit(code);
     }
     callback && callback(code);
   });
 }
 
 exports.test = program => {
-  // jest --config jest.js --verbose=false
   const isUpdate = !!program.update;
   const codecov = !!program.codecov;
   const jestBin = require.resolve('jest/bin/jest');
-  const jestConfig = path.join(__dirname, '../src/jest/jest.js');
+  const jestConfig = path.join(__dirname, './jest/jest.js');
+  // Support args
+  const additionalArgs = process.argv.slice(3);
   let args = [jestBin, '--config', jestConfig];
   if (isUpdate) {
     args.push('-u');
   }
   if (codecov) {
-    args.push('--verbose');
-    args.push('false');
     args.push('-w');
     args.push('1');
     args.push('--coverage');
   }
+  args.concat(additionalArgs).join(' ');
   runCmd('node', args);
 };
