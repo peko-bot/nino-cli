@@ -34,7 +34,7 @@ exports.compile = program => {
   try {
     for (let file of files) {
       const outputPath = file.replace(entry, output);
-      if (file.includes('.css')) {
+      if (!/\.js[x]?$/.test(file)) {
         fs.copySync(file, outputPath);
       } else {
         const fileContent = fs.readFileSync(file, 'utf8');
