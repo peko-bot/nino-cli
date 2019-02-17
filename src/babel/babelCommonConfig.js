@@ -20,6 +20,7 @@ module.exports = function() {
     ],
     resolve('@babel/plugin-proposal-class-properties'),
     resolve('@babel/plugin-syntax-dynamic-import'),
+    resolve('@babel/plugin-transform-runtime'),
   ];
   return {
     presets: [resolve('@babel/preset-react'), resolve('@babel/preset-env')],
