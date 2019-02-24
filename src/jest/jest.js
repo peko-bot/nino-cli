@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   verbose: false,
   setupFiles: [path.join(__dirname, 'setup.js')],
-  moduleFileExtensions: ['js', 'jsx'],
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   rootDir: process.cwd(),
   testPathIgnorePatterns: ['/node_modules/', 'node'],
   testRegex: '.*\\.test\\.js$',

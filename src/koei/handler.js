@@ -1,7 +1,11 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const TohoLogPlugin = require('toho-log-plugin');
-const { commonModule, commonPlugin } = require('../webpack/commonConfig');
+const {
+  commonModule,
+  commonPlugin,
+  resolveModule,
+} = require('../webpack/commonConfig');
 const { getProjectPath } = require('../babel/projectHelper.js');
 const merge = require('webpack-merge');
 
@@ -14,9 +18,7 @@ const getDefaultWebpackConfig = program => {
   const dev = !!program.dev;
   const config = {
     mode: dev ? 'development' : 'production',
-    resolve: {
-      extensions: ['.js', '.jsx'],
-    },
+    resolve: resolveModule,
     devtool: dev ? 'source-map' : '',
     entry: {
       ninoninoni: getProjectPath('src'),

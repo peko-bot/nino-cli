@@ -1,8 +1,8 @@
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const fs = require('fs-extra');
+const path = require('path');
 const {
   getProjectPath,
   resolve,
@@ -10,7 +10,6 @@ const {
 } = require('../babel/projectHelper');
 
 injectRequire();
-
 const babelConfig = require('../babel/babelCommonConfig')();
 
 let commonPlugin = [
@@ -79,7 +78,24 @@ module.exports = {
         loader: resolve('babel-loader'),
         options: babelConfig,
       },
+      {
+        test: /\.ts[x]?$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: resolve('babel-loader'), options: babelConfig },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              configFile: getProjectPath('tsconfig.json'),
+            },
+          },
+        ],
+      },
     ],
   },
   commonPlugin,
+  resolveModule: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  },
 };

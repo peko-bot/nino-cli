@@ -1,9 +1,29 @@
 const path = require('path');
 const TohoLogPlugin = require('toho-log-plugin');
-const { commonModule, commonPlugin } = require('../webpack/commonConfig');
+const {
+  commonModule,
+  commonPlugin,
+  resolveModule,
+} = require('../webpack/commonConfig');
 const { getProjectPath } = require('../babel/projectHelper.js');
 const merge = require('webpack-merge');
 const fs = require('fs-extra');
+
+const getEntry = programEntry => {
+  if (programEntry) {
+    return getProjectPath(programEntry);
+  }
+  const extensions = ['js', 'jsx', 'ts', 'tsx'];
+  let entry;
+  for (let i = 0; i < extensions.length; i++) {
+    const item = extensions[i];
+    if (fs.existsSync(getProjectPath('src/index.' + item))) {
+      entry = getProjectPath('src/index.' + item);
+      break;
+    }
+  }
+  return entry;
+};
 
 const getDefaultConfig = program => {
   const entry = program.entry;
@@ -23,7 +43,7 @@ const getDefaultConfig = program => {
         defaultDevServerOptions.host +
         ':' +
         defaultDevServerOptions.port,
-      getProjectPath(entry || 'src'),
+      getEntry(entry),
     ],
     output: {
       filename: '[name].js',
@@ -34,6 +54,7 @@ const getDefaultConfig = program => {
       new TohoLogPlugin({ defaultWords: true, isPray: false }),
     ],
     module: commonModule,
+    resolve: resolveModule,
   };
   let configFile = program.config;
   let webpackConfig = defaultWebpackConfig;
