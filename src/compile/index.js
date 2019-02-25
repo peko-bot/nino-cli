@@ -1,9 +1,8 @@
 const babel = require('@babel/core');
 const path = require('path');
 const fs = require('fs-extra');
-const { spawn } = require('child_process');
-const chalk = require('chalk');
 const { getProjectPath, injectRequire } = require('../babel/projectHelper');
+const { runCmd } = require('../utils/runCommand');
 injectRequire();
 const babelConfig = require('../babel/babelCommonConfig')();
 
@@ -21,20 +20,6 @@ const walk = dir => {
   });
   return results;
 };
-
-function runCmd(cmd, args, callback) {
-  args = args || [];
-  const ls = spawn(cmd, args, {
-    // keep color
-    stdio: 'inherit',
-  });
-  ls.on('close', code => {
-    if (code !== 0) {
-      process.exit(code);
-    }
-    callback && callback(code);
-  });
-}
 
 const compileJSX = (files, entry, output) => {
   for (let file of files) {
