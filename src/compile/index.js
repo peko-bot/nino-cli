@@ -2,6 +2,7 @@ const babel = require('@babel/core');
 const path = require('path');
 const fs = require('fs-extra');
 const { spawn } = require('child_process');
+const chalk = require('chalk');
 const { getProjectPath, injectRequire } = require('../babel/projectHelper');
 injectRequire();
 const babelConfig = require('../babel/babelCommonConfig')();
@@ -35,6 +36,9 @@ function runCmd(cmd, args, callback) {
   });
 }
 
+// if only tsx, compile them to jsx with tsc
+// then compile them to es5 with babel
+// for using babel plugins like babel-import
 exports.compile = program => {
   const entry = program.entry || 'src';
   const output = program.output || 'lib';
@@ -46,21 +50,37 @@ exports.compile = program => {
       f.indexOf('demo') < 0 &&
       f.indexOf('mock') < 0,
   );
-  for (let file of files) {
-    let outputPath = file.replace(entry, output);
-    if (outputPath.endsWith('jsx') || outputPath.endsWith('js')) {
-      const fileContent = fs.readFileSync(file, 'utf8');
-      const result = babel.transformSync(fileContent, babelConfig);
-      fs.outputFileSync(outputPath, result.code);
-    } else if (outputPath.endsWith('tsx') || outputPath.endsWith('ts')) {
-      const tscBin = require.resolve('typescript/bin/tsc');
-      // support args
-      const additionalArgs = process.argv.slice(3);
-      let args = [tscBin];
-      args.concat(additionalArgs).join(' ');
-      runCmd('node', args);
-    } else {
-      fs.copySync(file, outputPath);
+  const tsxFiles = files.filter(f => f.endsWith('ts') || f.endsWith('tsx'));
+  const jsxFiles = files.filter(f => f.endsWith('js') || f.endsWith('jsx'));
+  let isTsx = false;
+  if (tsxFiles.length > 0 && jsxFiles.length === 0) {
+    isTsx = true;
+  }
+  // compile
+  if (isTsx) {
+    for (let file of files) {
+      let outputPath = file.replace(entry, output);
+      if (outputPath.endsWith('tsx') || outputPath.endsWith('ts')) {
+        const tscBin = require.resolve('typescript/bin/tsc');
+        // support args
+        const additionalArgs = process.argv.slice(3);
+        let args = [tscBin];
+        args.concat(additionalArgs).join(' ');
+        runCmd('node', args);
+      } else if (!(outputPath.endsWith('jsx') || outputPath.endsWith('js'))) {
+        fs.copySync(file, outputPath);
+      }
+    }
+  } else {
+    for (let file of files) {
+      let outputPath = file.replace(entry, output);
+      if (outputPath.endsWith('jsx') || outputPath.endsWith('js')) {
+        const fileContent = fs.readFileSync(file, 'utf8');
+        const result = babel.transformSync(fileContent, babelConfig);
+        fs.outputFileSync(outputPath, result.code);
+      } else if (!(outputPath.endsWith('tsx') || outputPath.endsWith('ts'))) {
+        fs.copySync(file, outputPath);
+      }
     }
   }
 };
