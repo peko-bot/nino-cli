@@ -3,7 +3,13 @@ const path = require('path');
 module.exports = {
   verbose: false,
   setupFiles: [path.join(__dirname, 'setup.js')],
-  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  globals: {
+    window: true,
+    'ts-jest': {
+      diagnostics: false,
+    },
+  },
   rootDir: process.cwd(),
   testPathIgnorePatterns: ['/node_modules/', 'node'],
   transform: { '\\.[jt]sx?$': path.join(__dirname, './preprocessor.js') },
