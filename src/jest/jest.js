@@ -6,13 +6,12 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   rootDir: process.cwd(),
   testPathIgnorePatterns: ['/node_modules/', 'node'],
-  testRegex: '.*\\.test\\.js$',
-  transform: { '\\.js$': path.join(__dirname, './preprocessor.js') },
+  transform: { '\\.[jt]sx?$': path.join(__dirname, './preprocessor.js') },
   transformIgnorePatterns: [
     '/dist/',
     '/lib/',
     '/es/',
-    'node_modules/[^/]+?/(?!(es|node_modules)/)', // Ignore modules without es dir
+    'node_modules/[^/]+?/(?!(es|node_modules)/)',
   ],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testURL: 'http://localhost',
@@ -24,7 +23,7 @@ module.exports = {
     '\\.(css|scss)$': path.join(__dirname, '../../__mocks__/styleMock.js'),
   },
   collectCoverageFrom: [
-    '**/*.{js,jsx}',
+    '**/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
     '!**/dist/**',
     '!**/coverage/**',

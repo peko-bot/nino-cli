@@ -6,10 +6,6 @@ function getProjectPath(...filePath) {
   return path.join(cwd, ...filePath);
 }
 
-function resolve(moduleName) {
-  return require.resolve(moduleName);
-}
-
 let injected = false;
 function injectRequire() {
   if (injected) return;
@@ -35,6 +31,5 @@ function injectRequire() {
 
 module.exports = {
   getProjectPath,
-  resolve,
   injectRequire,
 };

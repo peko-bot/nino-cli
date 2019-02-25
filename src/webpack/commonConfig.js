@@ -2,12 +2,7 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const fs = require('fs-extra');
-const path = require('path');
-const {
-  getProjectPath,
-  resolve,
-  injectRequire,
-} = require('../babel/projectHelper');
+const { getProjectPath, injectRequire } = require('../babel/projectHelper');
 
 injectRequire();
 const babelConfig = require('../babel/babelCommonConfig')();
@@ -75,14 +70,14 @@ module.exports = {
       {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
-        loader: resolve('babel-loader'),
+        loader: require.resolve('babel-loader'),
         options: babelConfig,
       },
       {
         test: /\.ts[x]?$/,
         exclude: /node_modules/,
         use: [
-          { loader: resolve('babel-loader'), options: babelConfig },
+          { loader: require.resolve('babel-loader'), options: babelConfig },
           {
             loader: 'ts-loader',
             options: {
