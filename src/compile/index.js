@@ -49,7 +49,7 @@ const compileJSX = (files, entry, output) => {
   }
 };
 
-const getNewFiles = entryPath => {
+const getNewFiles = entryPath =>
   walk(entryPath).filter(
     f =>
       f.indexOf('test') < 0 &&
@@ -58,7 +58,6 @@ const getNewFiles = entryPath => {
       f.indexOf('mock') < 0 &&
       !(f.endsWith('ts') || f.endsWith('tsx')),
   );
-};
 
 // if only tsx, compile them to jsx with tsc
 // then compile them to es5 with babel
