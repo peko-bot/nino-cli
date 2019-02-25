@@ -75,6 +75,7 @@ exports.compile = program => {
     for (let file of files) {
       let outputPath = file.replace(entry, output);
       if (outputPath.endsWith('jsx') || outputPath.endsWith('js')) {
+        outputPath = outputPath.replace('jsx', 'js');
         const fileContent = fs.readFileSync(file, 'utf8');
         const result = babel.transformSync(fileContent, babelConfig);
         fs.outputFileSync(outputPath, result.code);
