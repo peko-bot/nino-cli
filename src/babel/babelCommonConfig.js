@@ -1,5 +1,3 @@
-const { resolve } = require('./projectHelper');
-
 module.exports = function() {
   const plugins = [
     [
