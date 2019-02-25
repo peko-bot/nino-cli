@@ -49,6 +49,17 @@ const compileJSX = (files, entry, output) => {
   }
 };
 
+const getNewFiles = entryPath => {
+  walk(entryPath).filter(
+    f =>
+      f.indexOf('test') < 0 &&
+      f.indexOf('html') < 0 &&
+      f.indexOf('demo') < 0 &&
+      f.indexOf('mock') < 0 &&
+      !(f.endsWith('ts') || f.endsWith('tsx')),
+  );
+};
+
 // if only tsx, compile them to jsx with tsc
 // then compile them to es5 with babel
 // for using babel plugins like babel-import
@@ -77,25 +88,9 @@ exports.compile = program => {
     let args = [tscBin];
     args.concat(additionalArgs).join(' ');
     runCmd('node', args, () => {
-      const newFiles = walk(entryPath).filter(
-        f =>
-          f.indexOf('test') < 0 &&
-          f.indexOf('html') < 0 &&
-          f.indexOf('demo') < 0 &&
-          f.indexOf('mock') < 0 &&
-          !(f.endsWith('ts') || f.endsWith('tsx')),
-      );
-      compileJSX(newFiles, entry, output);
+      compileJSX(getNewFiles(entryPath), entry, output);
     });
   } else {
-    const newFiles = walk(entryPath).filter(
-      f =>
-        f.indexOf('test') < 0 &&
-        f.indexOf('html') < 0 &&
-        f.indexOf('demo') < 0 &&
-        f.indexOf('mock') < 0 &&
-        !(f.endsWith('ts') || f.endsWith('tsx')),
-    );
-    compileJSX(newFiles, entry, output);
+    compileJSX(getNewFiles(entryPath), entry, output);
   }
 };
