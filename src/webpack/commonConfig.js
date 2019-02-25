@@ -73,6 +73,7 @@ module.exports = {
         loader: require.resolve('babel-loader'),
         options: babelConfig,
       },
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
       {
         test: /\.ts[x]?$/,
         exclude: /node_modules/,

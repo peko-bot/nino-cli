@@ -69,6 +69,7 @@
     "prettier": "^1.15.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
+    "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.0",
     "toho-log-plugin": "^1.0.12",
     "ts-jest": "^24.0.0",
