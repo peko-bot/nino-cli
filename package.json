@@ -74,6 +74,7 @@
     "toho-log-plugin": "^1.0.12",
     "ts-jest": "^24.0.0",
     "ts-loader": "^5.3.3",
+    "tsc-watch": "^2.1.2",
     "typescript": "^3.3.3333",
     "url-loader": "^1.1.2",
     "webpack": "^4.28.3",
