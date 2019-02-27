@@ -15,6 +15,7 @@ program
   .command('test [options]', 'run test, using jest and enzyme')
   .command('compile [options]', 'es6 -> es5')
   .command('prettier [options]', 'prettier for code')
+  .command('eslint [options]', 'check lint style')
   .parse(process.argv);
 
 process.on('SIGINT', function() {
