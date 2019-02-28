@@ -2,9 +2,6 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/breathing-is-fun/nino-cli.svg)](https://greenkeeper.io/)
 
-
-![nino-cli](./docs/nino-cli.jpg)
-
 A custom-made cli for daily coding using react, includes
 
 - `jest` for test
