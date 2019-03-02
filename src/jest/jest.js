@@ -35,5 +35,7 @@ module.exports = {
     '!**/dist/**',
     '!**/coverage/**',
     '!**/scripts/**',
+    '!**/es/**',
+    '!**/lib/**',
   ],
 };
