@@ -1,6 +1,6 @@
 {
   "name": "nino-cli",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "A cli for Nino, just some simple conifg of webpack",
   "main": "./bin/nino.js",
   "bin": {
