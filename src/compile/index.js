@@ -5,6 +5,7 @@ const { getProjectPath, injectRequire } = require('../babel/projectHelper');
 const { runCmd } = require('../utils/runCommand');
 injectRequire();
 const babelConfig = require('../babel/babelCommonConfig')();
+const chalk = require('chalk');
 
 const walk = dir => {
   let results = [];
@@ -32,6 +33,8 @@ const compileJSX = (files, entry, output) => {
       fs.copySync(file, outputPath);
     }
   }
+  // eslint-disable-next-line
+  console.log(chalk.green(`少女换上了新的钱箱，然后开始了新一年的单身生活`));
 };
 
 const getNewFiles = entryPath =>
@@ -50,6 +53,17 @@ const getNewFiles = entryPath =>
 exports.compile = program => {
   const entry = program.entry || 'src';
   const output = program.output || 'lib';
+
+  if (fs.existsSync(path.join(process.cwd(), output))) {
+    fs.emptyDirSync(path.join(process.cwd(), output));
+    // eslint-disable-next-line
+    console.log(
+      chalk.cyanBright(
+        `少女清理了名为 ${output} 的钱箱，脑补着即将结束的一年单身生活`,
+      ),
+    );
+  }
+
   const entryPath = path.join(getProjectPath(), program.entry || 'src');
   const files = walk(entryPath).filter(
     f =>
