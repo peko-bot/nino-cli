@@ -28,7 +28,7 @@ module.exports = {
     ),
     '\\.(css|scss)$': path.join(__dirname, '../../__mocks__/styleMock.js'),
   },
-  collectCoverage: true,
+  // collectCoverage: true,
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
