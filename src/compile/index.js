@@ -34,7 +34,7 @@ const compileJSX = (files, entry, output) => {
     }
   }
   // eslint-disable-next-line
-  console.log(chalk.green(`少女换上了新的钱箱，然后开始了新一年的单身生活`));
+  console.log(chalk.green(`少女换上了新的钱箱，开始了一年新的单身生活`));
 };
 
 const getNewFiles = entryPath =>
@@ -56,13 +56,16 @@ exports.compile = program => {
 
   if (fs.existsSync(path.join(process.cwd(), output))) {
     fs.emptyDirSync(path.join(process.cwd(), output));
-    // eslint-disable-next-line
-    console.log(
-      chalk.cyanBright(
-        `少女清理了名为 ${output} 的钱箱，脑补着即将结束的一年单身生活`,
-      ),
-    );
   }
+  // eslint-disable-next-line
+  console.log(
+    chalk.cyanBright(
+      `少女边清理名为 ${output} 的钱箱，边回顾着即将结束的一年单身生活
+
+...顺带感慨了下自己一平如洗的身板
+      `,
+    ),
+  );
 
   const entryPath = path.join(getProjectPath(), program.entry || 'src');
   const files = walk(entryPath).filter(
