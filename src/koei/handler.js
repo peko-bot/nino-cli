@@ -31,7 +31,7 @@ const getDefaultWebpackConfig = program => {
     plugins: [
       ...commonPlugin,
       new TohoLogPlugin({ dev, isPray: false }),
-      new CleanWebpackPlugin(['dist'], {
+      new CleanWebpackPlugin({
         root: getProjectPath(),
         verbose: false,
       }),

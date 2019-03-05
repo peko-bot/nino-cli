@@ -11,20 +11,28 @@ describe('nino koei', () => {
   };
   it('default config', () => {
     const config = getDefaultConfig(program);
-    expect(config.webpackConfig).toEqual(getDefaultWebpackConfig(program));
+    expect({ ...config.webpackConfig, ...{ plugins: [] } }).toMatchObject({
+      ...getDefaultWebpackConfig(program),
+      ...{ plugins: [] },
+    });
   });
 
   it('custom config file', () => {
-    const config = getDefaultConfig({
+    const webpackConfig = getDefaultConfig({
       config: './test-case/nino.koei',
       ...program,
+    }).webpackConfig;
+    const customWebpackConfig = merge(getDefaultWebpackConfig(program), {
+      output: {
+        path: 'test',
+      },
+    }).webpackConfig;
+    expect({
+      ...webpackConfig,
+      ...{ plugins: [] },
+    }).toMatchObject({
+      ...customWebpackConfig,
+      ...{ plugins: [] },
     });
-    expect(config.webpackConfig).toEqual(
-      merge(getDefaultWebpackConfig(program), {
-        output: {
-          path: 'test',
-        },
-      }),
-    );
   });
 });
