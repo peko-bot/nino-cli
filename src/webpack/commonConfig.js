@@ -3,6 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackBar = require('webpackbar');
 const fs = require('fs-extra');
 const { getProjectPath, injectRequire } = require('../babel/projectHelper');
+const packageInfo = require(getProjectPath('package.json'));
 
 injectRequire();
 const babelConfig = require('../babel/babelCommonConfig')();
@@ -49,6 +50,18 @@ if (copyFiles.length !== 0) {
   commonPlugin.push(new CopyWebpackPlugin(copyFiles));
 }
 
+const getEntry = () => {
+  let entry = '';
+  let paths = ['./src', '/', './lib'];
+  for (let item of paths) {
+    if (fs.exists(getProjectPath(item))) {
+      entry = getProjectPath(item);
+      break;
+    }
+  }
+  return entry;
+};
+
 module.exports = {
   commonModule: {
     rules: [
@@ -93,5 +106,8 @@ module.exports = {
   commonPlugin,
   resolveModule: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      [packageInfo.name]: getEntry(),
+    },
   },
 };
