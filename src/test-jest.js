@@ -4,6 +4,7 @@ const { runCmd } = require('./utils/runCommand');
 exports.test = program => {
   const isUpdate = !!program.update;
   const codecov = !!program.codecov;
+  const watch = !!program.watch;
   const jestBin = require.resolve('jest/bin/jest');
   const jestConfig = path.join(__dirname, './jest/jest.js');
   // Support args
@@ -16,6 +17,9 @@ exports.test = program => {
     args.push('-w');
     args.push('1');
     args.push('--coverage');
+  }
+  if (watch) {
+    args.push('--watch');
   }
   args.concat(additionalArgs).join(' ');
   runCmd('node', args);
