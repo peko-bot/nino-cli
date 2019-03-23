@@ -17,7 +17,7 @@ module.exports = {
     '/dist/',
     '/lib/',
     '/es/',
-    'node_modules/[^/]+?/(?!(es|node_modules)/)',
+    // 'node_modules/[^/]+?/(?!(es|node_modules)/)',
   ],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testURL: 'http://localhost',
