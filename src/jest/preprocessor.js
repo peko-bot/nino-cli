@@ -1,10 +1,16 @@
 const { createTransformer: babelTransFormer } = require('babel-jest');
 const { createTransformer: tsTransFormer } = require('ts-jest');
 const babelCommonConfig = require('../babel/babelCommonConfig');
+const { getProjectPath } = require('../babel/projectHelper');
+const fs = require('fs-extra');
 const path = require('path');
 
+let tsTestConfigPath = path.join(__dirname, 'tsconfig.test.json');
+if (fs.existsSync(getProjectPath('tsconfig.test.json'))) {
+  tsTestConfigPath = getProjectPath('tsconfig.test.json');
+}
 const tsJest = tsTransFormer({
-  tsConfig: path.join(__dirname, 'tsconfig.test.json'),
+  tsConfig: tsTestConfigPath,
 });
 
 const babelConfig = babelCommonConfig();
