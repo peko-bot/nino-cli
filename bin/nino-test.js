@@ -7,6 +7,7 @@ program
   .option('-u, --update', 'to update snapshots')
   .option('-d, --codecov', 'coverage using jest')
   .option('-w, --watch', 'watch mode')
+  .allowUnknownOption()
   .parse(process.argv);
 
 nino.test(program);
