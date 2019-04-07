@@ -1,4 +1,3 @@
-const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const TohoLogPlugin = require('toho-log-plugin');
 const {
@@ -12,7 +11,7 @@ const merge = require('webpack-merge');
 // maybe there is a bug
 // getProjectPath('dist/lib/main')
 // this can't release entry file to correct place
-const defaultOutput = path.join('dist/lib/main/');
+const defaultOutput = 'dist';
 
 const getDefaultWebpackConfig = program => {
   const dev = !!program.dev;

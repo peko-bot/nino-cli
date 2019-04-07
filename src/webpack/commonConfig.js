@@ -7,6 +7,7 @@ const packageInfo = require(getProjectPath('package.json'));
 
 injectRequire();
 const babelConfig = require('../babel/babelCommonConfig')();
+const defaultOutput = 'dist';
 
 let commonPlugin = [
   new htmlWebpackPlugin({
@@ -29,11 +30,11 @@ let copyFiles = [];
 const copyFilePaths = [
   {
     from: 'src/assets',
-    to: 'dist/lib/main/assets',
+    to: defaultOutput + '/assets',
   },
   {
     from: 'src/mock',
-    to: 'dist/lib/main/mock',
+    to: defaultOutput + '/mock',
   },
 ];
 
