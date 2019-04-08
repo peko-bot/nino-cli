@@ -4,6 +4,7 @@ const WebpackBar = require('webpackbar');
 const fs = require('fs-extra');
 const { getProjectPath, injectRequire } = require('../babel/projectHelper');
 const packageInfo = require(getProjectPath('package.json'));
+const { getAssets } = require('../utils/handerAssets');
 
 injectRequire();
 const babelConfig = require('../babel/babelCommonConfig')();
@@ -27,16 +28,14 @@ let commonPlugin = [
 ];
 
 let copyFiles = [];
-const copyFilePaths = [
-  {
-    from: 'src/assets',
+let copyFilePaths = [];
+
+for (let item of getAssets('src')) {
+  copyFilePaths.push({
+    from: item,
     to: defaultOutput + '/assets',
-  },
-  {
-    from: 'src/mock',
-    to: defaultOutput + '/mock',
-  },
-];
+  });
+}
 
 for (let item of copyFilePaths) {
   if (fs.existsSync(getProjectPath(item.from))) {
