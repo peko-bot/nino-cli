@@ -19,6 +19,7 @@ module.exports = function() {
     require.resolve('@babel/plugin-transform-member-expression-literals'),
     require.resolve('@babel/plugin-transform-object-assign'),
     require.resolve('@babel/plugin-transform-property-literals'),
+    require.resolve('@babel/plugin-transform-runtime'),
     require.resolve('@babel/plugin-transform-spread'),
     require.resolve('@babel/plugin-transform-template-literals'),
     require.resolve('@babel/plugin-proposal-export-default-from'),
@@ -26,7 +27,6 @@ module.exports = function() {
     require.resolve('@babel/plugin-proposal-object-rest-spread'),
     require.resolve('@babel/plugin-proposal-class-properties'),
     require.resolve('@babel/plugin-syntax-dynamic-import'),
-    require.resolve('@babel/transform-runtime'),
   ];
   return {
     presets: [
