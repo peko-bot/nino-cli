@@ -94,5 +94,9 @@
       "npx eslint .",
       "git add"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/runtime": "^7.4.3"
   }
 }
