@@ -17,7 +17,15 @@ module.exports = {
     '/dist/',
     '/lib/',
     '/es/',
-    // 'node_modules/[^/]+?/(?!(es|node_modules)/)',
+    // for tree-shaking
+    // e.g.
+    // import { format as fnsFormat } from 'date-fns/esm'
+    // =>
+    // import fnsFormat from 'date-fns/format';
+    'node_modules/[^/]+?/(?!(es|node_modules)/)',
+    // https://github.com/babel/babel/issues/8731#issuecomment-423845498
+    'node_modules/(^generic-)/i',
+    'node_modules/code-js',
   ],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testURL: 'http://localhost',
@@ -28,7 +36,6 @@ module.exports = {
     ),
     '\\.(css|scss)$': path.join(__dirname, '../../__mocks__/styleMock.js'),
   },
-  // collectCoverage: true,
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
