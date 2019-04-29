@@ -23,9 +23,6 @@ module.exports = {
     // =>
     // import fnsFormat from 'date-fns/format';
     'node_modules/[^/]+?/(?!(es|node_modules)/)',
-    // https://github.com/babel/babel/issues/8731#issuecomment-423845498
-    'node_modules/(^generic-)/i',
-    'node_modules/code-js',
   ],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testURL: 'http://localhost',
