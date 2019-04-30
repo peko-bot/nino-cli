@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function(isEs) {
   const plugins = [
     [
       'import',
@@ -28,11 +28,17 @@ module.exports = function() {
     require.resolve('@babel/plugin-proposal-class-properties'),
     require.resolve('@babel/plugin-syntax-dynamic-import'),
   ];
-  return {
-    presets: [
-      require.resolve('@babel/preset-react'),
+  let envPreset = require.resolve('@babel/preset-env');
+  if (isEs) {
+    envPreset = [
       require.resolve('@babel/preset-env'),
-    ],
+      {
+        modules: false,
+      },
+    ];
+  }
+  return {
+    presets: [require.resolve('@babel/preset-react'), envPreset],
     plugins,
   };
 };

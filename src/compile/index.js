@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const { getProjectPath, injectRequire } = require('../babel/projectHelper');
 const { runCmd } = require('../utils/runCommand');
 injectRequire();
-const babelConfig = require('../babel/babelCommonConfig')();
+const babelConfig = require('../babel/babelCommonConfig');
 const chalk = require('chalk');
 
 const walk = dir => {
@@ -22,15 +22,19 @@ const walk = dir => {
   return results;
 };
 
-const compileJSX = (files, entry, output) => {
+const compileJSX = (files, entry, output, outputEs) => {
   for (let file of files) {
     let outputPath = file.replace(entry, output).replace('jsx', 'js');
+    let outputEsPath = file.replace(entry, outputEs).replace('jsx', 'js');
     if (file.endsWith('js') || file.endsWith('jsx')) {
       const fileContent = fs.readFileSync(file, 'utf8');
-      const result = babel.transformSync(fileContent, babelConfig);
+      let result = babel.transformSync(fileContent, babelConfig());
       fs.outputFileSync(outputPath, result.code);
+      result = babel.transformSync(fileContent, babelConfig(true));
+      fs.outputFileSync(outputEsPath, result.code);
     } else if (!(file.endsWith('jsx') || file.endsWith('js'))) {
       fs.copySync(file, outputPath);
+      fs.copySync(file, outputEsPath);
     }
   }
   // eslint-disable-next-line
@@ -53,9 +57,13 @@ const getNewFiles = entryPath =>
 exports.compile = program => {
   const entry = program.entry || 'src';
   const output = program.output || 'lib';
+  const outputEs = program.outputEs || 'es';
 
   if (fs.existsSync(path.join(process.cwd(), output))) {
     fs.emptyDirSync(path.join(process.cwd(), output));
+  }
+  if (fs.existsSync(path.join(process.cwd(), outputEs))) {
+    fs.emptyDirSync(path.join(process.cwd(), outputEs));
   }
   // eslint-disable-next-line
   console.log(
@@ -89,9 +97,9 @@ exports.compile = program => {
     let args = [tscBin];
     args.concat(additionalArgs).join(' ');
     runCmd('node', args, () => {
-      compileJSX(getNewFiles(entryPath), entry, output);
+      compileJSX(getNewFiles(entryPath), entry, output, outputEs);
     });
   } else {
-    compileJSX(getNewFiles(entryPath), entry, output);
+    compileJSX(getNewFiles(entryPath), entry, output, outputEs);
   }
 };
