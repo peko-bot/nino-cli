@@ -15,6 +15,19 @@ const defaultOutput = 'dist';
 
 const getDefaultWebpackConfig = program => {
   const dev = !!program.dev;
+  const watch = !!program.watch;
+  const plugins = [...commonPlugin, new TohoLogPlugin({ dev, isPray: false })];
+  // bug: watch mode of webpack maybe conflict with TypeScript's
+  // webpack will rebuild, but copy-webpack-plugin won't run again
+  // so you will lose your files that copied by copy-webpack-plugin
+  // workaround: remove dist by userself
+  if (!watch) {
+    plugins.push(
+      new CleanWebpackPlugin({
+        verbose: false,
+      }),
+    );
+  }
   const config = {
     mode: dev ? 'development' : 'production',
     resolve: resolveModule,
@@ -27,14 +40,7 @@ const getDefaultWebpackConfig = program => {
       filename: '[name].js',
       chunkFilename: 'vendor/[name].js',
     },
-    plugins: [
-      ...commonPlugin,
-      new TohoLogPlugin({ dev, isPray: false }),
-      new CleanWebpackPlugin({
-        root: getProjectPath(),
-        verbose: false,
-      }),
-    ],
+    plugins,
     module: commonModule,
   };
 
