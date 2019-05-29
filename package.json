@@ -43,6 +43,7 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "@babel/runtime": "^7.4.5",
     "@types/jest": "^24.0.13",
     "@typescript-eslint/parser": "^1.9.0",
     "babel-core": "^7.0.0-bridge.0",
@@ -59,7 +60,7 @@
     "css-loader": "^2.1.1",
     "cz-conventional-changelog": "^2.1.0",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.13.1",
+    "enzyme-adapter-react-16": "^1.13.2",
     "enzyme-to-json": "^3.3.5",
     "eslint": "^5.16.0",
     "fs-extra": "^8.0.1",
@@ -73,7 +74,7 @@
     "react-dom": "^16.8.6",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
-    "toho-log-plugin": "^1.0.12",
+    "toho-log-plugin": "^1.0.13",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.1",
     "tsc-watch": "^2.2.1",
@@ -94,9 +95,5 @@
       "npx eslint .",
       "git add"
     ]
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/runtime": "^7.4.5"
   }
 }
