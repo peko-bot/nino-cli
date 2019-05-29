@@ -6,7 +6,7 @@ const walk = dir => {
   list.forEach(file => {
     file = dir + '/' + file;
     const stat = fs.statSync(file);
-    if (stat && stat.isDirectory()) {
+    if (stat && !file.includes('src/assets') && stat.isDirectory()) {
       results = results.concat(walk(file));
     } else {
       results.push(file);
