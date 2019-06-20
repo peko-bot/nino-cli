@@ -1,7 +1,6 @@
 # nino-cli
 
 [![CircleCI](https://img.shields.io/circleci/project/github/zy410419243/nino-cli/master.svg)](https://circleci.com/gh/zy410419243/nino-cli)
-[![Greenkeeper badge](https://badges.greenkeeper.io/zy410419243/nino-cli.svg)](https://greenkeeper.io/)
 
 A custom-made cli for daily coding using react, includes
 
