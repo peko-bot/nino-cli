@@ -1,6 +1,6 @@
 # nino-cli
 
-[![CircleCI](https://img.shields.io/circleci/project/github/zy410419243/nino-cli/master.svg)](https://circleci.com/gh/zy410419243/nino-cli)
+[![CircleCI](https://img.shields.io/circleci/project/github/orzyyyy/nino-cli/master.svg)](https://circleci.com/gh/orzyyyy/nino-cli)
 
 A custom-made cli for daily coding using react, includes
 
