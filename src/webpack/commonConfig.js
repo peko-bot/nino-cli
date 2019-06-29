@@ -64,7 +64,7 @@ const getEntry = () => {
 
 module.exports = {
   commonModule: {
-    noParse: /map/,
+    noParse: /\.map$/,
     rules: [
       {
         test: /\.(png|jpg)$/,
