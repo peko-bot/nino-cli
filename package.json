@@ -10,22 +10,20 @@
     "lint": "npx eslint .",
     "test": "jest",
     "prettier": "node ./scripts/prettier.js",
-    "lint-staged": "lint-staged",
-    "backup": "npm config set registry=https://registry.npmjs.org && npm publish && npm config set registry=https://registry.npm.taobao.org",
-    "pub": "git push origin master && npm publish"
+    "lint-staged": "lint-staged"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zy410419243/nino-cli.git"
+    "url": "git+https://github.com/orzyyyy/nino-cli.git"
   },
   "keywords": [
     "cli"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zy410419243/nino-cli/issues"
+    "url": "https://github.com/orzyyyy/nino-cli/issues"
   },
-  "homepage": "https://github.com/zy410419243/nino-cli#readme",
+  "homepage": "https://github.com/orzyyyy/nino-cli#readme",
   "dependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
