@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nino compile compile correctly 1`] = `
+"\\"use strict\\";
+
+var _dateFns = require(\\"date-fns\\");
+
+var defaultFunc = function defaultFunc(prefix) {
+  // tslint:disable-next-line: no-console
+  console.log(\\"\\".concat(prefix, \\": \\").concat((0, _dateFns.format)(new Date(), 'yyyy-MM-dd hh:mm:ss')));
+};
+
+defaultFunc('timeStamp:');"
+`;
+
+exports[`nino compile compile correctly 2`] = `
+"import { format } from 'date-fns';
+
+var defaultFunc = function defaultFunc(prefix) {
+  // tslint:disable-next-line: no-console
+  console.log(\\"\\".concat(prefix, \\": \\").concat(format(new Date(), 'yyyy-MM-dd hh:mm:ss')));
+};
+
+defaultFunc('timeStamp:');"
+`;
