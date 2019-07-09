@@ -1,26 +1,10 @@
 import babel from '@babel/core';
-import path from 'path';
 import fs from 'fs-extra';
 import { injectRequire } from '../babel/projectHelper';
 import { getBabelConfig } from '../babel/babelCommonConfig';
-import { joinWithRootPath, runCmd } from '../utils/common';
+import { joinWithRootPath, runCmd, walk } from '../utils/common';
 import { info, trace } from '../utils/log';
 injectRequire();
-
-const walk = (dir: string) => {
-  let results: string[] = [];
-  const list = fs.readdirSync(dir);
-  list.forEach(file => {
-    file = dir + '/' + file;
-    const stat = fs.statSync(file);
-    if (stat && stat.isDirectory()) {
-      results = results.concat(walk(file));
-    } else {
-      results.push(file);
-    }
-  });
-  return results;
-};
 
 const compileJSX = (
   files: string[],
@@ -67,15 +51,15 @@ export const compile = (program: any) => {
   const output = program.output || 'lib';
   const outputEs = program.outputEs || 'es';
 
-  if (fs.existsSync(path.join(process.cwd(), output))) {
-    fs.emptyDirSync(path.join(process.cwd(), output));
+  if (fs.existsSync(joinWithRootPath(output))) {
+    fs.emptyDirSync(joinWithRootPath(output));
   }
-  if (fs.existsSync(path.join(process.cwd(), outputEs))) {
-    fs.emptyDirSync(path.join(process.cwd(), outputEs));
+  if (fs.existsSync(joinWithRootPath(outputEs))) {
+    fs.emptyDirSync(joinWithRootPath(outputEs));
   }
   trace(`少女边清理名为 ${output} 的钱箱，边回顾着即将结束的一年单身生活
 
-  ...顺带感慨了下自己一平如洗的身板
+...顺带感慨了下自己一平如洗的身板
         `);
 
   const entryPath = joinWithRootPath(program.entry || 'src');

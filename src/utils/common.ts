@@ -14,14 +14,22 @@ export const getTimeStamp = () => format(new Date(), 'yyyyMMddHHmmss');
 
 export const getDateStamp = () => format(new Date(), 'yyyyMMdd');
 
-export const walk = (dir: string) => {
+export const walk = (
+  dir: string,
+  hookBeforeConcat?: (filePath: string) => boolean,
+) => {
   let results: string[] = [];
   const list = fs.readdirSync(dir);
   list.forEach(file => {
     file = dir + '/' + file;
     const stat = fs.statSync(file);
-    if (stat && !file.includes('src/assets') && stat.isDirectory()) {
-      results = results.concat(walk(file));
+    if (stat && stat.isDirectory()) {
+      if (hookBeforeConcat) {
+        const isIncludesTargetFilepath = hookBeforeConcat(file);
+        if (isIncludesTargetFilepath) {
+          results = results.concat(walk(file));
+        }
+      }
     } else {
       results.push(file);
     }
@@ -30,7 +38,9 @@ export const walk = (dir: string) => {
 };
 
 export const getAssets = (dir: string) =>
-  walk(dir).filter(f => f.includes('assets'));
+  walk(dir, filePath => !filePath.includes('src/assets')).filter(f =>
+    f.includes('assets'),
+  );
 
 export const runCmd = (cmd: string, args: string[], callback?: Function) => {
   args = args || [];

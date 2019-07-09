@@ -1,8 +1,8 @@
 import webpack from 'webpack';
 import { getDefaultConfig } from './handler';
 import TscWatchClient from 'tsc-watch/client';
-import path from 'path';
 import fs from 'fs-extra';
+import { joinWithRootPath } from '../utils/common';
 const watcher = new TscWatchClient();
 
 const runWebpackDevServer = (program: any) => {
@@ -17,10 +17,7 @@ const runWebpackDevServer = (program: any) => {
 
 export const koei = (program: any) => {
   const isTypeScriptBuild = program.isTypeScriptBuild;
-  if (
-    fs.existsSync(path.join(process.cwd(), 'tsconfig.json')) &&
-    isTypeScriptBuild
-  ) {
+  if (fs.existsSync(joinWithRootPath('tsconfig.json')) && isTypeScriptBuild) {
     watcher.on('first_success', () => {
       runWebpackDevServer(program);
     });
