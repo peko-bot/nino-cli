@@ -3,8 +3,8 @@ import fs from 'fs-extra';
 import prettier from 'prettier';
 const prettierConfigPath = require.resolve('../../.prettierrc');
 import glob from 'glob';
-import chalk from 'chalk';
 import { joinWithRootPath } from '../utils/common';
+import { trace, error } from '../utils/log';
 
 const defaultConfig = {
   ignore: [
@@ -57,14 +57,12 @@ export const pretty = (program: any) => {
       const output = prettier.format(input, withParserOptions as any);
       if (output !== input) {
         fs.writeFileSync(file, output, 'utf8');
-        // tslint:disable-next-line: no-console
-        console.log(chalk.cyanBright(`${file} is prettier`));
+        trace(`${file} is prettier`);
       } else {
         // check whether prettier succeed
         const isPrettier = prettier.check(input, withParserOptions as any);
         if (!isPrettier) {
-          // tslint:disable-next-line: no-console
-          console.log(chalk.yellow(`${file} prettier failed, check please`));
+          error(`${file} prettier failed, check please`);
         }
       }
     } catch (e) {

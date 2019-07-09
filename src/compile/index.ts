@@ -4,6 +4,7 @@ import fs from 'fs-extra';
 import { injectRequire } from '../babel/projectHelper';
 import { getBabelConfig } from '../babel/babelCommonConfig';
 import { joinWithRootPath, runCmd } from '../utils/common';
+import { info, trace } from '../utils/log';
 injectRequire();
 const chalk = require('chalk');
 
@@ -46,8 +47,7 @@ const compileJSX = (
       fs.copySync(file, outputEsPath);
     }
   }
-  // tslint:disable-next-line: no-console
-  console.log(chalk.green(`少女换上了新的钱箱，开始了一年新的单身生活`));
+  info('少女换上了新的钱箱，开始了一年新的单身生活');
 };
 
 const getNewFiles = (entryPath: string) =>
@@ -74,15 +74,10 @@ export const compile = (program: any) => {
   if (fs.existsSync(path.join(process.cwd(), outputEs))) {
     fs.emptyDirSync(path.join(process.cwd(), outputEs));
   }
-  // tslint:disable-next-line: no-console
-  console.log(
-    chalk.cyanBright(
-      `少女边清理名为 ${output} 的钱箱，边回顾着即将结束的一年单身生活
+  trace(`少女边清理名为 ${output} 的钱箱，边回顾着即将结束的一年单身生活
 
-...顺带感慨了下自己一平如洗的身板
-      `,
-    ),
-  );
+  ...顺带感慨了下自己一平如洗的身板
+        `);
 
   const entryPath = joinWithRootPath(program.entry || 'src');
   const files = walk(entryPath).filter(
