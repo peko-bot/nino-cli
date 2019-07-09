@@ -1,7 +1,7 @@
 const {
   getDefaultConfig,
   getDefaultWebpackConfig,
-} = require('../src/koei/handler');
+} = require('../dist/koei/handler');
 const merge = require('webpack-merge');
 
 describe('nino koei', () => {
@@ -19,7 +19,7 @@ describe('nino koei', () => {
 
   it('custom config file', () => {
     const webpackConfig = getDefaultConfig({
-      config: './test-case/nino.koei',
+      config: 'tests/cases/nino.koei',
       ...program,
     }).webpackConfig;
     const customWebpackConfig = merge(getDefaultWebpackConfig(program), {

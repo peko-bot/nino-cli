@@ -13,6 +13,6 @@
     "sourceMap": true,
     "outDir": "dist"
   },
-  "exclude": ["dist", "tests", "test-case"],
+  "exclude": ["dist", "tests"],
   "typings": "./typings.d.ts"
 }

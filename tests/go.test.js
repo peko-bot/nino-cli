@@ -1,4 +1,4 @@
-const { getDefaultConfig } = require('../go/handler');
+const { getDefaultConfig } = require('../dist/go/handler');
 const merge = require('webpack-merge');
 
 describe('nino go', () => {
@@ -10,7 +10,7 @@ describe('nino go', () => {
 
   it('custom config file', () => {
     const config = getDefaultConfig({
-      config: './test-case/nino.go',
+      config: 'tests/cases/nino.go',
     });
     expect(config.devServerConfig).toEqual(
       merge(config.defaultDevServerOptions, { port: 9098 }),
