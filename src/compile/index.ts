@@ -6,7 +6,6 @@ import { getBabelConfig } from '../babel/babelCommonConfig';
 import { joinWithRootPath, runCmd } from '../utils/common';
 import { info, trace } from '../utils/log';
 injectRequire();
-const chalk = require('chalk');
 
 const walk = (dir: string) => {
   let results: string[] = [];
