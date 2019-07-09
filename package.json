@@ -8,11 +8,10 @@
   },
   "scripts": {
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "test": "cross-env RUN_ENV=test tsc && npm run pre:test && jest",
+    "test": "cross-env RUN_ENV=test tsc && jest",
     "prettier": "node ./scripts/prettier.js",
     "lint-staged": "lint-staged",
-    "tsc": "tsc",
-    "pre:test": "tsc -p tests/cases/compile"
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",

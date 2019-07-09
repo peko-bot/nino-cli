@@ -3,12 +3,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 import WebpackBar from 'webpackbar';
 import fs from 'fs-extra';
 import { injectRequire } from '../babel/projectHelper';
-import { getAssets, joinWithRootPath } from '../utils/common';
+import { joinWithRootPath } from '../utils/common';
 const packageInfo = require(joinWithRootPath('package.json'));
 import { getBabelConfig } from '../babel/babelCommonConfig';
 const babelConfig = getBabelConfig();
 injectRequire();
-const defaultOutput = 'dist';
 
 export const commonPlugin = [
   new htmlWebpackPlugin({
@@ -28,14 +27,14 @@ export const commonPlugin = [
 ];
 
 const copyFiles = [];
-const copyFilePaths = [];
+const copyFilePaths: any[] = [];
 
-for (const item of getAssets('src')) {
-  copyFilePaths.push({
-    from: item,
-    to: defaultOutput + '/assets',
-  });
-}
+// for (const item of getAssets('src')) {
+//   copyFilePaths.push({
+//     from: item,
+//     to: defaultOutput + '/assets',
+//   });
+// }
 
 for (const item of copyFilePaths) {
   if (fs.existsSync(joinWithRootPath(item.from))) {

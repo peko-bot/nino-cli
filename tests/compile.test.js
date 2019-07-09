@@ -9,12 +9,34 @@ describe('nino compile', () => {
     });
   });
 
+  outputDirPaths = ['lib', 'es'];
+  outputFilePaths = [
+    'ts/assets/case-1',
+    'ts/assets/case-2',
+    'ts/case-3',
+    'ts/src/calc.js',
+    'ts/src/assets/case-4',
+    'ts/src/assets/case-5',
+    'ts/src/modules/add/index.js',
+    'ts/src/modules/add/css.css',
+    'tsx/assets/case-1',
+    'tsx/assets/case-2',
+    'tsx/case-3-tsx',
+    'tsx/index-tsx.js',
+    'tsx/src/calc-tsx.js',
+    'tsx/src/modules/add/index-tsx.js',
+    'tsx/src/modules/add/css-tsx.css',
+    'tsx/src/assets/case-4',
+    'tsx/src/assets/case-5',
+  ];
+
   getContent = paths => fs.readFileSync(joinWithRootPath(paths)).toString();
 
   it('compile correctly', () => {
-    const libContent = getContent(['lib', 'default.js']);
-    expect(libContent).toMatchSnapshot();
-    const esContent = getContent(['es', 'default.js']);
-    expect(esContent).toMatchSnapshot();
+    for (const dir of outputDirPaths) {
+      for (const file of outputFilePaths) {
+        expect(getContent([dir, file])).toMatchSnapshot();
+      }
+    }
   });
 });

@@ -1,25 +1,258 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`nino compile compile correctly 1`] = `
+"case-1
+"
+`;
+
+exports[`nino compile compile correctly 2`] = `
+"case-2
+"
+`;
+
+exports[`nino compile compile correctly 3`] = `
+"case-3
+"
+`;
+
+exports[`nino compile compile correctly 4`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.calc = void 0;
+
+var calc = function calc() {
+  return 'calc';
+};
+
+exports.calc = calc;"
+`;
+
+exports[`nino compile compile correctly 5`] = `
+"case-4
+"
+`;
+
+exports[`nino compile compile correctly 6`] = `
+"case-5
+"
+`;
+
+exports[`nino compile compile correctly 7`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.add = void 0;
+
+require(\\"./css.css\\");
+
+var add = function add() {
+  return 2;
+};
+
+exports.add = add;"
+`;
+
+exports[`nino compile compile correctly 8`] = `
+"body {
+  width: 100%;
+  height: 500px;
+  background: #f96;
+}
+"
+`;
+
+exports[`nino compile compile correctly 9`] = `
+"case-1
+"
+`;
+
+exports[`nino compile compile correctly 10`] = `
+"case-2
+"
+`;
+
+exports[`nino compile compile correctly 11`] = `
+"case-3-tsx
+"
+`;
+
+exports[`nino compile compile correctly 12`] = `
 "\\"use strict\\";
 
 var _dateFns = require(\\"date-fns\\");
 
+var _calcTsx = require(\\"./src/calc-tsx\\");
+
 var defaultFunc = function defaultFunc(prefix) {
   // tslint:disable-next-line: no-console
-  console.log(\\"\\".concat(prefix, \\": \\").concat((0, _dateFns.format)(new Date(), 'yyyy-MM-dd hh:mm:ss')));
+  console.log(\\"\\".concat(prefix, \\": \\").concat((0, _dateFns.format)(new Date(), 'yyyy-MM-dd hh:mm:ss'))); // tslint:disable-next-line: no-console
+
+  console.log((0, _calcTsx.calc)());
 };
 
 defaultFunc('timeStamp:');"
 `;
 
-exports[`nino compile compile correctly 2`] = `
+exports[`nino compile compile correctly 13`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.calc = void 0;
+
+var calc = function calc() {
+  return 'calc';
+};
+
+exports.calc = calc;"
+`;
+
+exports[`nino compile compile correctly 14`] = `
+"\\"use strict\\";
+
+Object.defineProperty(exports, \\"__esModule\\", {
+  value: true
+});
+exports.add = void 0;
+
+require(\\"./css-tsx.css\\");
+
+var add = function add() {
+  return 2;
+};
+
+exports.add = add;"
+`;
+
+exports[`nino compile compile correctly 15`] = `
+"body {
+  width: 100%;
+  height: 500px;
+  background: #f96;
+}
+"
+`;
+
+exports[`nino compile compile correctly 16`] = `
+"case-4
+"
+`;
+
+exports[`nino compile compile correctly 17`] = `
+"case-5
+"
+`;
+
+exports[`nino compile compile correctly 18`] = `
+"case-1
+"
+`;
+
+exports[`nino compile compile correctly 19`] = `
+"case-2
+"
+`;
+
+exports[`nino compile compile correctly 20`] = `
+"case-3
+"
+`;
+
+exports[`nino compile compile correctly 21`] = `
+"export var calc = function calc() {
+  return 'calc';
+};"
+`;
+
+exports[`nino compile compile correctly 22`] = `
+"case-4
+"
+`;
+
+exports[`nino compile compile correctly 23`] = `
+"case-5
+"
+`;
+
+exports[`nino compile compile correctly 24`] = `
+"import './css.css';
+export var add = function add() {
+  return 2;
+};"
+`;
+
+exports[`nino compile compile correctly 25`] = `
+"body {
+  width: 100%;
+  height: 500px;
+  background: #f96;
+}
+"
+`;
+
+exports[`nino compile compile correctly 26`] = `
+"case-1
+"
+`;
+
+exports[`nino compile compile correctly 27`] = `
+"case-2
+"
+`;
+
+exports[`nino compile compile correctly 28`] = `
+"case-3-tsx
+"
+`;
+
+exports[`nino compile compile correctly 29`] = `
 "import { format } from 'date-fns';
+import { calc } from './src/calc-tsx';
 
 var defaultFunc = function defaultFunc(prefix) {
   // tslint:disable-next-line: no-console
-  console.log(\\"\\".concat(prefix, \\": \\").concat(format(new Date(), 'yyyy-MM-dd hh:mm:ss')));
+  console.log(\\"\\".concat(prefix, \\": \\").concat(format(new Date(), 'yyyy-MM-dd hh:mm:ss'))); // tslint:disable-next-line: no-console
+
+  console.log(calc());
 };
 
 defaultFunc('timeStamp:');"
+`;
+
+exports[`nino compile compile correctly 30`] = `
+"export var calc = function calc() {
+  return 'calc';
+};"
+`;
+
+exports[`nino compile compile correctly 31`] = `
+"import './css-tsx.css';
+export var add = function add() {
+  return 2;
+};"
+`;
+
+exports[`nino compile compile correctly 32`] = `
+"body {
+  width: 100%;
+  height: 500px;
+  background: #f96;
+}
+"
+`;
+
+exports[`nino compile compile correctly 33`] = `
+"case-4
+"
+`;
+
+exports[`nino compile compile correctly 34`] = `
+"case-5
+"
 `;
