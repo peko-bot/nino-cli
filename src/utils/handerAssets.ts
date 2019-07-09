@@ -1,7 +1,7 @@
-const fs = require('fs-extra');
+import fs from 'fs-extra';
 
-const walk = dir => {
-  let results = [];
+export const walk = (dir: string) => {
+  let results: string[] = [];
   const list = fs.readdirSync(dir);
   list.forEach(file => {
     file = dir + '/' + file;
@@ -15,6 +15,5 @@ const walk = dir => {
   return results;
 };
 
-const getAssets = dir => walk(dir).filter(f => f.includes('assets'));
-
-module.exports = { walk, getAssets };
+export const getAssets = (dir: string) =>
+  walk(dir).filter(f => f.includes('assets'));

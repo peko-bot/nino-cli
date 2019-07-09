@@ -1,14 +1,14 @@
-const babel = require('@babel/core');
-const path = require('path');
-const fs = require('fs-extra');
-const { getProjectPath, injectRequire } = require('../babel/projectHelper');
+import babel from '@babel/core';
+import path from 'path';
+import fs from 'fs-extra';
+import { getProjectPath, injectRequire } from '../babel/projectHelper';
+import { getBabelConfig } from '../babel/babelCommonConfig';
 const { runCmd } = require('../utils/runCommand');
 injectRequire();
-const babelConfig = require('../babel/babelCommonConfig');
 const chalk = require('chalk');
 
-const walk = dir => {
-  let results = [];
+const walk = (dir: string) => {
+  let results: string[] = [];
   const list = fs.readdirSync(dir);
   list.forEach(file => {
     file = dir + '/' + file;
@@ -22,26 +22,35 @@ const walk = dir => {
   return results;
 };
 
-const compileJSX = (files, entry, output, outputEs) => {
-  for (let file of files) {
-    let outputPath = file.replace(entry, output).replace('jsx', 'js');
-    let outputEsPath = file.replace(entry, outputEs).replace('jsx', 'js');
+const compileJSX = (
+  files: string[],
+  entry: string,
+  output: string,
+  outputEs: string,
+) => {
+  for (const file of files) {
+    const outputPath = file.replace(entry, output).replace('jsx', 'js');
+    const outputEsPath = file.replace(entry, outputEs).replace('jsx', 'js');
     if (file.endsWith('js') || file.endsWith('jsx')) {
       const fileContent = fs.readFileSync(file, 'utf8');
-      let result = babel.transformSync(fileContent, babelConfig());
-      fs.outputFileSync(outputPath, result.code);
-      result = babel.transformSync(fileContent, babelConfig(true));
-      fs.outputFileSync(outputEsPath, result.code);
+      let result = babel.transformSync(fileContent, getBabelConfig());
+      if (result) {
+        fs.outputFileSync(outputPath, result.code);
+      }
+      result = babel.transformSync(fileContent, getBabelConfig(true));
+      if (result) {
+        fs.outputFileSync(outputEsPath, result.code);
+      }
     } else if (!(file.endsWith('jsx') || file.endsWith('js'))) {
       fs.copySync(file, outputPath);
       fs.copySync(file, outputEsPath);
     }
   }
-  // eslint-disable-next-line
+  // tslint:disable-next-line: no-console
   console.log(chalk.green(`少女换上了新的钱箱，开始了一年新的单身生活`));
 };
 
-const getNewFiles = entryPath =>
+const getNewFiles = (entryPath: string) =>
   walk(entryPath).filter(
     f =>
       f.indexOf('test') < 0 &&
@@ -54,7 +63,7 @@ const getNewFiles = entryPath =>
 // if only tsx, compile them to jsx with tsc
 // then compile them to es5 with babel
 // for using babel plugins like babel-import
-exports.compile = program => {
+export const compile = (program: any) => {
   const entry = program.entry || 'src';
   const output = program.output || 'lib';
   const outputEs = program.outputEs || 'es';
@@ -65,7 +74,7 @@ exports.compile = program => {
   if (fs.existsSync(path.join(process.cwd(), outputEs))) {
     fs.emptyDirSync(path.join(process.cwd(), outputEs));
   }
-  // eslint-disable-next-line
+  // tslint:disable-next-line: no-console
   console.log(
     chalk.cyanBright(
       `少女边清理名为 ${output} 的钱箱，边回顾着即将结束的一年单身生活
@@ -94,7 +103,7 @@ exports.compile = program => {
     const tscBin = require.resolve('typescript/bin/tsc');
     // support args
     const additionalArgs = process.argv.slice(3);
-    let args = [tscBin];
+    const args = [tscBin];
     args.concat(additionalArgs).join(' ');
     runCmd('node', args, () => {
       compileJSX(getNewFiles(entryPath), entry, output, outputEs);

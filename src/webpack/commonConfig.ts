@@ -1,16 +1,16 @@
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const WebpackBar = require('webpackbar');
-const fs = require('fs-extra');
-const { getProjectPath, injectRequire } = require('../babel/projectHelper');
+import WebpackBar from 'webpackbar';
+import fs from 'fs-extra';
+import { getProjectPath, injectRequire } from '../babel/projectHelper';
 const packageInfo = require(getProjectPath('package.json'));
-const { getAssets } = require('../utils/handerAssets');
-
+import { getAssets } from '../utils/handerAssets';
+import { getBabelConfig } from '../babel/babelCommonConfig';
+const babelConfig = getBabelConfig();
 injectRequire();
-const babelConfig = require('../babel/babelCommonConfig')();
 const defaultOutput = 'dist';
 
-let commonPlugin = [
+const commonPlugin = [
   new htmlWebpackPlugin({
     template: './src/index.html',
     hash: true,
@@ -27,17 +27,17 @@ let commonPlugin = [
   }),
 ];
 
-let copyFiles = [];
-let copyFilePaths = [];
+const copyFiles = [];
+const copyFilePaths = [];
 
-for (let item of getAssets('src')) {
+for (const item of getAssets('src')) {
   copyFilePaths.push({
     from: item,
     to: defaultOutput + '/assets',
   });
 }
 
-for (let item of copyFilePaths) {
+for (const item of copyFilePaths) {
   if (fs.existsSync(getProjectPath(item.from))) {
     copyFiles.push({
       from: getProjectPath(item.from),
@@ -52,9 +52,9 @@ if (copyFiles.length !== 0) {
 
 const getEntry = () => {
   let entry = '';
-  let paths = ['./src', '/', './lib'];
-  for (let item of paths) {
-    if (fs.exists(getProjectPath(item))) {
+  const paths = ['./src', '/', './lib'];
+  for (const item of paths) {
+    if (fs.existsSync(getProjectPath(item))) {
       entry = getProjectPath(item);
       break;
     }
@@ -62,7 +62,7 @@ const getEntry = () => {
   return entry;
 };
 
-module.exports = {
+export = {
   commonModule: {
     // noParse: /\.map$/,
     rules: [

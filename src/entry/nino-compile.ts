@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const program = require('commander');
-const nino = require('../src/compile');
+import program from 'commander';
+import { compile } from '../compile';
 
 program
   .option('-e, --entry <path>', 'set entry path. defaults to ~/src')
@@ -9,4 +9,4 @@ program
   .option('-oes, --outputEs', 'set es output path. defaults to ~/es')
   .parse(process.argv);
 
-nino.compile(program);
+compile(program);

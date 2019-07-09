@@ -1,6 +1,6 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export const jestConfig = {
   verbose: false,
   setupFiles: [path.join(__dirname, 'setup.js')],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],

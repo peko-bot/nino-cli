@@ -1,7 +1,7 @@
 const {
   getDefaultConfig,
   getDefaultWebpackConfig,
-} = require('../koei/handler');
+} = require('../src/koei/handler');
 const merge = require('webpack-merge');
 
 describe('nino koei', () => {

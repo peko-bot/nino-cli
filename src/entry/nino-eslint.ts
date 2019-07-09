@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const program = require('commander');
-const nino = require('../src/eslint');
+import program from 'commander';
+import nino from '../eslint';
 
 program
   .option('-c, --config <path>', 'set config path, like .eslintrc.js')

@@ -1,19 +1,20 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 const TohoLogPlugin = require('toho-log-plugin');
-const {
+import {
   commonModule,
   commonPlugin,
   resolveModule,
-} = require('../webpack/commonConfig');
-const { getProjectPath } = require('../babel/projectHelper.js');
-const merge = require('webpack-merge');
+} from '../webpack/commonConfig';
+import { getProjectPath } from '../babel/projectHelper';
+import merge from 'webpack-merge';
+import { Configuration } from 'webpack';
 
 // maybe there is a bug
 // getProjectPath('dist/lib/main')
 // this can't release entry file to correct place
 const defaultOutput = 'dist';
 
-const getDefaultWebpackConfig = program => {
+export const getDefaultWebpackConfig = (program: any) => {
   const dev = !!program.dev;
   const watch = !!program.watch;
   const plugins = [...commonPlugin, new TohoLogPlugin({ dev, isPray: false })];
@@ -47,7 +48,7 @@ const getDefaultWebpackConfig = program => {
   return config;
 };
 
-const getDefaultConfig = program => {
+export const getDefaultConfig = (program: any) => {
   let configFile = program.config;
   let webpackConfig = {};
   const config = getDefaultWebpackConfig(program);
@@ -59,7 +60,7 @@ const getDefaultConfig = program => {
     if (!customizedConfig) {
       throw Error('check nino.koei.js, there is something wrong with it.');
     }
-    webpackConfig = merge(config, customizedConfig);
+    webpackConfig = merge(config as Configuration, customizedConfig);
   } else {
     // defaultWebpackConfig.output.path = program.output || defaultOutput;
     webpackConfig = config;
@@ -67,5 +68,3 @@ const getDefaultConfig = program => {
 
   return { webpackConfig };
 };
-
-module.exports = { getDefaultConfig, getDefaultWebpackConfig };

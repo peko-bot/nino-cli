@@ -1,6 +1,6 @@
-const { spawn } = require('child_process');
+import { spawn } from 'child_process';
 
-function runCmd(cmd, args, callback) {
+export const runCmd = (cmd: string, args: string[], callback?: Function) => {
   args = args || [];
   const ls = spawn(cmd, args, {
     // keep color
@@ -10,8 +10,8 @@ function runCmd(cmd, args, callback) {
     if (code !== 0) {
       process.exit(code);
     }
-    callback && callback(code);
+    if (callback) {
+      callback(code);
+    }
   });
-}
-
-module.exports = { runCmd };
+};

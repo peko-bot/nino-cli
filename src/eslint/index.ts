@@ -1,8 +1,8 @@
-const path = require('path');
-const fs = require('fs-extra');
-const { runCmd } = require('../utils/runCommand');
+import path from 'path';
+import fs from 'fs-extra';
+import { runCmd } from '../utils/runCommand';
 
-exports.eslint = program => {
+exports.eslint = (program: any) => {
   const isFix = program.fix;
   const configPath = program.config;
   const ignorePath = program.ignore;

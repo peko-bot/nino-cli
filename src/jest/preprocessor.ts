@@ -1,24 +1,21 @@
 const { createTransformer: babelTransFormer } = require('babel-jest');
 const { createTransformer: tsTransFormer } = require('ts-jest');
-const babelCommonConfig = require('../babel/babelCommonConfig');
-const { getProjectPath } = require('../babel/projectHelper');
-const fs = require('fs-extra');
-const path = require('path');
+import { getBabelConfig } from '../babel/babelCommonConfig';
+import { getProjectPath } from '../babel/projectHelper';
+import fs from 'fs-extra';
 
-let tsTestConfigPath = path.join(__dirname, 'tsconfig.test.json');
-if (fs.existsSync(getProjectPath('tsconfig.test.json'))) {
-  tsTestConfigPath = getProjectPath('tsconfig.test.json');
-}
+const tsTestConfigPath = fs.existsSync(getProjectPath('tsconfig.test.json'))
+  ? getProjectPath('tsconfig.test.json')
+  : getProjectPath('tsconfig.json');
 const tsJest = tsTransFormer({
   tsConfig: tsTestConfigPath,
 });
-
-const babelConfig = babelCommonConfig();
+const babelConfig = getBabelConfig();
 babelConfig.plugins = [...babelConfig.plugins];
 const babelJest = babelTransFormer(babelConfig);
 
 module.exports = {
-  process(src, filePath) {
+  process(src: any, filePath: string) {
     const isTypeScript = filePath.endsWith('.ts') || filePath.endsWith('.tsx');
     const isJavaScript = filePath.endsWith('.js') || filePath.endsWith('.jsx');
     if (isTypeScript) {

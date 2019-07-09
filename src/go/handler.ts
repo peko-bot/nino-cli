@@ -1,15 +1,15 @@
-const path = require('path');
+import path from 'path';
+import fs from 'fs-extra';
 const TohoLogPlugin = require('toho-log-plugin');
-const {
+import {
   commonModule,
   commonPlugin,
   resolveModule,
-} = require('../webpack/commonConfig');
-const { getProjectPath } = require('../babel/projectHelper.js');
-const merge = require('webpack-merge');
-const fs = require('fs-extra');
+} from '../webpack/commonConfig';
+import { getProjectPath } from '../babel/projectHelper';
+import merge from 'webpack-merge';
 
-const getEntry = programEntry => {
+const getEntry = (programEntry: string) => {
   if (programEntry) {
     return getProjectPath(programEntry);
   }
@@ -25,7 +25,7 @@ const getEntry = programEntry => {
   return entry;
 };
 
-const getDefaultConfig = program => {
+const getDefaultConfig = (program: any) => {
   const entry = program.entry;
   const defaultDevServerOptions = {
     port: 9099,
@@ -82,6 +82,4 @@ const getDefaultConfig = program => {
   };
 };
 
-module.exports = {
-  getDefaultConfig,
-};
+export { getDefaultConfig };

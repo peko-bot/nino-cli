@@ -1,19 +1,16 @@
-const path = require('path');
-
+import path from 'path';
 const cwd = process.cwd();
 
-function getProjectPath(...filePath) {
+function getProjectPath(...filePath: string[]) {
   return path.join(cwd, ...filePath);
 }
 
 let injected = false;
 function injectRequire() {
   if (injected) return;
-
   const Module = require('module');
-
   const oriRequire = Module.prototype.require;
-  Module.prototype.require = function(...args) {
+  Module.prototype.require = function(...args: string[]) {
     const moduleName = args[0];
     try {
       return oriRequire.apply(this, args);
@@ -25,11 +22,7 @@ function injectRequire() {
       return oriRequire.apply(this, newArgs);
     }
   };
-
   injected = true;
 }
 
-module.exports = {
-  getProjectPath,
-  injectRequire,
-};
+export { getProjectPath, injectRequire };

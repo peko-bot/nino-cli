@@ -1,4 +1,4 @@
-module.exports = function(isEs) {
+export const getBabelConfig = (isEs?: boolean) => {
   const plugins = [
     [
       'import',
@@ -28,7 +28,7 @@ module.exports = function(isEs) {
     require.resolve('@babel/plugin-proposal-class-properties'),
     require.resolve('@babel/plugin-syntax-dynamic-import'),
   ];
-  let envPreset = require.resolve('@babel/preset-env');
+  let envPreset: any = require.resolve('@babel/preset-env');
   if (isEs) {
     envPreset = [
       require.resolve('@babel/preset-env'),

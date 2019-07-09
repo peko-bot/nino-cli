@@ -1,15 +1,31 @@
-const path = require('path');
-const fs = require('fs-extra');
-const prettier = require('prettier');
+import path from 'path';
+import fs from 'fs-extra';
+import prettier from 'prettier';
 const prettierConfigPath = require.resolve('../../.prettierrc');
-const defaultConfig = require('./config');
-const glob = require('glob');
-const chalk = require('chalk');
+import glob from 'glob';
+import chalk from 'chalk';
+import { getProjectPath } from '../babel/projectHelper';
 
-exports.prettier = program => {
+const defaultConfig = {
+  ignore: [
+    '**/node_modules/**',
+    '**/**.snap',
+    '**/dist/**',
+    '**/**.map',
+    '**/lib/**',
+    '**/public/**',
+    '**/release/**',
+    '**/**.css',
+  ],
+  // format target extension file
+  // will format file with those extensions
+  extension: ['.js', '.jsx', '.ts', '.tsx'],
+};
+
+export const pretty = (program: any) => {
   const configPath = program.config;
   let config = defaultConfig;
-  if (configPath && fs.exists(path.join(process.cwd(), configPath))) {
+  if (configPath && fs.existsSync(getProjectPath(configPath))) {
     config = Object.assign({}, defaultConfig, require(configPath));
   }
   const files = glob.sync('**/src/**', {
@@ -38,14 +54,14 @@ exports.prettier = program => {
         ...options,
         parser: fileInfo.inferredParser,
       };
-      const output = prettier.format(input, withParserOptions);
+      const output = prettier.format(input, withParserOptions as any);
       if (output !== input) {
         fs.writeFileSync(file, output, 'utf8');
         // eslint-disable-next-line
         console.log(chalk.cyanBright(`${file} is prettier`));
       } else {
         // check whether prettier succeed
-        const isPrettier = prettier.check(input, withParserOptions);
+        const isPrettier = prettier.check(input, withParserOptions as any);
         if (!isPrettier) {
           // eslint-disable-next-line
           console.log(chalk.yellow(`${file} prettier failed, check please`));

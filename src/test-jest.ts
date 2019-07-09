@@ -1,8 +1,8 @@
-const path = require('path');
-const getRemainingArgs = require('commander-remaining-args');
-const { runCmd } = require('./utils/runCommand');
+import path from 'path';
+import getRemainingArgs from 'commander-remaining-args';
+import { runCmd } from './utils/runCommand';
 
-exports.test = program => {
+export const test = (program: any) => {
   const isUpdate = !!program.update;
   const codecov = !!program.codecov;
   const watch = !!program.watch;

@@ -1,18 +1,21 @@
-const webpack = require('webpack');
-const fs = require('fs-extra');
-const { getDefaultConfig } = require('./handler');
-const TscWatchClient = require('tsc-watch/client');
-const path = require('path');
+import webpack from 'webpack';
+import { getDefaultConfig } from './handler';
+import TscWatchClient from 'tsc-watch/client';
+import path from 'path';
+import fs from 'fs-extra';
 const watcher = new TscWatchClient();
 
-const runWebpackDevServer = program => {
+const runWebpackDevServer = (program: any) => {
   const watch = program.watch;
   const { webpackConfig } = getDefaultConfig(program);
-  watch && webpack(webpackConfig).watch({}, () => {});
-  !watch && webpack(webpackConfig).run();
+  if (watch) {
+    webpack(webpackConfig).watch({}, () => {});
+  } else {
+    webpack(webpackConfig).run(() => {});
+  }
 };
 
-exports.koei = program => {
+export const koei = (program: any) => {
   const isTypeScriptBuild = program.isTypeScriptBuild;
   if (
     fs.existsSync(path.join(process.cwd(), 'tsconfig.json')) &&
