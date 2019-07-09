@@ -89,7 +89,7 @@
   "lint-staged": {
     "*.{js}": [
       "npm run prettier",
-      "npx eslint .",
+      "npm run lint",
       "git add"
     ]
   },
