@@ -1,9 +1,9 @@
 import babel from '@babel/core';
 import path from 'path';
 import fs from 'fs-extra';
-import { getProjectPath, injectRequire } from '../babel/projectHelper';
+import { injectRequire } from '../babel/projectHelper';
 import { getBabelConfig } from '../babel/babelCommonConfig';
-const { runCmd } = require('../utils/runCommand');
+import { joinWithRootPath, runCmd } from '../utils/common';
 injectRequire();
 const chalk = require('chalk');
 
@@ -84,7 +84,7 @@ export const compile = (program: any) => {
     ),
   );
 
-  const entryPath = path.join(getProjectPath(), program.entry || 'src');
+  const entryPath = joinWithRootPath(program.entry || 'src');
   const files = walk(entryPath).filter(
     f =>
       f.indexOf('test') < 0 &&

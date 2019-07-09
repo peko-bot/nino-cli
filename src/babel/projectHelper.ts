@@ -1,9 +1,4 @@
-import path from 'path';
-const cwd = process.cwd();
-
-function getProjectPath(...filePath: string[]) {
-  return path.join(cwd, ...filePath);
-}
+import { joinWithRootPath } from '../utils/common';
 
 let injected = false;
 function injectRequire() {
@@ -17,7 +12,7 @@ function injectRequire() {
     } catch (err) {
       const newArgs = [...args];
       if (moduleName[0] !== '/') {
-        newArgs[0] = getProjectPath('node_modules', moduleName);
+        newArgs[0] = joinWithRootPath(['node_modules', moduleName]);
       }
       return oriRequire.apply(this, newArgs);
     }
@@ -25,4 +20,4 @@ function injectRequire() {
   injected = true;
 }
 
-export { getProjectPath, injectRequire };
+export { injectRequire };

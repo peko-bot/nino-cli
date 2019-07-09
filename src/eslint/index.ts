@@ -1,15 +1,14 @@
 import fs from 'fs-extra';
-import { runCmd } from '../utils/runCommand';
-import { getProjectPath } from '../babel/projectHelper';
+import { runCmd, joinWithRootPath } from '../utils/common';
 
 export const eslint = (program: any) => {
   const isFix = program.fix;
   const configPath = program.config;
   const ignorePath = program.ignore;
   const eslintBin = require.resolve('eslint/bin/eslint');
-  let eslintConfig = getProjectPath('.eslintrc.js');
-  let eslintIgnore = getProjectPath('.eslintignore');
-  const projectEslint = configPath && getProjectPath(configPath);
+  let eslintConfig = joinWithRootPath('.eslintrc.js');
+  let eslintIgnore = joinWithRootPath('.eslintignore');
+  const projectEslint = configPath && joinWithRootPath(configPath);
   if (fs.existsSync(projectEslint)) {
     eslintConfig = projectEslint;
   }

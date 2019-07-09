@@ -6,20 +6,20 @@ import {
   commonPlugin,
   resolveModule,
 } from '../webpack/commonConfig';
-import { getProjectPath } from '../babel/projectHelper';
 import merge from 'webpack-merge';
 import { Configuration } from 'webpack';
+import { joinWithRootPath } from '../utils/common';
 
 const getEntry = (programEntry: string) => {
   if (programEntry) {
-    return getProjectPath(programEntry);
+    return joinWithRootPath(programEntry);
   }
   const extensions = ['js', 'jsx', 'ts', 'tsx'];
   let entry;
   for (let i = 0; i < extensions.length; i++) {
     const item = extensions[i];
-    if (fs.existsSync(getProjectPath('src/index.' + item))) {
-      entry = getProjectPath('src/index.' + item);
+    if (fs.existsSync(joinWithRootPath('src/index.' + item))) {
+      entry = joinWithRootPath('src/index.' + item);
       break;
     }
   }
@@ -33,7 +33,7 @@ const getDefaultConfig = (program: any) => {
     host: 'localhost',
     noInfo: true,
     clientLogLevel: 'error',
-    contentBase: getProjectPath('src'),
+    contentBase: joinWithRootPath('src'),
   };
   const defaultWebpackConfig = {
     mode: 'development',
@@ -62,7 +62,7 @@ const getDefaultConfig = (program: any) => {
   let devServerConfig: any = defaultDevServerOptions;
 
   if (configFile) {
-    configFile = path.join(getProjectPath(program.config));
+    configFile = path.join(joinWithRootPath(program.config));
     // fs.existsSync(configFile) &&
     const customizedConfig = require(configFile);
     if (!customizedConfig) {

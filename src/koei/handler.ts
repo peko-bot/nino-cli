@@ -5,13 +5,10 @@ import {
   commonPlugin,
   resolveModule,
 } from '../webpack/commonConfig';
-import { getProjectPath } from '../babel/projectHelper';
 import merge from 'webpack-merge';
 import { Configuration } from 'webpack';
+import { joinWithRootPath } from '../utils/common';
 
-// maybe there is a bug
-// getProjectPath('dist/lib/main')
-// this can't release entry file to correct place
 const defaultOutput = 'dist';
 
 export const getDefaultWebpackConfig = (program: any) => {
@@ -34,10 +31,10 @@ export const getDefaultWebpackConfig = (program: any) => {
     resolve: resolveModule,
     devtool: dev ? 'source-map' : '',
     entry: {
-      ninoninoni: getProjectPath('src'),
+      ninoninoni: joinWithRootPath('src'),
     },
     output: {
-      path: getProjectPath(defaultOutput),
+      path: joinWithRootPath(defaultOutput),
       filename: '[name].js',
       chunkFilename: 'vendor/[name].js',
     },
@@ -54,7 +51,7 @@ export const getDefaultConfig = (program: any) => {
   const config = getDefaultWebpackConfig(program);
 
   if (configFile) {
-    configFile = getProjectPath(program.config);
+    configFile = joinWithRootPath(program.config);
     // fs.existsSync(configFile)
     const customizedConfig = require(configFile);
     if (!customizedConfig) {

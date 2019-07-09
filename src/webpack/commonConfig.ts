@@ -2,9 +2,9 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 import WebpackBar from 'webpackbar';
 import fs from 'fs-extra';
-import { getProjectPath, injectRequire } from '../babel/projectHelper';
-const packageInfo = require(getProjectPath('package.json'));
-import { getAssets } from '../utils/handerAssets';
+import { injectRequire } from '../babel/projectHelper';
+import { getAssets, joinWithRootPath } from '../utils/common';
+const packageInfo = require(joinWithRootPath('package.json'));
 import { getBabelConfig } from '../babel/babelCommonConfig';
 const babelConfig = getBabelConfig();
 injectRequire();
@@ -38,10 +38,10 @@ for (const item of getAssets('src')) {
 }
 
 for (const item of copyFilePaths) {
-  if (fs.existsSync(getProjectPath(item.from))) {
+  if (fs.existsSync(joinWithRootPath(item.from))) {
     copyFiles.push({
-      from: getProjectPath(item.from),
-      to: getProjectPath(item.to),
+      from: joinWithRootPath(item.from),
+      to: joinWithRootPath(item.to),
     });
   }
 }
@@ -54,8 +54,8 @@ const getEntry = () => {
   let entry = '';
   const paths = ['./src', '/', './lib'];
   for (const item of paths) {
-    if (fs.existsSync(getProjectPath(item))) {
-      entry = getProjectPath(item);
+    if (fs.existsSync(joinWithRootPath(item))) {
+      entry = joinWithRootPath(item);
       break;
     }
   }
@@ -96,7 +96,7 @@ export const commonModule = {
           loader: 'ts-loader',
           options: {
             transpileOnly: true,
-            configFile: getProjectPath('tsconfig.json'),
+            configFile: joinWithRootPath('tsconfig.json'),
           },
         },
       ],

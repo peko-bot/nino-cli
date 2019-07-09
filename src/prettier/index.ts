@@ -4,7 +4,7 @@ import prettier from 'prettier';
 const prettierConfigPath = require.resolve('../../.prettierrc');
 import glob from 'glob';
 import chalk from 'chalk';
-import { getProjectPath } from '../babel/projectHelper';
+import { joinWithRootPath } from '../utils/common';
 
 const defaultConfig = {
   ignore: [
@@ -25,7 +25,7 @@ const defaultConfig = {
 export const pretty = (program: any) => {
   const configPath = program.config;
   let config = defaultConfig;
-  if (configPath && fs.existsSync(getProjectPath(configPath))) {
+  if (configPath && fs.existsSync(joinWithRootPath(configPath))) {
     config = Object.assign({}, defaultConfig, require(configPath));
   }
   const files = glob.sync('**/src/**', {

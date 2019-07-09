@@ -1,13 +1,13 @@
 const { createTransformer: babelTransFormer } = require('babel-jest');
 const { createTransformer: tsTransFormer } = require('ts-jest');
 import { getBabelConfig } from '../babel/babelCommonConfig';
-import { getProjectPath } from '../babel/projectHelper';
 import fs from 'fs-extra';
 import chalk from 'chalk';
+import { joinWithRootPath } from '../utils/common';
 
-const tsTestConfigPath = fs.existsSync(getProjectPath('tsconfig.test.json'))
-  ? getProjectPath('tsconfig.test.json')
-  : getProjectPath('tsconfig.json');
+const tsTestConfigPath = fs.existsSync(joinWithRootPath('tsconfig.test.json'))
+  ? joinWithRootPath('tsconfig.test.json')
+  : joinWithRootPath('tsconfig.json');
 const tsJest = tsTransFormer({
   tsConfig: tsTestConfigPath,
 });

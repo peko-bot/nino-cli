@@ -1,6 +1,6 @@
 import path from 'path';
 import getRemainingArgs from 'commander-remaining-args';
-import { runCmd } from './utils/runCommand';
+import { runCmd } from './utils/common';
 
 export const test = (program: any) => {
   const isUpdate = !!program.update;
