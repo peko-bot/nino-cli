@@ -57,13 +57,13 @@ export const pretty = (program: any) => {
       const output = prettier.format(input, withParserOptions as any);
       if (output !== input) {
         fs.writeFileSync(file, output, 'utf8');
-        // eslint-disable-next-line
+        // tslint:disable-next-line: no-console
         console.log(chalk.cyanBright(`${file} is prettier`));
       } else {
         // check whether prettier succeed
         const isPrettier = prettier.check(input, withParserOptions as any);
         if (!isPrettier) {
-          // eslint-disable-next-line
+          // tslint:disable-next-line: no-console
           console.log(chalk.yellow(`${file} prettier failed, check please`));
         }
       }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const program = require('commander');
+import program from 'commander';
 const info = require('../package.json');
 const proc = program.runningCommand;
 
@@ -19,7 +19,9 @@ program
   .parse(process.argv);
 
 process.on('SIGINT', function() {
-  proc && proc.kill('SIGKILL');
+  if (proc) {
+    proc.kill('SIGKILL');
+  }
   process.exit(0);
 });
 

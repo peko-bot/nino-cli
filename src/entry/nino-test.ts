@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const program = require('commander');
-const nino = require('../src/test-jest');
+import program from 'commander';
+import { test } from '../test-jest';
 
 program
   .option('-u, --update', 'to update snapshots')
@@ -10,4 +10,4 @@ program
   .allowUnknownOption()
   .parse(process.argv);
 
-nino.test(program);
+test(program);

@@ -17,7 +17,7 @@ const runWebpackDevServer = (program: any) => {
   server.listen(devServerConfig.port, devServerConfig.host);
 };
 
-exports.go = (program: any) => {
+export const go = (program: any) => {
   if (fs.existsSync(path.join(process.cwd(), 'tsconfig.json'))) {
     watch.on('first_success', () => {
       runWebpackDevServer(program);

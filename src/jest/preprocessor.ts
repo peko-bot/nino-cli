@@ -3,6 +3,7 @@ const { createTransformer: tsTransFormer } = require('ts-jest');
 import { getBabelConfig } from '../babel/babelCommonConfig';
 import { getProjectPath } from '../babel/projectHelper';
 import fs from 'fs-extra';
+import chalk from 'chalk';
 
 const tsTestConfigPath = fs.existsSync(getProjectPath('tsconfig.test.json'))
   ? getProjectPath('tsconfig.test.json')
@@ -27,7 +28,7 @@ module.exports = {
         moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
       });
     } else {
-      // eslint-disable-next-line
+      // tslint:disable-next-line: no-console
       console.log(chalk.red('File not match type:'), filePath);
       throw new Error(`File not match type: ${filePath}`);
     }

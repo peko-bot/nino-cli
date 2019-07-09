@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import program from 'commander';
-import nino from '../eslint';
+import { eslint } from '../eslint';
 
 program
   .option('-c, --config <path>', 'set config path, like .eslintrc.js')
@@ -12,4 +12,4 @@ program
   .option('-f, --fix', 'fix lint problems')
   .parse(process.argv);
 
-nino.eslint(program);
+eslint(program);

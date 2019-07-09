@@ -8,6 +8,7 @@ import {
 } from '../webpack/commonConfig';
 import { getProjectPath } from '../babel/projectHelper';
 import merge from 'webpack-merge';
+import { Configuration } from 'webpack';
 
 const getEntry = (programEntry: string) => {
   if (programEntry) {
@@ -57,8 +58,8 @@ const getDefaultConfig = (program: any) => {
     resolve: resolveModule,
   };
   let configFile = program.config;
-  let webpackConfig = defaultWebpackConfig;
-  let devServerConfig = defaultDevServerOptions;
+  let webpackConfig: any = defaultWebpackConfig;
+  let devServerConfig: any = defaultDevServerOptions;
 
   if (configFile) {
     configFile = path.join(getProjectPath(program.config));
@@ -67,9 +68,12 @@ const getDefaultConfig = (program: any) => {
     if (!customizedConfig) {
       throw Error('check nino.go.js, there is something wrong with it.');
     }
-    webpackConfig = merge(defaultWebpackConfig, customizedConfig.webpack);
+    webpackConfig = merge(
+      defaultWebpackConfig as Configuration,
+      customizedConfig.webpack,
+    );
     devServerConfig = merge(
-      defaultDevServerOptions,
+      defaultDevServerOptions as Configuration,
       customizedConfig.devServer,
     );
   }

@@ -10,7 +10,7 @@ const babelConfig = getBabelConfig();
 injectRequire();
 const defaultOutput = 'dist';
 
-const commonPlugin = [
+export const commonPlugin = [
   new htmlWebpackPlugin({
     template: './src/index.html',
     hash: true,
@@ -62,53 +62,51 @@ const getEntry = () => {
   return entry;
 };
 
-export = {
-  commonModule: {
-    // noParse: /\.map$/,
-    rules: [
-      {
-        test: /\.(png|jpg)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-            },
+export const commonModule = {
+  // noParse: /\.map$/,
+  rules: [
+    {
+      test: /\.(png|jpg)$/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 8192,
           },
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.js[x]?$/,
-        exclude: /node_modules/,
-        loader: require.resolve('babel-loader'),
-        options: babelConfig,
-      },
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
-      {
-        test: /\.ts[x]?$/,
-        exclude: /node_modules/,
-        use: [
-          { loader: require.resolve('babel-loader'), options: babelConfig },
-          {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true,
-              configFile: getProjectPath('tsconfig.json'),
-            },
-          },
-        ],
-      },
-    ],
-  },
-  commonPlugin,
-  resolveModule: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    alias: {
-      [packageInfo.name]: getEntry(),
+        },
+      ],
     },
+    {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader'],
+    },
+    {
+      test: /\.js[x]?$/,
+      exclude: /node_modules/,
+      loader: require.resolve('babel-loader'),
+      options: babelConfig,
+    },
+    { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+    {
+      test: /\.ts[x]?$/,
+      exclude: /node_modules/,
+      use: [
+        { loader: require.resolve('babel-loader'), options: babelConfig },
+        {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+            configFile: getProjectPath('tsconfig.json'),
+          },
+        },
+      ],
+    },
+  ],
+};
+
+export const resolveModule = {
+  extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  alias: {
+    [packageInfo.name]: getEntry(),
   },
 };
