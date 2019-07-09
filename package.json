@@ -7,7 +7,7 @@
     "nino": "./bin/nino.js"
   },
   "scripts": {
-    "lint": "npx eslint .",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "jest",
     "prettier": "node ./scripts/prettier.js",
     "lint-staged": "lint-staged"
