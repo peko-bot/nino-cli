@@ -1,8 +1,9 @@
-import babel from '@babel/core';
+import { transformSync } from '@babel/core';
 import fs from 'fs-extra';
+import path from 'path';
 import { injectRequire } from '../babel/projectHelper';
 import { getBabelConfig } from '../babel/babelCommonConfig';
-import { joinWithRootPath, runCmd, walk } from '../utils/common';
+import { joinWithRootPath, walk } from '../utils/common';
 import { info, trace } from '../utils/log';
 injectRequire();
 
@@ -13,35 +14,25 @@ const compileJSX = (
   outputEs: string,
 ) => {
   for (const file of files) {
-    const outputPath = file.replace(entry, output).replace('jsx', 'js');
+    const fileName = path.basename(file);
     const outputEsPath = file.replace(entry, outputEs).replace('jsx', 'js');
     if (file.endsWith('js') || file.endsWith('jsx')) {
       const fileContent = fs.readFileSync(file, 'utf8');
-      let result = babel.transformSync(fileContent, getBabelConfig());
+      let result = transformSync(fileContent, getBabelConfig());
       if (result) {
-        fs.outputFileSync(outputPath, result.code);
+        fs.outputFileSync(joinWithRootPath([output, fileName]), result.code);
       }
-      result = babel.transformSync(fileContent, getBabelConfig(true));
+      result = transformSync(fileContent, getBabelConfig(true));
       if (result) {
-        fs.outputFileSync(outputEsPath, result.code);
+        fs.outputFileSync(joinWithRootPath([outputEs, fileName]), result.code);
       }
     } else if (!(file.endsWith('jsx') || file.endsWith('js'))) {
-      fs.copySync(file, outputPath);
+      fs.copySync(file, output);
       fs.copySync(file, outputEsPath);
     }
   }
   info('少女换上了新的钱箱，开始了一年新的单身生活');
 };
-
-const getNewFiles = (entryPath: string) =>
-  walk(entryPath).filter(
-    f =>
-      f.indexOf('test') < 0 &&
-      f.indexOf('html') < 0 &&
-      f.indexOf('demo') < 0 &&
-      f.indexOf('mock') < 0 &&
-      !(f.endsWith('ts') || f.endsWith('tsx')),
-  );
 
 // if only tsx, compile them to jsx with tsc
 // then compile them to es5 with babel
@@ -65,28 +56,36 @@ export const compile = (program: any) => {
   const entryPath = joinWithRootPath(program.entry || 'src');
   const files = walk(entryPath).filter(
     f =>
-      f.indexOf('test') < 0 &&
-      f.indexOf('html') < 0 &&
-      f.indexOf('demo') < 0 &&
-      f.indexOf('mock') < 0,
+      f.endsWith('ts') ||
+      f.endsWith('tsx') ||
+      f.endsWith('js') ||
+      f.endsWith('jsx'),
   );
   const tsxFiles = files.filter(f => f.endsWith('ts') || f.endsWith('tsx'));
   const jsxFiles = files.filter(f => f.endsWith('js') || f.endsWith('jsx'));
-  let isTsx = false;
+  let isTsx;
   if (tsxFiles.length > 0 && jsxFiles.length === 0) {
     isTsx = true;
   }
   // compile
   if (isTsx) {
-    const tscBin = require.resolve('typescript/bin/tsc');
-    // support args
-    const additionalArgs = process.argv.slice(3);
-    const args = [tscBin];
-    args.concat(additionalArgs).join(' ');
-    runCmd('node', args, () => {
-      compileJSX(getNewFiles(entryPath), entry, output, outputEs);
-    });
+    const prefix = 'dist/test-cases';
+    const testCasesPaths = fs.readdirSync(joinWithRootPath(prefix));
+    const fullTestCasesDir = [];
+    for (const url of testCasesPaths) {
+      fullTestCasesDir.push(joinWithRootPath([prefix, url]));
+    }
+    compileJSX(fullTestCasesDir, entry, output, outputEs);
+    // if (process.env.RUN_ENV === 'test') {
+    // } else {
+    //   const tscBin = require.resolve('typescript/bin/tsc');
+    //   const args = [];
+    //   args.push(tscBin);
+    //   runCmd('node', args, () => {
+    //     compileJSX(tsxFiles, entry, output, outputEs);
+    //   });
+    // }
   } else {
-    compileJSX(getNewFiles(entryPath), entry, output, outputEs);
+    compileJSX(tsxFiles, entry, output, outputEs);
   }
 };
