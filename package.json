@@ -2,9 +2,9 @@
   "name": "nino-cli",
   "version": "0.8.5",
   "description": "A cli for Nino, just some simple config of webpack",
-  "main": "./dist/entry/nino",
+  "main": "./dist/entry/nino.js",
   "bin": {
-    "nino": "./dist/entry/nino"
+    "nino": "./dist/entry/nino.js"
   },
   "scripts": {
     "lint": "tslint -c tslint.json 'src/**/*.ts'",

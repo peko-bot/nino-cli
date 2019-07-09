@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import program from 'commander';
-const info = require('../package.json');
+import { joinWithRootPath } from '../utils/common';
 const proc = program.runningCommand;
+const info = require(joinWithRootPath('package.json'));
 
 program
   .version(info.version, '-v, --version')
