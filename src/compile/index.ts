@@ -49,7 +49,7 @@ const copyRestFilesToTsc = (input: string, outputPrefix: string) =>
 // if only tsx, compile them to jsx with tsc
 // then compile them to es5 with babel
 // for using babel plugins like babel-import
-export const compile = async (program: any) => {
+export const compile = async (program: any, callback?: () => void) => {
   const entry = program.entry || 'src';
   const output = program.output || 'lib';
   const outputEs = program.outputEs || 'es';
@@ -76,5 +76,8 @@ export const compile = async (program: any) => {
     compileJSX(es6Files, tscOutput, output, 'es2015');
     compileJSX(es6Files, tscOutput, outputEs, 'es2015+');
     info('少女换上了新的钱箱，开始了一年新的单身生活');
+    if (callback) {
+      callback();
+    }
   }
 };

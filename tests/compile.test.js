@@ -4,9 +4,12 @@ const { joinWithRootPath } = require('../dist/utils/common');
 
 describe('nino compile', () => {
   beforeAll(() => {
-    compile({
-      entry: 'tests/cases/compile',
-    });
+    jest.resetModules();
+    process.env.RUN_ENV = 'test';
+  });
+
+  afterAll(() => {
+    process.env = null;
   });
 
   outputDirPaths = ['lib', 'es'];
@@ -32,11 +35,19 @@ describe('nino compile', () => {
 
   getContent = paths => fs.readFileSync(joinWithRootPath(paths)).toString();
 
-  it('compile correctly', () => {
-    for (const dir of outputDirPaths) {
-      for (const file of outputFilePaths) {
-        expect(getContent([dir, file])).toMatchSnapshot();
-      }
-    }
+  it('compile correctly', done => {
+    compile(
+      {
+        entry: 'tests/cases/compile',
+      },
+      () => {
+        for (const dir of outputDirPaths) {
+          for (const file of outputFilePaths) {
+            expect(getContent([dir, file])).toMatchSnapshot();
+          }
+        }
+        done();
+      },
+    );
   });
 });
