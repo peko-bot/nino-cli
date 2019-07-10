@@ -11,6 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "module": "commonjs",
     "sourceMap": true,
+    "declaration": true,
     "outDir": "dist"
   },
   "exclude": ["dist", "tests"],

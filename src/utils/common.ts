@@ -1,7 +1,7 @@
 import path from 'path';
 import { format } from 'date-fns';
-import fs from 'fs-extra';
 import { spawn } from 'child_process';
+import { walk as walker } from 'walk';
 
 export const joinWithRootPath = (paths: string | string[]) => {
   if (Array.isArray(paths)) {
@@ -14,25 +14,20 @@ export const getTimeStamp = () => format(new Date(), 'yyyyMMddHHmmss');
 
 export const getDateStamp = () => format(new Date(), 'yyyyMMdd');
 
-export const walk = (dir: string) => {
-  let results: string[] = [];
-  const list = fs.readdirSync(dir);
-  list.forEach(file => {
-    file = dir + '/' + file;
-    const stat = fs.statSync(file);
-    if (stat && stat.isDirectory()) {
-      results = results.concat(walk(file));
-    } else {
-      results.push(file);
-    }
+export const walk = async (dir: string) =>
+  await new Promise(resolve => {
+    const result: string[] = [];
+    const w = walker(dir, { followLinks: false });
+    w.on('file', (root, stat, next) => {
+      result.push(root + '/' + stat.name);
+      next();
+    });
+    w.on('end', function() {
+      resolve(result);
+    });
+  }).catch(err => {
+    throw Error(err);
   });
-  return results;
-};
-
-// export const getAssets = (dir: string) =>
-//   walk(dir, filePath => !filePath.includes('src/assets')).filter(f =>
-//     f.includes('assets'),
-//   );
 
 export const runCmd = (cmd: string, args: string[], callback?: Function) => {
   args = args || [];
