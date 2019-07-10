@@ -2,9 +2,8 @@ import path from 'path';
 import { joinWithRootPath } from '../utils/common';
 
 module.exports = {
-  verbose: false,
   setupFiles: [path.join(__dirname, 'setup.js')],
-  moduleFileExtensions: ['ts', 'tsx', 'json', 'js'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   globals: {
     window: true,
     'ts-jest': {
@@ -13,7 +12,7 @@ module.exports = {
   },
   rootDir: joinWithRootPath(''),
   testPathIgnorePatterns: ['/node_modules/', 'node'],
-  transform: { '\\.ts[x]?$': path.join(__dirname, './preprocessor.js') },
+  transform: { '.[jt]s[x]?$': path.join(__dirname, './preprocessor.js') },
   transformIgnorePatterns: [
     '/dist/',
     '/lib/',
@@ -28,10 +27,11 @@ module.exports = {
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testURL: 'http://localhost',
   moduleNameMapper: {
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': joinWithRootPath(
-      '__mocks__/fileMock.js',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': path.join(
+      __dirname,
+      './__mocks__/fileMock.js',
     ),
-    '\\.(css|scss)$': joinWithRootPath('__mocks__/styleMock.js'),
+    '\\.(css|scss)$': path.join(__dirname, './styleMock.js'),
   },
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
