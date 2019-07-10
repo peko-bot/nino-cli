@@ -1,5 +1,8 @@
 /node_modules/
 /dist/
-
-*.rar
-*.map
+/src/**/*.js
+/.vscode
+/lib
+/es
+case.js
+/coverage

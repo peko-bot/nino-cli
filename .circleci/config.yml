@@ -3,7 +3,7 @@ version: 2
 references:
   container_config: &container_config
     docker:
-      - image: circleci/node:10.16.0
+      - image: circleci/node:11.10.0
     working_directory: ~/nino-cli
 
   attach_workspace: &attach_workspace
@@ -38,7 +38,8 @@ jobs:
     steps:
       - checkout
       - *attach_workspace
-      - run: npm test
+      - run: npm test -- --coverage
+      - run: bash <(curl -s https://codecov.io/bash) -t 3bb80966-410c-4889-8acd-c2d99a1f9a56
 workflows:
   version: 2
   build:
