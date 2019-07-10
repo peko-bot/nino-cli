@@ -10,7 +10,7 @@ import { getBabelConfig } from '../babel/babelCommonConfig';
 const babelConfig = getBabelConfig();
 injectRequire();
 
-const getAssetPaths = (entry: string, output: string) => {
+const getAssetPaths = (entry: string = 'src', output: string) => {
   const copyFiles = [];
   const copyFilePaths: any[] = walk(entry)
     .filter(f => !['.ts', '.tsx', '.js', '.jsx'].includes(path.extname(f)))
@@ -113,7 +113,7 @@ const getModules = () => {
   };
 };
 
-export const getWebpackConfig = ({ copyAssetsFrom, output }: any) => {
+export const getDefaultWebpackConfig = ({ copyAssetsFrom, output }: any) => {
   return {
     plugins: getPlugins(copyAssetsFrom, output),
     resolve: getResolves(),

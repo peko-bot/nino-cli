@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 const TohoLogPlugin = require('toho-log-plugin');
-import { getWebpackConfig } from '../webpack/commonConfig';
+import { getDefaultWebpackConfig } from '../webpack/commonConfig';
 import merge from 'webpack-merge';
 import { Configuration } from 'webpack';
 import { joinWithRootPath } from '../utils/common';
@@ -30,7 +30,7 @@ export const getDefaultConfig = (program: any) => {
     clientLogLevel: 'error',
     contentBase: joinWithRootPath(copyAssetsFrom),
   };
-  const _defaultWebpackConfig = getWebpackConfig(program);
+  const _defaultWebpackConfig = getDefaultWebpackConfig(program);
   const defaultWebpackConfig = Object.assign({}, _defaultWebpackConfig, {
     mode: 'development',
     watch: false,

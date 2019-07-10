@@ -1,24 +1,20 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 const TohoLogPlugin = require('toho-log-plugin');
-import {
-  commonModule,
-  commonPlugin,
-  resolveModule,
-} from '../webpack/commonConfig';
+import { getDefaultWebpackConfig } from '../webpack/commonConfig';
 import merge from 'webpack-merge';
+import fs from 'fs-extra';
 import { Configuration } from 'webpack';
 import { joinWithRootPath } from '../utils/common';
 
 const defaultOutput = 'dist';
 
-export const getDefaultWebpackConfig = (program: any) => {
-  const dev = !!program.dev;
-  const watch = !!program.watch;
-  const plugins = [...commonPlugin, new TohoLogPlugin({ dev, isPray: false })];
-  // bug: watch mode of webpack maybe conflict with TypeScript's
-  // webpack will rebuild, but copy-webpack-plugin won't run again
-  // so you will lose your files that copied by copy-webpack-plugin
-  // workaround: remove dist by userself
+export const getWebpackConfig = (program: any) => {
+  const { dev, watch } = program;
+  const _defaultWebpackConfig = getDefaultWebpackConfig(program);
+  const plugins = [
+    ..._defaultWebpackConfig.plugins,
+    new TohoLogPlugin({ dev, isPray: false }),
+  ];
   if (!watch) {
     plugins.push(
       new CleanWebpackPlugin({
@@ -26,9 +22,9 @@ export const getDefaultWebpackConfig = (program: any) => {
       }),
     );
   }
-  const config = {
+  return Object.assign({}, _defaultWebpackConfig, {
     mode: dev ? 'development' : 'production',
-    resolve: resolveModule,
+    resolve: _defaultWebpackConfig.resolve,
     devtool: dev ? 'source-map' : '',
     entry: {
       ninoninoni: joinWithRootPath('src'),
@@ -39,29 +35,16 @@ export const getDefaultWebpackConfig = (program: any) => {
       chunkFilename: 'vendor/[name].js',
     },
     plugins,
-    module: commonModule,
-  };
-
-  return config;
+    module: _defaultWebpackConfig.module,
+  });
 };
 
 export const getDefaultConfig = (program: any) => {
-  let configFile = program.config;
-  let webpackConfig = {};
-  const config = getDefaultWebpackConfig(program);
-
-  if (configFile) {
-    configFile = joinWithRootPath(program.config);
-    // fs.existsSync(configFile)
-    const customizedConfig = require(configFile);
-    if (!customizedConfig) {
-      throw Error('check nino.koei.js, there is something wrong with it.');
-    }
-    webpackConfig = merge(config as Configuration, customizedConfig);
-  } else {
-    // defaultWebpackConfig.output.path = program.output || defaultOutput;
-    webpackConfig = config;
+  const { config } = program;
+  let webpackConfig: any = getWebpackConfig(program);
+  if (config && fs.existsSync(joinWithRootPath(config))) {
+    const customizedConfig = require(joinWithRootPath(config));
+    webpackConfig = merge(webpackConfig as Configuration, customizedConfig);
   }
-
   return { webpackConfig };
 };
