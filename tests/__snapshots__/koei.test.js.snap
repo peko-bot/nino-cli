@@ -1,0 +1,435 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`nino koei custom config file 1`] = `
+Object {
+  "webpackConfig": Object {
+    "devtool": "",
+    "entry": Object {
+      "ninoninoni": "/home/orzorzorzorz/github/nino-cli/src",
+    },
+    "mode": "production",
+    "module": Object {
+      "rules": Array [
+        Object {
+          "test": /\\\\\\.\\(png\\|jpg\\)\\$/,
+          "use": Array [
+            Object {
+              "loader": "url-loader",
+              "options": Object {
+                "limit": 8192,
+              },
+            },
+          ],
+        },
+        Object {
+          "test": /\\\\\\.css\\$/,
+          "use": Array [
+            "style-loader",
+            "css-loader",
+          ],
+        },
+        Object {
+          "exclude": /node_modules/,
+          "loader": "/home/orzorzorzorz/github/nino-cli/node_modules/babel-loader/lib/index.js",
+          "options": Object {
+            "plugins": Array [
+              Array [
+                "import",
+                Object {
+                  "libraryName": "antd-mobile",
+                  "style": "css",
+                },
+                "antd-mobile",
+              ],
+              Array [
+                "import",
+                Object {
+                  "libraryName": "antd",
+                  "style": "css",
+                },
+                "antd",
+              ],
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-member-expression-literals/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-object-assign/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-property-literals/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-runtime/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-spread/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-template-literals/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-export-default-from/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-export-namespace-from/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-class-properties/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js",
+            ],
+            "presets": Array [
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/preset-react/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/preset-env/lib/index.js",
+            ],
+          },
+          "test": /\\\\\\.js\\[x\\]\\?\\$/,
+        },
+        Object {
+          "enforce": "pre",
+          "loader": "source-map-loader",
+          "test": /\\\\\\.js\\$/,
+        },
+        Object {
+          "exclude": /node_modules/,
+          "test": /\\\\\\.ts\\[x\\]\\?\\$/,
+          "use": Array [
+            Object {
+              "loader": "/home/orzorzorzorz/github/nino-cli/node_modules/babel-loader/lib/index.js",
+              "options": Object {
+                "plugins": Array [
+                  Array [
+                    "import",
+                    Object {
+                      "libraryName": "antd-mobile",
+                      "style": "css",
+                    },
+                    "antd-mobile",
+                  ],
+                  Array [
+                    "import",
+                    Object {
+                      "libraryName": "antd",
+                      "style": "css",
+                    },
+                    "antd",
+                  ],
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-member-expression-literals/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-object-assign/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-property-literals/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-runtime/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-spread/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-template-literals/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-export-default-from/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-export-namespace-from/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-class-properties/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js",
+                ],
+                "presets": Array [
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/preset-react/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/preset-env/lib/index.js",
+                ],
+              },
+            },
+            Object {
+              "loader": "ts-loader",
+              "options": Object {
+                "configFile": "/home/orzorzorzorz/github/nino-cli/tsconfig.json",
+                "transpileOnly": true,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    "output": Object {
+      "chunkFilename": "vendor/[name].js",
+      "filename": "[name].js",
+      "path": "/home/orzorzorzorz/github/nino-cli/dist",
+    },
+    "plugins": Array [
+      HtmlWebpackPlugin {
+        "options": Object {
+          "cache": true,
+          "chunks": "all",
+          "chunksSortMode": "auto",
+          "compile": true,
+          "excludeChunks": Array [],
+          "favicon": false,
+          "filename": "index.html",
+          "hash": true,
+          "inject": true,
+          "meta": Object {},
+          "minify": Object {
+            "collapseWhitespace": true,
+            "minifyCSS": true,
+            "minifyJS": true,
+            "removeComments": true,
+          },
+          "showErrors": true,
+          "template": "./src/index.html",
+          "templateParameters": [Function],
+          "title": "Webpack App",
+          "xhtml": false,
+        },
+      },
+      WebpackBarPlugin {
+        "handler": [Function],
+        "modulesCount": 500,
+        "options": Object {
+          "color": "cyanBright",
+          "name": "少女祈祷中...  ",
+          "reporter": null,
+          "reporters": Array [
+            "basic",
+          ],
+        },
+        "profile": false,
+        "reporters": Array [
+          SimpleReporter {},
+        ],
+        "showActiveModules": true,
+        "showEntries": false,
+        "showModules": true,
+      },
+      TohoLogPlugin {
+        "options": Object {
+          "defaultWords": false,
+          "dev": false,
+          "isPray": false,
+        },
+      },
+      CleanWebpackPlugin {
+        "apply": [Function],
+        "cleanAfterEveryBuildPatterns": Array [],
+        "cleanOnceBeforeBuildPatterns": Array [
+          "**/*",
+        ],
+        "cleanStaleWebpackAssets": true,
+        "currentAssets": Array [],
+        "dangerouslyAllowCleanPatternsOutsideProject": false,
+        "dry": false,
+        "handleDone": [Function],
+        "handleInitial": [Function],
+        "initialClean": false,
+        "outputPath": "",
+        "protectWebpackAssets": true,
+        "removeFiles": [Function],
+        "verbose": false,
+      },
+    ],
+    "resolve": Object {
+      "alias": Object {
+        "nino-cli": "/home/orzorzorzorz/github/nino-cli/src",
+      },
+      "extensions": Array [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+      ],
+    },
+  },
+}
+`;
+
+exports[`nino koei default config 1`] = `
+Object {
+  "webpackConfig": Object {
+    "devtool": "",
+    "entry": Object {
+      "ninoninoni": "/home/orzorzorzorz/github/nino-cli/src",
+    },
+    "mode": "production",
+    "module": Object {
+      "rules": Array [
+        Object {
+          "test": /\\\\\\.\\(png\\|jpg\\)\\$/,
+          "use": Array [
+            Object {
+              "loader": "url-loader",
+              "options": Object {
+                "limit": 8192,
+              },
+            },
+          ],
+        },
+        Object {
+          "test": /\\\\\\.css\\$/,
+          "use": Array [
+            "style-loader",
+            "css-loader",
+          ],
+        },
+        Object {
+          "exclude": /node_modules/,
+          "loader": "/home/orzorzorzorz/github/nino-cli/node_modules/babel-loader/lib/index.js",
+          "options": Object {
+            "plugins": Array [
+              Array [
+                "import",
+                Object {
+                  "libraryName": "antd-mobile",
+                  "style": "css",
+                },
+                "antd-mobile",
+              ],
+              Array [
+                "import",
+                Object {
+                  "libraryName": "antd",
+                  "style": "css",
+                },
+                "antd",
+              ],
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-member-expression-literals/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-object-assign/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-property-literals/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-runtime/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-spread/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-template-literals/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-export-default-from/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-export-namespace-from/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-class-properties/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js",
+            ],
+            "presets": Array [
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/preset-react/lib/index.js",
+              "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/preset-env/lib/index.js",
+            ],
+          },
+          "test": /\\\\\\.js\\[x\\]\\?\\$/,
+        },
+        Object {
+          "enforce": "pre",
+          "loader": "source-map-loader",
+          "test": /\\\\\\.js\\$/,
+        },
+        Object {
+          "exclude": /node_modules/,
+          "test": /\\\\\\.ts\\[x\\]\\?\\$/,
+          "use": Array [
+            Object {
+              "loader": "/home/orzorzorzorz/github/nino-cli/node_modules/babel-loader/lib/index.js",
+              "options": Object {
+                "plugins": Array [
+                  Array [
+                    "import",
+                    Object {
+                      "libraryName": "antd-mobile",
+                      "style": "css",
+                    },
+                    "antd-mobile",
+                  ],
+                  Array [
+                    "import",
+                    Object {
+                      "libraryName": "antd",
+                      "style": "css",
+                    },
+                    "antd",
+                  ],
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-member-expression-literals/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-object-assign/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-property-literals/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-runtime/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-spread/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-transform-template-literals/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-export-default-from/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-export-namespace-from/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-proposal-class-properties/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js",
+                ],
+                "presets": Array [
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/preset-react/lib/index.js",
+                  "/home/orzorzorzorz/github/nino-cli/node_modules/@babel/preset-env/lib/index.js",
+                ],
+              },
+            },
+            Object {
+              "loader": "ts-loader",
+              "options": Object {
+                "configFile": "/home/orzorzorzorz/github/nino-cli/tsconfig.json",
+                "transpileOnly": true,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    "output": Object {
+      "chunkFilename": "vendor/[name].js",
+      "filename": "[name].js",
+      "path": "/home/orzorzorzorz/github/nino-cli/dist",
+    },
+    "plugins": Array [
+      HtmlWebpackPlugin {
+        "options": Object {
+          "cache": true,
+          "chunks": "all",
+          "chunksSortMode": "auto",
+          "compile": true,
+          "excludeChunks": Array [],
+          "favicon": false,
+          "filename": "index.html",
+          "hash": true,
+          "inject": true,
+          "meta": Object {},
+          "minify": Object {
+            "collapseWhitespace": true,
+            "minifyCSS": true,
+            "minifyJS": true,
+            "removeComments": true,
+          },
+          "showErrors": true,
+          "template": "./src/index.html",
+          "templateParameters": [Function],
+          "title": "Webpack App",
+          "xhtml": false,
+        },
+      },
+      WebpackBarPlugin {
+        "handler": [Function],
+        "modulesCount": 500,
+        "options": Object {
+          "color": "cyanBright",
+          "name": "少女祈祷中...  ",
+          "reporter": null,
+          "reporters": Array [
+            "basic",
+          ],
+        },
+        "profile": false,
+        "reporters": Array [
+          SimpleReporter {},
+        ],
+        "showActiveModules": true,
+        "showEntries": false,
+        "showModules": true,
+      },
+      TohoLogPlugin {
+        "options": Object {
+          "defaultWords": false,
+          "dev": false,
+          "isPray": false,
+        },
+      },
+      CleanWebpackPlugin {
+        "apply": [Function],
+        "cleanAfterEveryBuildPatterns": Array [],
+        "cleanOnceBeforeBuildPatterns": Array [
+          "**/*",
+        ],
+        "cleanStaleWebpackAssets": true,
+        "currentAssets": Array [],
+        "dangerouslyAllowCleanPatternsOutsideProject": false,
+        "dry": false,
+        "handleDone": [Function],
+        "handleInitial": [Function],
+        "initialClean": false,
+        "outputPath": "",
+        "protectWebpackAssets": true,
+        "removeFiles": [Function],
+        "verbose": false,
+      },
+    ],
+    "resolve": Object {
+      "alias": Object {
+        "nino-cli": "/home/orzorzorzorz/github/nino-cli/src",
+      },
+      "extensions": Array [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+      ],
+    },
+  },
+}
+`;

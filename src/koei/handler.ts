@@ -8,7 +8,7 @@ import { joinWithRootPath } from '../utils/common';
 
 const defaultOutput = 'dist';
 
-export const getWebpackConfig = (program: any) => {
+const getWebpackConfig = (program: any) => {
   const { dev, watch } = program;
   const _defaultWebpackConfig = getDefaultWebpackConfig(program);
   const plugins = [

@@ -1,38 +1,22 @@
-const {
-  getDefaultConfig,
-  getDefaultWebpackConfig,
-} = require('../dist/koei/handler');
-const merge = require('webpack-merge');
+const { getDefaultConfig } = require('../dist/koei/handler');
 
 describe('nino koei', () => {
-  const program = {
+  const defaultOptions = {
+    config: null,
     dev: false,
     watch: false,
   };
+
   it('default config', () => {
-    const config = getDefaultConfig(program);
-    expect({ ...config.webpackConfig, ...{ plugins: [] } }).toMatchObject({
-      ...getDefaultWebpackConfig(program),
-      ...{ plugins: [] },
-    });
+    expect(getDefaultConfig(defaultOptions)).toMatchSnapshot();
   });
 
   it('custom config file', () => {
-    const webpackConfig = getDefaultConfig({
-      config: 'tests/cases/nino.koei',
-      ...program,
-    }).webpackConfig;
-    const customWebpackConfig = merge(getDefaultWebpackConfig(program), {
-      output: {
-        path: 'test',
-      },
-    }).webpackConfig;
-    expect({
-      ...webpackConfig,
-      ...{ plugins: [] },
-    }).toMatchObject({
-      ...customWebpackConfig,
-      ...{ plugins: [] },
-    });
+    expect(
+      getDefaultConfig({
+        ...defaultOptions,
+        config: 'tests/cases/nino.koei',
+      }),
+    ).toMatchSnapshot();
   });
 });
