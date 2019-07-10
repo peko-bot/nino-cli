@@ -19,7 +19,7 @@ const defaultConfig = {
   ],
   // format target extension file
   // will format file with those extensions
-  extension: ['.js', '.jsx', '.ts', '.tsx'],
+  extension: ['.ts', '.tsx'],
 };
 
 export const pretty = (program: any) => {
