@@ -11,6 +11,11 @@ program
     'mode of webpack, development || production, defaults to production, false',
     false,
   )
+  .option(
+    '-o, --output <path>',
+    'path to save dist files, defaults to dist',
+    'dist',
+  )
   .parse(process.argv);
 
 koei(program);

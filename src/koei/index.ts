@@ -4,7 +4,7 @@ import TscWatchClient from 'tsc-watch/client';
 const watcher = new TscWatchClient();
 
 const runWebpackDevServer = (program: any) => {
-  const watch = program.watch;
+  const { watch } = program;
   const { webpackConfig } = getDefaultConfig(program);
   if (watch) {
     webpack(webpackConfig).watch({}, () => {});
@@ -14,8 +14,14 @@ const runWebpackDevServer = (program: any) => {
 };
 
 export const koei = (program: any) => {
-  watcher.on('first_success', () => {
+  const { watch } = program;
+
+  if (watch) {
+    watcher.on('first_success', () => {
+      runWebpackDevServer(program);
+    });
+    watcher.start();
+  } else {
     runWebpackDevServer(program);
-  });
-  watcher.start();
+  }
 };
