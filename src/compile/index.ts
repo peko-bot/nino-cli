@@ -56,8 +56,8 @@ const copyRestFilesToTsc = async (input: string, outputPrefix: string) => {
 // for using babel plugins like babel-import
 export const compile = async (program: any, callback?: () => void) => {
   const entry = program.entry || 'src';
-  const output = program.output || 'lib';
-  const outputEs = program.outputEs || 'es';
+  const libOutput = program.libOutput || 'lib';
+  const esOutput = program.esOutput || 'es';
   const isTestEnv = process.env.RUN_ENV === 'test';
 
   let tscOutputPath = 'dist';
@@ -67,7 +67,7 @@ export const compile = async (program: any, callback?: () => void) => {
   }
 
   const tscOutput = isTestEnv ? 'dist/test-cases' : tscOutputPath;
-  const cleanPaths = [output, outputEs, tscOutput];
+  const cleanPaths = [libOutput, esOutput, tscOutput];
   for (const item of cleanPaths) {
     const target = joinWithRootPath(item);
     if (fs.existsSync(target)) {
@@ -75,7 +75,7 @@ export const compile = async (program: any, callback?: () => void) => {
     }
   }
   trace(
-    `少女边清理着名为 ${output}/${outputEs} 的钱箱，边回顾着即将结束的一年单身生活`,
+    `少女边清理着名为 ${libOutput}/${esOutput} 的钱箱，边回顾着即将结束的一年单身生活`,
   );
   setTimeout(() => {
     trace(`...顺带感慨了下自己又一年一平如洗的身板`);
@@ -92,8 +92,8 @@ export const compile = async (program: any, callback?: () => void) => {
 
   await copyRestFilesToTsc(entry, tscOutput);
   const tscOutputFiles: any = await walk(joinWithRootPath(tscOutput));
-  compileJSX(tscOutputFiles, tscOutput, output, 'es2015');
-  compileJSX(tscOutputFiles, tscOutput, outputEs, 'es2015+');
+  compileJSX(tscOutputFiles, tscOutput, libOutput, 'es2015');
+  compileJSX(tscOutputFiles, tscOutput, esOutput, 'es2015+');
   info('少女换上了新的钱箱，开始了一年新的单身生活');
   if (callback) {
     callback();
