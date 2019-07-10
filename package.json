@@ -104,5 +104,8 @@
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.5.3",
     "walk": "^2.3.14"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
