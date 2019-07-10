@@ -4,8 +4,30 @@ import program from 'commander';
 import { go } from '../go';
 
 program
-  .option('-c, --config <path>', 'set config path, defaults to ~/nino.dev.js')
-  .option('-e, --entry <path>', 'set entry path, defaults to ~/src/index.js')
+  .option(
+    '-c, --config <path>',
+    'set additional config path, and those options will be merged with defaults',
+  )
+  .option(
+    '-e, --entry <path>',
+    'set entry path, defaults to ~/src, such as ~/src/index.js',
+    'src',
+  )
+  .option(
+    '-o, --output <path>',
+    'set static path, for dev-server, defaults to ~/dist',
+    'dist',
+  )
+  .option(
+    '--copyAssetsFrom <path>',
+    'set source code path, defaults to ~/src',
+    'src',
+  )
+  .option(
+    '-p, --port <port>',
+    'set port for dev-server, defaults to 9099',
+    9099,
+  )
   .parse(process.argv);
 
 go(program);

@@ -1,41 +1,37 @@
-import path from 'path';
 import fs from 'fs-extra';
 const TohoLogPlugin = require('toho-log-plugin');
-import {
-  commonModule,
-  commonPlugin,
-  resolveModule,
-} from '../webpack/commonConfig';
+import { getWebpackConfig } from '../webpack/commonConfig';
 import merge from 'webpack-merge';
 import { Configuration } from 'webpack';
 import { joinWithRootPath } from '../utils/common';
 
-const getEntry = (programEntry: string) => {
-  if (programEntry) {
-    return joinWithRootPath(programEntry);
-  }
-  const extensions = ['js', 'jsx', 'ts', 'tsx'];
+const getEntry = (realEntry: string) => {
+  const tsconfigFile = require(joinWithRootPath('tsconfig.json'));
+  const tscOutDir = tsconfigFile.compilerOptions.outDir;
+  const targetEntry = joinWithRootPath([tscOutDir, realEntry]);
+  const extensions = ['.jsx', '.js', '.tsx', '.ts'];
   let entry;
-  for (let i = 0; i < extensions.length; i++) {
-    const item = extensions[i];
-    if (fs.existsSync(joinWithRootPath('src/index.' + item))) {
-      entry = joinWithRootPath('src/index.' + item);
+  for (const item of extensions) {
+    const targetPoint = targetEntry + item;
+    if (fs.existsSync(targetPoint)) {
+      entry = targetPoint;
       break;
     }
   }
   return entry;
 };
 
-const getDefaultConfig = (program: any) => {
-  const entry = program.entry;
+export const getDefaultConfig = (program: any) => {
+  const { entry, port, config, copyAssetsFrom } = program;
   const defaultDevServerOptions = {
-    port: 9099,
+    port,
     host: 'localhost',
     noInfo: true,
     clientLogLevel: 'error',
-    contentBase: joinWithRootPath('src'),
+    contentBase: joinWithRootPath(copyAssetsFrom),
   };
-  const defaultWebpackConfig = {
+  const _defaultWebpackConfig = getWebpackConfig(program);
+  const defaultWebpackConfig = Object.assign({}, _defaultWebpackConfig, {
     mode: 'development',
     watch: false,
     devtool: 'source-map',
@@ -51,23 +47,15 @@ const getDefaultConfig = (program: any) => {
       chunkFilename: 'vendor/[name].[chunkHash:8].js',
     },
     plugins: [
-      ...commonPlugin,
+      ..._defaultWebpackConfig.plugins,
       new TohoLogPlugin({ defaultWords: true, isPray: false }),
     ],
-    module: commonModule,
-    resolve: resolveModule,
-  };
-  let configFile = program.config;
+  });
   let webpackConfig: any = defaultWebpackConfig;
   let devServerConfig: any = defaultDevServerOptions;
 
-  if (configFile) {
-    configFile = path.join(joinWithRootPath(program.config));
-    // fs.existsSync(configFile) &&
-    const customizedConfig = require(configFile);
-    if (!customizedConfig) {
-      throw Error('check nino.go.js, there is something wrong with it.');
-    }
+  if (config && fs.existsSync(joinWithRootPath(config))) {
+    const customizedConfig = require(joinWithRootPath(config));
     webpackConfig = merge(
       defaultWebpackConfig as Configuration,
       customizedConfig.webpack,
@@ -77,13 +65,8 @@ const getDefaultConfig = (program: any) => {
       customizedConfig.devServer,
     );
   }
-
   return {
     webpackConfig,
     devServerConfig,
-    defaultDevServerOptions,
-    defaultWebpackConfig,
   };
 };
-
-export { getDefaultConfig };

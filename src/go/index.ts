@@ -1,10 +1,9 @@
 import webpack, { Configuration } from 'webpack';
 import webpackDevServer from 'webpack-dev-server';
-import path from 'path';
 import fs from 'fs-extra';
 import { getDefaultConfig } from './handler';
 import TscWatchClient from 'tsc-watch/client';
-
+import { joinWithRootPath } from '../utils/common';
 const watch = new TscWatchClient();
 
 const runWebpackDevServer = (program: any) => {
@@ -18,7 +17,7 @@ const runWebpackDevServer = (program: any) => {
 };
 
 export const go = (program: any) => {
-  if (fs.existsSync(path.join(process.cwd(), 'tsconfig.json'))) {
+  if (fs.existsSync(joinWithRootPath('tsconfig.json'))) {
     watch.on('first_success', () => {
       runWebpackDevServer(program);
     });

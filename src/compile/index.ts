@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { injectRequire } from '../babel/projectHelper';
 import { getBabelConfig } from '../babel/babelCommonConfig';
-import { joinWithRootPath, walk, runCmd } from '../utils/common';
+import { joinWithRootPath, walkSync, runCmd } from '../utils/common';
 import { info, trace } from '../utils/log';
 injectRequire();
 
@@ -31,7 +31,7 @@ const compileJSX = (
 };
 
 const copyRestFilesToTsc = async (input: string, outputPrefix: string) => {
-  const files: any = await walk(input);
+  const files: any = await walkSync(input);
   files
     .filter((file: any) => {
       const ext = path.extname(file);
@@ -91,7 +91,7 @@ export const compile = async (program: any, callback?: () => void) => {
   });
 
   await copyRestFilesToTsc(entry, tscOutput);
-  const tscOutputFiles: any = await walk(joinWithRootPath(tscOutput));
+  const tscOutputFiles: any = await walkSync(joinWithRootPath(tscOutput));
   compileJSX(tscOutputFiles, tscOutput, libOutput, 'es2015');
   compileJSX(tscOutputFiles, tscOutput, esOutput, 'es2015+');
   info('少女换上了新的钱箱，开始了一年新的单身生活');
