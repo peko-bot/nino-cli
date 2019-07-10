@@ -17,14 +17,14 @@ const compileJSX = (
     const outputPath = file.replace(entry, output);
     if (file.endsWith('js') || file.endsWith('jsx')) {
       const fileContent = fs.readFileSync(file, 'utf8');
-      const result = transformSync(
-        fileContent,
-        getBabelConfig(target === 'es2015+'),
-      );
+      const result = transformSync(fileContent, {
+        sourceMaps: 'inline',
+        ...getBabelConfig(target === 'es2015+'),
+      });
       if (result) {
         fs.outputFileSync(outputPath.replace('.jsx', '.js'), result.code);
       }
-    } else {
+    } else if (!file.endsWith('.map')) {
       fs.copySync(file, outputPath);
     }
   }
@@ -35,7 +35,8 @@ const copyRestFilesToTsc = async (input: string, outputPrefix: string) => {
   files
     .filter((file: any) => {
       const ext = path.extname(file);
-      if (ext !== '.ts' && ext !== '.tsx') {
+      // ignore sourcemap from tsc, babel will generate them.
+      if (ext !== '.ts' && ext !== '.tsx' && ext !== '.map') {
         return true;
       }
     })
