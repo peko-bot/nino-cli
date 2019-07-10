@@ -108,6 +108,7 @@
   },
   "files": [
     "dist",
-    "scripts"
+    "scripts",
+    ".prettierrc"
   ]
 }
