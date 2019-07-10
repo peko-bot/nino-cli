@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
 import program from 'commander';
-import { test } from '../test-jest';
+import { test } from '../jest';
 
 program
-  .option('-u, --update', 'to update snapshots')
-  .option('-d, --codecov', 'coverage using jest')
-  .option('-w, --watch', 'watch mode')
+  .option('-u, --update', 'to update snapshots', false)
+  .option('--codecov', 'coverage using jest', false)
+  .option('-w, --watch', 'watch mode', false)
+  .option('--target <path>', 'only run test for this one')
   .allowUnknownOption()
   .parse(process.argv);
 

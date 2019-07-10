@@ -1,34 +1,20 @@
-const { createTransformer: babelTransFormer } = require('babel-jest');
-const { createTransformer: tsTransFormer } = require('ts-jest');
-import { getBabelConfig } from '../babel/babelCommonConfig';
+import { createTransformer } from 'ts-jest';
 import fs from 'fs-extra';
 import { joinWithRootPath } from '../utils/common';
 
-const tsTestConfigPath = fs.existsSync(joinWithRootPath('tsconfig.test.json'))
-  ? joinWithRootPath('tsconfig.test.json')
+const testTsConfigPath = joinWithRootPath('tsconfig.test.json');
+const tsTestConfigPath = fs.existsSync(testTsConfigPath)
+  ? testTsConfigPath
   : joinWithRootPath('tsconfig.json');
-const tsJest = tsTransFormer({
+const tsJest = createTransformer({
   tsConfig: tsTestConfigPath,
 });
-const babelConfig = getBabelConfig();
-babelConfig.plugins = [...babelConfig.plugins];
-const babelJest = babelTransFormer(babelConfig);
 
 module.exports = {
   process(src: any, filePath: string) {
-    const isTypeScript = filePath.endsWith('.ts') || filePath.endsWith('.tsx');
-    const isJavaScript = filePath.endsWith('.js') || filePath.endsWith('.jsx');
-    if (isTypeScript) {
-      src = tsJest.process(src, filePath, {
-        moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-      });
-    } else if (isJavaScript) {
-      src = babelJest.process(src, filePath, {
-        moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-      });
-    } else {
-      throw new Error(`File not match type: ${filePath}`);
-    }
+    src = tsJest.process(src, filePath, {
+      moduleFileExtensions: ['ts', 'tsx'],
+    } as any);
     return src;
   },
 };
