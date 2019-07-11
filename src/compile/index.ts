@@ -3,7 +3,12 @@ import fs from 'fs-extra';
 import path from 'path';
 import { injectRequire } from '../babel/projectHelper';
 import { getBabelConfig } from '../babel/babelCommonConfig';
-import { joinWithRootPath, walkSync, runCmd } from '../utils/common';
+import {
+  joinWithRootPath,
+  walkSync,
+  runCmd,
+  getProjectTsconfig,
+} from '../utils/common';
 import { info, trace } from '../utils/log';
 injectRequire();
 
@@ -30,7 +35,10 @@ const compileJSX = (
   }
 };
 
-const copyRestFilesToTsc = async (input: string, outputPrefix: string) => {
+export const copyRestFilesToTsc = async (
+  input: string,
+  outputPrefix: string,
+) => {
   const files: any = await walkSync(input);
   files
     .filter((file: any) => {
@@ -61,9 +69,8 @@ export const compile = async (program: any, callback?: () => void) => {
   const isTestEnv = process.env.RUN_ENV === 'test';
 
   let tscOutputPath = 'dist';
-  if (fs.existsSync(joinWithRootPath('tsconfig.json')) && !tscOutputPath) {
-    const tsconfigFile = require(joinWithRootPath('tsconfig.json'));
-    tscOutputPath = tsconfigFile.compilerOptions.outDir;
+  if (!tscOutputPath) {
+    tscOutputPath = getProjectTsconfig().compilerOptions.outDir;
   }
 
   const tscOutput = isTestEnv ? 'dist/test-cases' : tscOutputPath;

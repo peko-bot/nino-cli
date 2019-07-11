@@ -3,10 +3,10 @@ const TohoLogPlugin = require('toho-log-plugin');
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';
 import merge from 'webpack-merge';
 import { Configuration } from 'webpack';
-import { joinWithRootPath } from '../utils/common';
+import { joinWithRootPath, getProjectTsconfig } from '../utils/common';
 
 const getEntry = (realEntry: string) => {
-  const tsconfigFile = require(joinWithRootPath('tsconfig.json'));
+  const tsconfigFile = getProjectTsconfig();
   const tscOutDir = tsconfigFile.compilerOptions.outDir;
   const targetEntry = joinWithRootPath([tscOutDir, realEntry]);
   const extensions = ['.jsx', '.js', '.tsx', '.ts'];
