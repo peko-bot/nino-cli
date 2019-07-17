@@ -1,22 +1,13 @@
-import '@babel/polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 const g = global as any;
-if (typeof window !== 'undefined') {
-  g.window.resizeTo = function(width: any, height: any) {
-    g.window.innerWidth = width || g.window.innerWidth;
-    g.window.innerHeight = height || g.window.innerHeight;
-    g.window.dispatchEvent(new Event('resize'));
+g.requestAnimationFrame =
+  g.requestAnimationFrame ||
+  function requestAnimationFrame(callback: Function) {
+    setTimeout(callback, 0);
   };
-  g.window.scrollTo = function() {};
-}
 
-// The built-in requestAnimationFrame and
-// cancelAnimationFrame not working with jest.runFakeTimes()
-// https://github.com/facebook/jest/issues/5147
-g.requestAnimationFrame = function(cb: Function) {
-  return setTimeout(cb, 0);
-};
-
-g.cancelAnimationFrame = function(timer: number) {
-  return clearTimeout(timer);
-};
+Enzyme.configure({ adapter: new Adapter() });
