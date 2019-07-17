@@ -10,11 +10,11 @@ A custom-made cli for daily coding using react.
 - `jest` for test.
 - `webpack-dev-server` for development.
 - `webpack` for production.
-- `babel` at 7.
-- you won't need `babel-plugin-import` for `antd` or `antd-mobile` or a `.babelrc`.
-- you also won't need add complex options of `jest` or `enzyme`.
+- `babel` at 7 for compile.
+- you don't need `babel-plugin-import` for `antd` or `antd-mobile` or a `.babelrc`.
+- you also don't need add complex options of `jest` or `enzyme`.
 
-I just need a cli to integration all of them, and my [wifi ~~wife~~](#Who's-Nino) is Nino for now, so named this repo.
+I just need a cli to integration all of them, and my [wifi ~~wife~~](https://twitter.com/5Hanayome_anime/status/1074898723581251584) is Nino for now, so named this repo.
 
 ## ⌨️ Usage
 
@@ -33,7 +33,3 @@ then add scripts in `package.json`, as below,
   ...
 }
 ```
-
-# Who's-Nino
-
-https://twitter.com/5Hanayome_anime/status/1074898723581251584
