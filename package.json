@@ -9,6 +9,7 @@
   "scripts": {
     "lint:es": "eslint .",
     "lint:ts": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint": "npm run lint:es && npm run lint:ts",
     "test": "tsc && jest",
     "prettier": "node ./scripts/prettier.js",
     "lint-staged": "lint-staged",
@@ -84,8 +85,7 @@
   "lint-staged": {
     "*.{ts}": [
       "npm run prettier",
-      "npm run lint:ts",
-      "npm run lint:es",
+      "npm run lint",
       "git add"
     ]
   },
