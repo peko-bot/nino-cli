@@ -7,7 +7,8 @@
     "nino": "./dist/entry/nino.js"
   },
   "scripts": {
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:es": "eslint .",
+    "lint:ts": "tslint -c tslint.json 'src/**/*.ts'",
     "test": "tsc && jest",
     "prettier": "node ./scripts/prettier.js",
     "lint-staged": "lint-staged",
@@ -43,7 +44,6 @@
     "@babel/runtime": "^7.5.5",
     "@types/jest": "^24.0.16",
     "@types/webpack-dev-server": "^3.1.7",
-    "@typescript-eslint/parser": "^1.13.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.12.0",
@@ -84,7 +84,8 @@
   "lint-staged": {
     "*.{ts}": [
       "npm run prettier",
-      "npm run lint",
+      "npm run lint:ts",
+      "npm run lint:es",
       "git add"
     ]
   },
@@ -97,9 +98,13 @@
     "@types/walk": "^2.3.0",
     "@types/webpack-merge": "^4.1.5",
     "@types/webpackbar": "^2.6.0",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
     "babel-jest": "^24.8.0",
     "core-js": "^3.1.4",
     "date-fns": "^2.0.0-beta.2",
+    "eslint": "^6.1.0",
+    "eslint-plugin-react": "^7.14.3",
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
@@ -109,6 +114,8 @@
   "files": [
     "dist",
     "scripts",
-    ".prettierrc"
+    ".prettierrc",
+    " .eslintignore",
+    ".eslintrc.js"
   ]
 }
