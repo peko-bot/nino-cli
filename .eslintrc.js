@@ -42,5 +42,11 @@ module.exports = {
     'no-empty': 0,
     'no-duplicate-imports': 2,
     'no-floating-decimal': 2,
+    'react/display-name': 0,
+  },
+  settings: {
+    react: {
+      version: '16.8',
+    },
   },
 };
