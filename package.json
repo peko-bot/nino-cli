@@ -7,8 +7,7 @@
     "nino": "./dist/entry/nino.js"
   },
   "scripts": {
-    "lint:es": "eslint .",
-    "lint": "npm run lint:es && npm run lint:ts",
+    "lint": "eslint .",
     "test": "tsc && jest",
     "prettier": "node ./scripts/prettier.js",
     "lint-staged": "lint-staged",
