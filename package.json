@@ -1,6 +1,6 @@
 {
   "name": "nino-cli",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A cli for Nino, just some simple config of webpack",
   "keywords": [
     "cli"
@@ -26,11 +26,11 @@
     "nino": "./dist/entry/nino.js"
   },
   "scripts": {
-    "clean": "rimraf node_modules package-lock.json bin dist && npm i",
+    "clean": "rimraf node_modules package-lock.json es lib dist && npm i",
     "lint": "eslint .",
     "lint-staged": "lint-staged",
     "prettier": "node ./scripts/prettier.js",
-    "pub": "npm run clean && npm run build && npm run compile && git push origin master && npm publish",
+    "pub": "tsc && git push origin master && npm publish",
     "sort": "npx sort-package-json",
     "test": "tsc && jest",
     "tsc": "tsc"
