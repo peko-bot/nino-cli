@@ -2,7 +2,7 @@
   "name": "nino-cli",
   "version": "1.0.3",
   "description": "A cli for Nino, just some simple config of webpack",
-  "main": "./dist/entry/nino.js",
+  "main": "./dist/index.js",
   "bin": {
     "nino": "./dist/entry/nino.js"
   },
@@ -83,7 +83,7 @@
   "lint-staged": {
     "*.{ts}": [
       "npm run prettier",
-      "npm run lint:es",
+      "npm run lint",
       "git add"
     ]
   },

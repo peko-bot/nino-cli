@@ -10,7 +10,10 @@ import { getBabelConfig } from '../babel/babelCommonConfig';
 const babelConfig = getBabelConfig();
 injectRequire();
 
-const getAssetPaths = (entry: string = 'src', output: string) => {
+export const getAssetPaths = (
+  entry: string = 'src',
+  output: string = 'dist',
+) => {
   const copyFiles = [];
   const copyFilePaths: any[] = walk(entry)
     .filter(f => !['.ts', '.tsx', '.js', '.jsx'].includes(path.extname(f)))
