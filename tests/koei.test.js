@@ -6,6 +6,7 @@ describe('nino koei', () => {
     config: null,
     dev: false,
     watch: false,
+    output: 'dist',
   };
 
   it('default config', () => {
