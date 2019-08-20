@@ -32,7 +32,8 @@
     "prettier": "node ./scripts/prettier.js",
     "sort": "npx sort-package-json",
     "test": "tsc && jest",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "pub": "npm run clean && npm run build && npm run compile && git push origin master && npm publish"
   },
   "pre-commit": [
     "lint-staged"
