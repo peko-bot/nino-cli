@@ -28,6 +28,7 @@ program
     'set port for dev-server, defaults to 9099',
     9099,
   )
+  .option('--not-copy-assets', 'whether all assets file in src')
   .parse(process.argv);
 
 go(program);

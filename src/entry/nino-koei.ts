@@ -16,6 +16,7 @@ program
     'path to save dist files, defaults to dist',
     'dist',
   )
+  .option('--not-copy-assets', 'whether all assets file in src')
   .parse(process.argv);
 
 koei(program);
