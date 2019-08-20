@@ -12,6 +12,11 @@ program
     false,
   )
   .option(
+    '-e, --entry <path>',
+    'set entry path, defaults to ~/dist, such as ~/src/index',
+    'src/index',
+  )
+  .option(
     '-o, --output <path>',
     'path to save dist files, defaults to dist',
     'dist',

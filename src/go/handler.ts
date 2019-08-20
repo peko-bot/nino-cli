@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import fs from 'fs-extra';
 const TohoLogPlugin = require('toho-log-plugin');
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';
@@ -5,7 +7,7 @@ import merge from 'webpack-merge';
 import { Configuration } from 'webpack';
 import { joinWithRootPath, getProjectTsconfig } from '../utils/common';
 
-const getEntry = (realEntry: string) => {
+export const getEntry = (realEntry?: string) => {
   const tsconfigFile = getProjectTsconfig();
   const tscOutDir = tsconfigFile.compilerOptions.outDir;
   const targetEntry = joinWithRootPath([tscOutDir, realEntry]);
