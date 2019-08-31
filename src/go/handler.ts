@@ -67,7 +67,28 @@ export const getDefaultConfig = (program: any) => {
       defaultDevServerOptions as Configuration,
       customizedConfig.devServer,
     );
+    return {
+      webpackConfig,
+      devServerConfig,
+    };
   }
+
+  if (fs.existsSync(joinWithRootPath('nino.go.js'))) {
+    const customizedConfig = require(joinWithRootPath('nino.go.js'));
+    webpackConfig = merge(
+      defaultWebpackConfig as Configuration,
+      customizedConfig.webpack,
+    );
+    devServerConfig = merge(
+      defaultDevServerOptions as Configuration,
+      customizedConfig.devServer,
+    );
+    return {
+      webpackConfig,
+      devServerConfig,
+    };
+  }
+
   return {
     webpackConfig,
     devServerConfig,
