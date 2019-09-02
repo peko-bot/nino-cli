@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-
 import fs from 'fs-extra';
 const TohoLogPlugin = require('toho-log-plugin');
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';

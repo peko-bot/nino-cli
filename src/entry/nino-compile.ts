@@ -5,8 +5,8 @@ import { compile } from '../compile';
 
 program
   .option('-e, --entry <path>', 'set entry path. defaults to ~/src')
-  .option('--libOutput', 'set cjs output path. defaults to ~/lib')
-  .option('--esOutput', 'set es output path. defaults to ~/es')
+  .option('--lib-output', 'set cjs output path. defaults to ~/lib')
+  .option('--es-output', 'set es output path. defaults to ~/es')
   .parse(process.argv);
 
 compile(program);

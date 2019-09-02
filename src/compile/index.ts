@@ -3,12 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { injectRequire } from '../babel/projectHelper';
 import { getBabelConfig } from '../babel/babelCommonConfig';
-import {
-  joinWithRootPath,
-  walkSync,
-  runCmd,
-  getProjectTsconfig,
-} from '../utils/common';
+import { joinWithRootPath, walkSync } from '../utils/common';
 import { info, trace } from '../utils/log';
 injectRequire();
 
@@ -20,14 +15,21 @@ const compileJSX = (
 ) => {
   for (const file of files) {
     const outputPath = file.replace(entry, output);
-    if (file.endsWith('js') || file.endsWith('jsx')) {
+    if (path.extname(file) === '.ts' || path.extname(file) === '.tsx') {
       const fileContent = fs.readFileSync(file, 'utf8');
       const result = transformSync(fileContent, {
         sourceMaps: 'inline',
+        filename: path.basename(file),
         ...getBabelConfig(target === 'es2015+'),
       });
       if (result) {
-        fs.outputFileSync(outputPath.replace('.jsx', '.js'), result.code);
+        fs.outputFileSync(
+          outputPath
+            .replace('.tsx', '.jsx')
+            .replace('.ts', '.js')
+            .replace('.jsx', '.js'),
+          result.code,
+        );
       }
     } else if (!file.endsWith('.map')) {
       fs.copySync(file, outputPath);
@@ -59,22 +61,10 @@ export const copyRestFilesToTsc = async (
     });
 };
 
-// if only tsx, compile them to jsx with tsc
-// then compile them to es5 with babel
-// for using babel plugins like babel-import
 export const compile = async (program: any, callback?: () => void) => {
-  const entry = program.entry || 'src';
-  const libOutput = program.libOutput || 'lib';
-  const esOutput = program.esOutput || 'es';
-  const isTestEnv = process.env.RUN_ENV === 'test';
+  const { entry = 'src', libOutput = 'lib', esOutput = 'es' } = program;
 
-  let tscOutputPath = 'dist';
-  if (!tscOutputPath) {
-    tscOutputPath = getProjectTsconfig().compilerOptions.outDir;
-  }
-
-  const tscOutput = isTestEnv ? 'dist/test-cases' : tscOutputPath;
-  const cleanPaths = [libOutput, esOutput, tscOutput];
+  const cleanPaths = [libOutput, esOutput];
   for (const item of cleanPaths) {
     const target = joinWithRootPath(item);
     if (fs.existsSync(target)) {
@@ -82,25 +72,17 @@ export const compile = async (program: any, callback?: () => void) => {
     }
   }
   trace(
-    `少女边清理着名为 ${libOutput}/${esOutput} 的钱箱，边回顾着即将结束的一年单身生活`,
+    `少女边清理着名为 ${libOutput}/${esOutput} 的钱箱，边回顾着即将结束的多年单身生活`,
   );
   setTimeout(() => {
-    trace(`...顺带感慨了下自己又一年一平如洗的身板`);
+    trace('...顺带又感慨了下自己一平如洗的身板');
   }, 2000);
 
-  await new Promise(resolve => {
-    const tscBin = require.resolve('typescript/bin/tsc');
-    if (isTestEnv) {
-      runCmd('node', [tscBin, '-p', entry], resolve);
-    } else {
-      runCmd('node', [tscBin], resolve);
-    }
-  });
-
-  await copyRestFilesToTsc(entry, tscOutput);
-  const tscOutputFiles: any = await walkSync(joinWithRootPath(tscOutput));
-  compileJSX(tscOutputFiles, tscOutput, libOutput, 'es2015');
-  compileJSX(tscOutputFiles, tscOutput, esOutput, 'es2015+');
+  const entryFiles: any = await walkSync(joinWithRootPath(entry));
+  await copyRestFilesToTsc(entry, libOutput);
+  await copyRestFilesToTsc(entry, esOutput);
+  compileJSX(entryFiles, entry, libOutput, 'es2015');
+  compileJSX(entryFiles, entry, esOutput, 'es2015+');
   info('少女换上了新的钱箱，开始了一年新的单身生活');
   if (callback) {
     callback();

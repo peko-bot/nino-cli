@@ -5,12 +5,10 @@ const { joinWithRootPath } = require('../dist/utils/common');
 describe('nino compile', () => {
   beforeAll(() => {
     jest.resetModules();
-    process.env.RUN_ENV = 'test';
     jest.setTimeout(30000);
   });
 
   afterAll(() => {
-    process.env.RUN_ENV = null;
     jest.setTimeout(5000);
   });
 

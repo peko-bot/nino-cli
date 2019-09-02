@@ -62,9 +62,12 @@ export const runCmd = (cmd: string, args: string[], callback?: Function) => {
   });
 };
 
-export const getProjectTsconfig = () => {
+export const getProjectTsconfig = (url?: string) => {
+  if (url && fs.existsSync(joinWithRootPath(url))) {
+    return require(joinWithRootPath(url));
+  }
   if (fs.existsSync(joinWithRootPath('tsconfig.json'))) {
     return require(joinWithRootPath('tsconfig.json'));
   }
-  return null;
+  return '';
 };

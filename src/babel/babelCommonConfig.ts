@@ -38,7 +38,11 @@ export const getBabelConfig = (isEs?: boolean) => {
     ];
   }
   return {
-    presets: [require.resolve('@babel/preset-react'), envPreset],
+    presets: [
+      require.resolve('@babel/preset-react'),
+      require.resolve('@babel/preset-typescript'),
+      envPreset,
+    ],
     plugins,
   };
 };
