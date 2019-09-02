@@ -1,8 +1,6 @@
 import webpack, { Configuration } from 'webpack';
 import webpackDevServer from 'webpack-dev-server';
 import { getDefaultConfig } from './handler';
-import { getProjectTsconfig } from '../utils/common';
-import { copyRestFilesToTsc } from '../compile';
 
 const runWebpackDevServer = (program: any) => {
   const { webpackConfig, devServerConfig } = getDefaultConfig(program);
@@ -16,10 +14,5 @@ const runWebpackDevServer = (program: any) => {
 };
 
 export const go = (program: any) => {
-  const { copyAssetsFrom } = program;
-  copyRestFilesToTsc(
-    copyAssetsFrom,
-    getProjectTsconfig().compilerOptions.outDir,
-  );
   runWebpackDevServer(program);
 };
