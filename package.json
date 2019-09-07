@@ -1,6 +1,6 @@
 {
   "name": "nino-cli",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A cli for Nino, just some simple config of webpack",
   "keywords": [
     "cli"
