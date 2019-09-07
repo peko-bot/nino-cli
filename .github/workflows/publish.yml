@@ -1,0 +1,30 @@
+name: publish
+on:
+  release:
+    actions:
+      - published
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: install
+        run: npm install
+
+      - name: compile
+        run: npm run tsc
+
+      - name: publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
