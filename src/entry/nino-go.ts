@@ -23,6 +23,11 @@ program
     'set port for dev-server, defaults to 9099',
     9099,
   )
+  .option(
+    '--copyAssetsFrom <path>',
+    'set source code path, defaults to ~/src',
+    'src',
+  )
   .parse(process.argv);
 
 go(program);
