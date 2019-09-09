@@ -79,7 +79,7 @@ const getModules = () => {
     // noParse: /\.map$/,
     rules: [
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         use: [
           {
             loader: 'url-loader',
