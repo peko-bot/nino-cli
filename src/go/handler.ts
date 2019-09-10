@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import fs from 'fs-extra';
+import path from 'path';
 const TohoLogPlugin = require('toho-log-plugin');
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';
 import merge from 'webpack-merge';
@@ -9,12 +10,13 @@ import { joinWithRootPath, getProjectTsconfig } from '../utils/common';
 export const getEntry = (realEntry: string = '') => {
   const tsconfigFile = getProjectTsconfig();
   const tscOutDir = tsconfigFile.compilerOptions.outDir;
-  const real = realEntry ? [tscOutDir, realEntry] : realEntry;
+  const real =
+    realEntry && realEntry !== 'src' ? [tscOutDir, realEntry] : realEntry;
   const targetEntry = joinWithRootPath(real);
   const extensions = ['.jsx', '.js', '.tsx', '.ts'];
   let entry;
   for (const item of extensions) {
-    const targetPoint = targetEntry + item;
+    const targetPoint = path.join(targetEntry, 'index' + item);
     if (fs.existsSync(targetPoint)) {
       entry = targetPoint;
       break;
