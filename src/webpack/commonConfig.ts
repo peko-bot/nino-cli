@@ -65,7 +65,7 @@ const getAliasEntry = () => {
   return result;
 };
 
-const getResolves = () => {
+export const getResolves = () => {
   return {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
@@ -74,7 +74,7 @@ const getResolves = () => {
   };
 };
 
-const getModules = () => {
+export const getModules = () => {
   return {
     // noParse: /\.map$/,
     rules: [

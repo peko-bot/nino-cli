@@ -17,6 +17,7 @@ program
   .command('compile [options]', 'compile to es2015, es2015+, es5, for library')
   .command('prettier [options]', 'prettier for code')
   .command('eslint [options]', 'check code style')
+  .command('dist [options]', 'compile to cjs')
   .parse(process.argv);
 
 process.on('SIGINT', function() {
