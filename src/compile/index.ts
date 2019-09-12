@@ -64,13 +64,6 @@ export const copyRestFilesToTsc = async (
 export const compile = async (program: any, callback?: () => void) => {
   const { entry = 'src', libOutput = 'lib', esOutput = 'es' } = program;
 
-  const cleanPaths = [libOutput, esOutput];
-  for (const item of cleanPaths) {
-    const target = joinWithRootPath(item);
-    if (fs.existsSync(target)) {
-      fs.emptyDirSync(target);
-    }
-  }
   trace(
     `少女边清理着名为 ${libOutput}/${esOutput} 的钱箱，边回顾着即将结束的多年单身生活`,
   );
