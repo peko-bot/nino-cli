@@ -1,6 +1,7 @@
 # nino-cli
 
 [![codecov](https://codecov.io/gh/orzyyyy/nino-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/orzyyyy/nino-cli)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Forzyyyy%2Fnino-cli.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Forzyyyy%2Fnino-cli?ref=badge_shield)
 
 A custom-made cli for daily coding using react.
 
@@ -32,3 +33,7 @@ then add scripts in `package.json`, as below,
   ...
 }
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Forzyyyy%2Fnino-cli.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Forzyyyy%2Fnino-cli?ref=badge_large)
