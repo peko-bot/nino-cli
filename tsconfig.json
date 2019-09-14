@@ -14,6 +14,5 @@
     "declaration": true,
     "outDir": "dist"
   },
-  "exclude": ["dist", "tests", "es", "lib"],
-  "typings": "./typings.d.ts"
+  "exclude": ["dist", "tests", "es", "lib"]
 }
