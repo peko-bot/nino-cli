@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { format } from 'date-fns';
 import { spawn } from 'child_process';
 import { walk as walker } from 'walk';
 const cwd = process.cwd();
@@ -11,10 +10,6 @@ export const joinWithRootPath = (paths: string | string[]) => {
   }
   return path.join(cwd, paths);
 };
-
-export const getTimeStamp = () => format(new Date(), 'yyyyMMddHHmmss');
-
-export const getDateStamp = () => format(new Date(), 'yyyyMMdd');
 
 export const walkSync = async (dir: string) =>
   await new Promise(resolve => {
