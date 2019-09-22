@@ -9,24 +9,16 @@ describe('nino koei', () => {
     output: 'dist',
   };
 
-  it('default config', () => {
-    expect(getDefaultConfig(defaultOptions).webpackConfig.output).toEqual({
-      chunkFilename: 'vendor/[name].js',
-      filename: '[name].js',
-      path: joinWithRootPath('dist'),
-    });
-  });
-
   it('custom config file', () => {
     expect(
       getDefaultConfig({
         ...defaultOptions,
-        config: 'tests/cases/nino.koei',
+        config: 'tests/cases/nino.koei.js',
       }).webpackConfig.output,
     ).toEqual({
       chunkFilename: 'vendor/[name].js',
       filename: '[name].js',
-      path: joinWithRootPath('dist'),
+      path: 'test',
     });
   });
 });

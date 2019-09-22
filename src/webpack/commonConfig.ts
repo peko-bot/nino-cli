@@ -1,4 +1,4 @@
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 import WebpackBar from 'webpackbar';
 import fs from 'fs-extra';
@@ -30,7 +30,7 @@ export const getAssetPaths = (
 
 const getPlugins = (entry: string, output: string, notCopyAssets: boolean) => {
   const result = [
-    new htmlWebpackPlugin({
+    new HtmlWebpackPlugin({
       template: './src/index.html',
       hash: true,
       minify: {

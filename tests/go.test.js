@@ -10,27 +10,17 @@ describe('nino go', () => {
     port: 9099,
   };
 
-  it('default config', () => {
-    expect(getDefaultConfig(defaultOptions).devServerConfig).toEqual({
-      clientLogLevel: 'error',
-      contentBase: joinWithRootPath('src'),
-      host: 'localhost',
-      noInfo: true,
-      port: 9099,
-    });
-  });
-
   it('custom config file', () => {
     const config = getDefaultConfig({
       ...defaultOptions,
-      config: 'tests/cases/nino.go',
+      config: 'tests/cases/nino.go.js',
     });
     expect(config.devServerConfig).toEqual({
       clientLogLevel: 'error',
       contentBase: joinWithRootPath('src'),
       host: 'localhost',
       noInfo: true,
-      port: 9099,
+      port: 9098,
     });
   });
 });
