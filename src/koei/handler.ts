@@ -43,15 +43,27 @@ const getWebpackConfig = (program: any) => {
 export const getDefaultConfig = (program: any) => {
   const { config } = program;
   let webpackConfig: any = getWebpackConfig(program);
+  let customizedConfig;
+
   if (config && fs.existsSync(joinWithRootPath(config))) {
-    const customizedConfig = require(joinWithRootPath(config));
-    webpackConfig = merge(webpackConfig as Configuration, customizedConfig);
-    return { webpackConfig };
+    customizedConfig = require(joinWithRootPath(config));
   }
   if (fs.existsSync(joinWithRootPath('nino.koei.js'))) {
-    const customizedConfig = require(joinWithRootPath('nino.koei.js'));
-    webpackConfig = merge(webpackConfig as Configuration, customizedConfig);
-    return { webpackConfig };
+    customizedConfig = require(joinWithRootPath('nino.koei.js'));
   }
+
+  webpackConfig = merge(webpackConfig as Configuration, customizedConfig);
+
+  if (customizedConfig.entry) {
+    webpackConfig.entry = customizedConfig.entry;
+  }
+  if (customizedConfig.plugins) {
+    webpackConfig.plugins.shift();
+    webpackConfig.plugins = [
+      ...webpackConfig.plugins,
+      ...customizedConfig.plugins,
+    ];
+  }
+
   return { webpackConfig };
 };
