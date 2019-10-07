@@ -1,5 +1,5 @@
-import path from 'path';
-import fs from 'fs-extra';
+import * as path from 'path';
+import * as fs from 'fs-extra';
 import { spawn } from 'child_process';
 import { walk as walker } from 'walk';
 const cwd = process.cwd();

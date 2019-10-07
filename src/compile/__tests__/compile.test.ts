@@ -1,6 +1,6 @@
-const { compile } = require('../src/compile');
-const fs = require('fs-extra');
-const { joinWithRootPath } = require('../src/utils/common');
+import { compile } from '..';
+import fs from 'fs-extra';
+import { joinWithRootPath } from '../../utils/common';
 
 const outputDirPaths = ['lib', 'es'];
 const outputFilePaths = [
@@ -23,7 +23,8 @@ const outputFilePaths = [
   'tsx/src/assets/case-5',
 ];
 
-const getContent = paths => fs.readFileSync(joinWithRootPath(paths)).toString();
+const getContent = (paths: string[]) =>
+  fs.readFileSync(joinWithRootPath(paths)).toString();
 
 describe('nino compile', () => {
   beforeAll(() => {
@@ -38,7 +39,7 @@ describe('nino compile', () => {
   it('compile correctly', done => {
     compile(
       {
-        entry: 'tests/cases/compile',
+        entry: 'cases/compile',
       },
       () => {
         for (const dir of outputDirPaths) {

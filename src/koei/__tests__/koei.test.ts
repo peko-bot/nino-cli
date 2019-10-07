@@ -1,4 +1,4 @@
-const { getDefaultConfig } = require('../src/koei/handler');
+import { getDefaultConfig } from '../handler';
 
 describe('nino koei', () => {
   const defaultOptions = {
@@ -12,7 +12,7 @@ describe('nino koei', () => {
     expect(
       getDefaultConfig({
         ...defaultOptions,
-        config: 'tests/cases/nino.koei.js',
+        config: 'cases/nino.koei.js',
       }).webpackConfig.output,
     ).toEqual({
       chunkFilename: 'vendor/[name].js',

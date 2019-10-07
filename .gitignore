@@ -4,6 +4,5 @@
 /.vscode
 /lib
 /es
-case.js
 /coverage
 package-lock.json

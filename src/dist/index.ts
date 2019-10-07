@@ -1,7 +1,6 @@
-import webpack = require('webpack');
+import webpack, { Configuration } from 'webpack';
 import { joinWithRootPath } from '../utils/common';
 import { getResolves, getModules } from '../webpack/commonConfig';
-import { Configuration } from 'webpack';
 import { error, info } from '../utils/log';
 
 const handleStatus = (err: any, stats: any) => {

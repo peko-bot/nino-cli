@@ -12,7 +12,8 @@
     "module": "commonjs",
     "sourceMap": true,
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "resolveJsonModule": true
   },
-  "exclude": ["dist", "tests", "es", "lib"]
+  "exclude": ["dist", "es", "lib", "cases"]
 }

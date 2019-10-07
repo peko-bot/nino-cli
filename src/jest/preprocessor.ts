@@ -2,7 +2,7 @@ const { createTransformer: babelTransFormer } = require('babel-jest');
 const { createTransformer: tsTransFormer } = require('ts-jest');
 import { getBabelConfig } from '../babel/babelCommonConfig';
 import { joinWithRootPath } from '../utils/common';
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 const tsTestConfigPath = fs.existsSync(joinWithRootPath('tsconfig.test.json'))
   ? joinWithRootPath('tsconfig.test.json')

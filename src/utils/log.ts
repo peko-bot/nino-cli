@@ -5,7 +5,7 @@ export const getTimestamp = () =>
   `[${format(new Date(), 'yyyy-MM-dd HH:mm:ss')}] `;
 const logger = (colorFunc: Chalk, prefix: string, content: string) => {
   const message = prefix + content;
-  // tslint:disable-next-line: no-console
+  // eslint-disable-next-line no-console
   console.log(colorFunc(message));
 };
 
