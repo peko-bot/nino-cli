@@ -32,7 +32,7 @@
     "prettier": "node ./scripts/prettier.js",
     "pub": "tsc && git push origin master && npm publish",
     "sort": "npx sort-package-json",
-    "test": "tsc && jest",
+    "test": "tsc && jest --config ./dist/jest/jest.js --no-cache",
     "tsc": "tsc"
   },
   "pre-commit": [
@@ -115,6 +115,8 @@
     "@types/webpack-dev-server": "^3.1.7",
     "@types/webpack-merge": "^4.1.5",
     "@types/webpackbar": "^2.6.0",
-    "mockdate": "^2.0.5"
+    "mockdate": "^2.0.5",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
   }
 }

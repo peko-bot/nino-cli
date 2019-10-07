@@ -1,5 +1,5 @@
-const { getDefaultConfig } = require('../dist/go/handler');
-const { joinWithRootPath } = require('../dist/utils/common');
+const { getDefaultConfig } = require('../src/go/handler');
+const { joinWithRootPath } = require('../src/utils/common');
 
 describe('nino go', () => {
   const defaultOptions = {

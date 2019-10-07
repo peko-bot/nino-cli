@@ -1,5 +1,4 @@
-const { getDefaultConfig } = require('../dist/koei/handler');
-const { joinWithRootPath } = require('../dist/utils/common');
+const { getDefaultConfig } = require('../src/koei/handler');
 
 describe('nino koei', () => {
   const defaultOptions = {
