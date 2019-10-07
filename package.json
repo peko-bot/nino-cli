@@ -27,12 +27,14 @@
   },
   "scripts": {
     "clean": "rimraf node_modules package-lock.json es lib dist && npm i",
-    "lint": "eslint .",
+    "codecov": "npm test -- --coverage",
+    "lint": "eslint '**/*.ts'",
     "lint-staged": "lint-staged",
-    "prettier": "node ./scripts/prettier.js",
+    "prettier": "prettier -c --write '**/*.ts'",
     "pub": "tsc && git push origin master && npm publish",
     "sort": "npx sort-package-json",
-    "test": "tsc && jest --config ./dist/jest/jest.js --no-cache",
+    "pre-test": "tsc src/jest/jest.ts && tsc src/jest/setup.ts && tsc src/jest/preprocessor.ts",
+    "test": "npm run pre-test && tsc && jest --config ./src/jest/jest.js --no-cache --testPathPattern 'src'",
     "tsc": "tsc"
   },
   "pre-commit": [

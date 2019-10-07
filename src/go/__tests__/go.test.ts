@@ -1,5 +1,5 @@
-const { getDefaultConfig } = require('../src/go/handler');
-const { joinWithRootPath } = require('../src/utils/common');
+import { joinWithRootPath } from '../../utils/common';
+import { getDefaultConfig } from '../handler';
 
 describe('nino go', () => {
   const defaultOptions = {
@@ -13,7 +13,7 @@ describe('nino go', () => {
   it('custom config file', () => {
     const config = getDefaultConfig({
       ...defaultOptions,
-      config: 'tests/cases/nino.go.js',
+      config: 'cases/nino.go.js',
     });
     expect(config.devServerConfig).toEqual({
       clientLogLevel: 'error',
