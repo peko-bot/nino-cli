@@ -24,6 +24,7 @@ jobs:
         run: npm run tsc
 
       - name: publish to npm
+        uses: primer/publish@master
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
