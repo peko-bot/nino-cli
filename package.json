@@ -28,15 +28,15 @@
   "scripts": {
     "clean": "rimraf node_modules package-lock.json es lib dist && npm i",
     "codecov": "npm test -- --coverage",
+    "d": "rimraf ~/github/mini-xmind/node_modules/nino-cli/dist && cp -r ~/github/nino-cli/dist ~/github/mini-xmind/node_modules/nino-cli",
     "lint": "eslint '**/*.ts'",
     "lint-staged": "lint-staged",
+    "pre-test": "tsc src/jest/jest.ts && tsc src/jest/setup.ts && tsc src/jest/preprocessor.ts",
     "prettier": "prettier -c --write '**/*.ts'",
     "pub": "tsc && git push origin master && npm publish",
     "sort": "npx sort-package-json",
-    "pre-test": "tsc src/jest/jest.ts && tsc src/jest/setup.ts && tsc src/jest/preprocessor.ts",
     "test": "npm run pre-test && tsc && jest --config ./src/jest/jest.js --no-cache --testPathPattern 'src'",
-    "tsc": "tsc",
-    "d": "rimraf ~/github/mini-xmind/node_modules/nino-cli/dist && cp -r ~/github/nino-cli/dist ~/github/mini-xmind/node_modules/nino-cli"
+    "tsc": "tsc"
   },
   "pre-commit": [
     "lint-staged"
@@ -90,15 +90,12 @@
     "lint-staged": "^9.2.5",
     "pre-commit": "^1.2.2",
     "prettier": "^1.18.2",
-    "rimraf": "^3.0.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
     "toho-log-plugin": "^1.0.13",
-    "ts-jest": "^24.1.0",
     "ts-loader": "^6.1.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.6.3",
     "url-loader": "^2.1.0",
     "walk": "^2.3.14",
     "webpack": "^4.40.2",
@@ -120,6 +117,8 @@
     "@types/webpackbar": "^2.6.0",
     "mockdate": "^2.0.5",
     "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "react-dom": "^16.10.2",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.6.3"
   }
 }
