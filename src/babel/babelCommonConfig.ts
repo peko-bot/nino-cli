@@ -25,9 +25,9 @@ export const getBabelConfig = (isEs?: boolean) => {
     require.resolve('@babel/plugin-proposal-export-default-from'),
     require.resolve('@babel/plugin-proposal-export-namespace-from'),
     require.resolve('@babel/plugin-proposal-object-rest-spread'),
+    [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
     [require.resolve('@babel/plugin-proposal-class-properties'), { loose: true }],
     require.resolve('@babel/plugin-syntax-dynamic-import'),
-    [require.resolve('@babel/plugin-proposal-decorators'), { legacy: true }],
     [require.resolve('@babel/plugin-syntax-decorators'), { legacy: true }],
   ];
   let envPreset: any = require.resolve('@babel/preset-env');
