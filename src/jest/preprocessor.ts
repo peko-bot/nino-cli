@@ -1,7 +1,7 @@
 const { createTransformer: babelTransFormer } = require('babel-jest');
 import { getBabelConfig } from '../babel/babelCommonConfig';
 import { transformSync } from '@babel/core';
-import path from 'path';
+import * as path from 'path';
 import { walk } from '../utils/common';
 import * as fs from 'fs-extra';
 
