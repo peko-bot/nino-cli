@@ -3,7 +3,7 @@ import { getBabelConfig } from '../babel/babelCommonConfig';
 import { transformSync } from '@babel/core';
 import path from 'path';
 import { walk } from '../utils/common';
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 function convertTargetModule2Cjs(libDir: string | undefined) {
   if (!libDir) {
