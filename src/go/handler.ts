@@ -10,8 +10,7 @@ import { joinWithRootPath, getProjectTsconfig } from '../utils/common';
 export const getEntry = (realEntry: string = '') => {
   const tsconfigFile = getProjectTsconfig();
   const tscOutDir = tsconfigFile.compilerOptions.outDir;
-  const real =
-    realEntry && realEntry !== 'src' ? [tscOutDir, realEntry] : realEntry;
+  const real = realEntry && realEntry !== 'src' ? [tscOutDir, realEntry] : realEntry;
   const targetEntry = joinWithRootPath(real);
   const extensions = ['.jsx', '.js', '.tsx', '.ts'];
   let entry;
@@ -40,20 +39,14 @@ export const getDefaultConfig = (program: any) => {
     watch: false,
     devtool: 'source-map',
     entry: [
-      'webpack-dev-server/client?http://' +
-        defaultDevServerOptions.host +
-        ':' +
-        defaultDevServerOptions.port,
+      'webpack-dev-server/client?http://' + defaultDevServerOptions.host + ':' + defaultDevServerOptions.port,
       getEntry(entry),
     ],
     output: {
       filename: '[name].js',
       chunkFilename: 'vendor/[name].[chunkHash:8].js',
     },
-    plugins: [
-      ..._defaultWebpackConfig.plugins,
-      new TohoLogPlugin({ defaultWords: true, isPray: false }),
-    ],
+    plugins: [..._defaultWebpackConfig.plugins, new TohoLogPlugin({ defaultWords: true, isPray: false })],
   });
   let webpackConfig: any = defaultWebpackConfig;
   let devServerConfig: any = defaultDevServerOptions;
@@ -66,14 +59,8 @@ export const getDefaultConfig = (program: any) => {
     customizedConfig = require(joinWithRootPath('nino.go.js'));
   }
 
-  webpackConfig = merge(
-    defaultWebpackConfig as Configuration,
-    customizedConfig.webpack,
-  );
-  devServerConfig = merge(
-    defaultDevServerOptions as Configuration,
-    customizedConfig.devServer,
-  );
+  webpackConfig = merge(defaultWebpackConfig as Configuration, customizedConfig.webpack);
+  devServerConfig = merge(defaultDevServerOptions as Configuration, customizedConfig.devServer);
 
   return {
     webpackConfig,

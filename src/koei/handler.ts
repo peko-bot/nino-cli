@@ -12,10 +12,7 @@ import { getEntry } from '../go/handler';
 const getWebpackConfig = (program: any) => {
   const { dev, watch, output, entry } = program;
   const _defaultWebpackConfig = getDefaultWebpackConfig(program);
-  const plugins = [
-    ..._defaultWebpackConfig.plugins,
-    new TohoLogPlugin({ dev, isPray: false }),
-  ];
+  const plugins = [..._defaultWebpackConfig.plugins, new TohoLogPlugin({ dev, isPray: false })];
   if (!watch) {
     plugins.push(
       new CleanWebpackPlugin({
@@ -59,10 +56,7 @@ export const getDefaultConfig = (program: any) => {
   }
   if (customizedConfig.plugins) {
     webpackConfig.plugins.shift();
-    webpackConfig.plugins = [
-      ...webpackConfig.plugins,
-      ...customizedConfig.plugins,
-    ];
+    webpackConfig.plugins = [...webpackConfig.plugins, ...customizedConfig.plugins];
   }
 
   return { webpackConfig };

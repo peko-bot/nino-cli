@@ -7,12 +7,7 @@ import { joinWithRootPath, walkSync } from '../utils/common';
 import { info, trace } from '../utils/log';
 injectRequire();
 
-const compileJSX = (
-  files: string[],
-  entry: string,
-  output: string,
-  target: 'es2015' | 'es2015+',
-) => {
+const compileJSX = (files: string[], entry: string, output: string, target: 'es2015' | 'es2015+') => {
   for (const file of files) {
     const outputPath = file.replace(entry, output);
     if (path.extname(file) === '.ts' || path.extname(file) === '.tsx') {
@@ -37,10 +32,7 @@ const compileJSX = (
   }
 };
 
-export const copyRestFilesToTsc = async (
-  input: string,
-  outputPrefix: string,
-) => {
+export const copyRestFilesToTsc = async (input: string, outputPrefix: string) => {
   const files: any = await walkSync(input);
   files
     .filter((file: any) => {
@@ -53,10 +45,7 @@ export const copyRestFilesToTsc = async (
     .filter((file: any) => path.basename(file) !== 'tsconfig.json')
     .map((file: any) => {
       if (file !== file.replace(input, outputPrefix)) {
-        fs.copySync(
-          joinWithRootPath(file),
-          joinWithRootPath(file.replace(input, outputPrefix)),
-        );
+        fs.copySync(joinWithRootPath(file), joinWithRootPath(file.replace(input, outputPrefix)));
       }
     });
 };
@@ -64,9 +53,7 @@ export const copyRestFilesToTsc = async (
 export const compile = async (program: any, callback?: () => void) => {
   const { entry = 'src', libOutput = 'lib', esOutput = 'es' } = program;
 
-  trace(
-    `少女边清理着名为 ${libOutput}/${esOutput} 的钱箱，边回顾着即将结束的多年单身生活`,
-  );
+  trace(`少女边清理着名为 ${libOutput}/${esOutput} 的钱箱，边回顾着即将结束的多年单身生活`);
   setTimeout(() => {
     trace('...顺带又感慨了下自己一平如洗的身板');
   }, 2000);
