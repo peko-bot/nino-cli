@@ -35,7 +35,8 @@
     "sort": "npx sort-package-json",
     "pre-test": "tsc src/jest/jest.ts && tsc src/jest/setup.ts && tsc src/jest/preprocessor.ts",
     "test": "npm run pre-test && tsc && jest --config ./src/jest/jest.js --no-cache --testPathPattern 'src'",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "d": "rimraf ~/github/mini-xmind/node_modules/nino-cli/dist && cp -r ~/github/nino-cli/dist ~/github/mini-xmind/node_modules/nino-cli"
   },
   "pre-commit": [
     "lint-staged"

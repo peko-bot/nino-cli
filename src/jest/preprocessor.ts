@@ -1,34 +1,66 @@
 const { createTransformer: babelTransFormer } = require('babel-jest');
-const { createTransformer: tsTransFormer } = require('ts-jest');
 import { getBabelConfig } from '../babel/babelCommonConfig';
-import { joinWithRootPath } from '../utils/common';
-import * as fs from 'fs-extra';
+import { transformSync } from '@babel/core';
+import path from 'path';
+import { walk } from '../utils/common';
+import fs from 'fs-extra';
 
-const tsTestConfigPath = fs.existsSync(joinWithRootPath('tsconfig.test.json'))
-  ? joinWithRootPath('tsconfig.test.json')
-  : joinWithRootPath('tsconfig.json');
-const tsJest = tsTransFormer({
-  tsConfig: tsTestConfigPath,
-});
+function convertTargetModule2Cjs(libDir: string | undefined) {
+  if (!libDir) {
+    return;
+  }
+  const babelConfig = getBabelConfig();
+  walk(path.join(process.cwd(), libDir))
+    .filter(item => !item.includes('__tests__') && path.extname(item) === '.js')
+    .map(item => {
+      const targetFile = fs.readFileSync(item).toString();
+      const { code: transformedCode } = transformSync(targetFile, {
+        filename: path.basename(item),
+        ...babelConfig,
+      }) || { code: '' };
+      fs.outputFileSync(item, transformedCode);
+    });
+}
+
+const libDir = process.env.LIB_DIR;
+if (libDir && libDir !== 'dist') {
+  convertTargetModule2Cjs(libDir);
+}
+const realPaths = walk(path.join(process.cwd(), 'src')).filter(
+  item => (!item.includes('__tests__') && path.extname(item) === '.tsx') || path.extname(item) === '.ts',
+);
+
+function replaceImportPath() {
+  return {
+    visitor: {
+      ImportDeclaration(target: any) {
+        if (target.node.source.value.includes('../')) {
+          // remove all ../
+          const removeRelatedPath = target.node.source.value.replace(/\.\.\//g, '');
+          const selectContainedKeys = realPaths.filter(item => item.includes(removeRelatedPath));
+          if (libDir && selectContainedKeys.length) {
+            const targetRealPath = selectContainedKeys[0];
+            const realPath = '../../../' + libDir + targetRealPath.split('/src')[1].split('.')[0];
+            target.node.source.value = realPath;
+          }
+        }
+      },
+    },
+  };
+}
+
 const babelConfig = getBabelConfig();
-babelConfig.plugins = [...babelConfig.plugins];
+babelConfig.plugins.push(replaceImportPath);
 const babelJest = babelTransFormer(babelConfig);
 
 module.exports = {
-  process(src: any, filePath: string) {
-    const isTypeScript = filePath.endsWith('.ts') || filePath.endsWith('.tsx');
-    const isJavaScript = filePath.endsWith('.js') || filePath.endsWith('.jsx');
-    if (isTypeScript) {
-      src = tsJest.process(src, filePath, {
-        moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-      });
-    } else if (isJavaScript) {
-      src = babelJest.process(src, filePath, {
-        moduleFileExtensions: ['js', 'jsx'],
-      });
-    } else {
-      throw new Error(`File not match type: ${filePath}`);
-    }
-    return src;
+  process(sourceCode: string, filePath: string) {
+    const { code } = transformSync(sourceCode, {
+      filename: path.basename(filePath),
+      ...babelConfig,
+    }) || { code: '' };
+    return babelJest.process(code, filePath, {
+      moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+    });
   },
 };
