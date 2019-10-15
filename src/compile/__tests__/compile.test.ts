@@ -23,8 +23,7 @@ const outputFilePaths = [
   'tsx/src/assets/case-5',
 ];
 
-const getContent = (paths: string[]) =>
-  fs.readFileSync(joinWithRootPath(paths)).toString();
+const getContent = (paths: string[]) => fs.readFileSync(joinWithRootPath(paths)).toString();
 
 describe('nino compile', () => {
   beforeAll(() => {

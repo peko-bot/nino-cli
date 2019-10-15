@@ -1,5 +1,5 @@
 export const getBabelConfig = (isEs?: boolean) => {
-  const plugins = [
+  const plugins: any[] = [
     [
       'import',
       {
@@ -38,11 +38,7 @@ export const getBabelConfig = (isEs?: boolean) => {
     ];
   }
   return {
-    presets: [
-      require.resolve('@babel/preset-react'),
-      require.resolve('@babel/preset-typescript'),
-      envPreset,
-    ],
+    presets: [require.resolve('@babel/preset-react'), require.resolve('@babel/preset-typescript'), envPreset],
     plugins,
   };
 };
