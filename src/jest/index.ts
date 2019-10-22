@@ -3,7 +3,7 @@ import getRemainingArgs from 'commander-remaining-args';
 import { runCmd } from '../utils/common';
 
 export const test = (program: any) => {
-  const { update, codecov, watch } = program;
+  const { update, codecov, watch, path: targetPath } = program;
   const jestBin = require.resolve('jest/bin/jest');
   const jestConfig = path.join(__dirname, './jest.js');
   let args = [jestBin, '--config', jestConfig];
@@ -15,6 +15,9 @@ export const test = (program: any) => {
   }
   if (watch) {
     args.push('--watch');
+  }
+  if (targetPath) {
+    args.push('--testPathPattern=' + targetPath);
   }
   const remainingArgs = getRemainingArgs(program);
   args = [...args, ...remainingArgs];
