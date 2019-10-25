@@ -9,7 +9,7 @@ program
   .option('-d, --dev', 'mode of webpack, development || production, defaults to production, false', false)
   .option('-e, --entry <path>', 'set entry path, defaults to ~/dist, such as ~/src/index', 'src/index')
   .option('-o, --output <path>', 'path to save dist files, defaults to dist', 'dist')
-  .option('--not-copy-assets', 'whether all assets file in src')
+  .option('--copy-assets', 'whether copy all assets file in src', false)
   .parse(process.argv);
 
 koei(program);

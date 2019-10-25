@@ -25,7 +25,7 @@ export const getAssetPaths = (entry: string = 'src', output: string = 'dist') =>
   return copyFiles;
 };
 
-const getPlugins = (entry: string, output: string, notCopyAssets: boolean) => {
+const getPlugins = (entry: string, output: string, copyAssets: boolean) => {
   const result = [
     new HtmlWebpackPlugin({
       template: './src/index.html',
@@ -42,7 +42,7 @@ const getPlugins = (entry: string, output: string, notCopyAssets: boolean) => {
       color: 'cyanBright',
     }),
   ];
-  if (!notCopyAssets) {
+  if (copyAssets) {
     const copyFiles = getAssetPaths(entry, output);
     if (copyFiles.length !== 0) {
       result.push(new CopyWebpackPlugin(copyFiles));
@@ -115,9 +115,9 @@ export const getModules = () => {
   };
 };
 
-export const getDefaultWebpackConfig = ({ copyAssetsFrom, output, notCopyAssets }: any) => {
+export const getDefaultWebpackConfig = ({ copyAssetsFrom, output, copyAssets }: any) => {
   return {
-    plugins: getPlugins(copyAssetsFrom, output, notCopyAssets),
+    plugins: getPlugins(copyAssetsFrom, output, copyAssets),
     resolve: getResolves(),
     module: getModules(),
   };
