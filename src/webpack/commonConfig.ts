@@ -39,7 +39,7 @@ const getPlugins = (entry: string, output: string, copyAssets: boolean) => {
     }),
     new WebpackBar({
       name: '少女祈祷中...  ',
-      color: 'cyanBright',
+      color: 'pink',
     }),
   ];
   if (copyAssets) {
