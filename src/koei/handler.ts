@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-const TohoLogPlugin = require('toho-log-plugin');
+import TohoLogPlugin from 'toho-log-plugin';
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';
 import merge from 'webpack-merge';
 import fs from 'fs-extra';
