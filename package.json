@@ -28,7 +28,6 @@
   "scripts": {
     "clean": "rimraf node_modules package-lock.json es lib dist && npm i",
     "codecov": "npm test -- --coverage",
-    "d": "rimraf ~/github/mini-xmind/node_modules/nino-cli/dist && cp -r ~/github/nino-cli/dist ~/github/mini-xmind/node_modules/nino-cli",
     "lint": "eslint '**/*.ts'",
     "lint-staged": "lint-staged",
     "pre-test": "tsc src/jest/jest.ts && tsc src/jest/setup.ts && tsc src/jest/preprocessor.ts",

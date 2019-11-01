@@ -23,7 +23,7 @@ function convertTargetModule2Cjs(libDir: string | undefined) {
 }
 
 const libDir = process.env.LIB_DIR;
-if (libDir && libDir !== 'dist') {
+if (libDir === 'es') {
   convertTargetModule2Cjs(libDir);
 }
 const realPaths = walk(path.join(process.cwd(), 'src')).filter(
@@ -55,11 +55,7 @@ const babelJest = babelTransFormer(babelConfig);
 
 module.exports = {
   process(sourceCode: string, filePath: string) {
-    const { code } = transformSync(sourceCode, {
-      filename: path.basename(filePath),
-      ...babelConfig,
-    }) || { code: '' };
-    return babelJest.process(code, filePath, {
+    return babelJest.process(sourceCode, filePath, {
       moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     });
   },
