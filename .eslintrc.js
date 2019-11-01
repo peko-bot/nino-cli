@@ -4,13 +4,15 @@ module.exports = {
     es6: true,
   },
   extends: ['eslint:recommended', 'plugin:react/recommended'],
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'react-hooks'],
   parserOptions: {
     ecmaVersion: 2015,
     sourceType: 'module',
   },
   parser: '@typescript-eslint/parser',
   rules: {
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'error',
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
