@@ -5,13 +5,13 @@
   "keywords": [
     "cli"
   ],
-  "homepage": "https://github.com/orzyyyy/nino-cli#readme",
+  "homepage": "https://github.com/peko-bot/nino-cli#readme",
   "bugs": {
-    "url": "https://github.com/orzyyyy/nino-cli/issues"
+    "url": "https://github.com/peko-bot/nino-cli/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/orzyyyy/nino-cli.git"
+    "url": "git+https://github.com/peko-bot/nino-cli.git"
   },
   "license": "MIT",
   "files": [
