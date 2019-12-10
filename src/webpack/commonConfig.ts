@@ -76,7 +76,7 @@ export const getModules = () => {
     // noParse: /\.map$/,
     rules: [
       {
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
         use: [
           {
             loader: 'url-loader',
