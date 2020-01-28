@@ -37,9 +37,11 @@
     "test": "npm run pre-test && tsc && jest --config ./src/jest/jest.js --no-cache --testPathPattern 'src'",
     "tsc": "tsc"
   },
-  "pre-commit": [
-    "lint-staged"
-  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.{ts}": [
       "npm run prettier",
@@ -90,7 +92,6 @@
     "html-webpack-plugin": "^4.0.0-beta.11",
     "jest": "^25.0.0",
     "lint-staged": "^10.0.0",
-    "pre-commit": "^1.2.2",
     "prettier": "^1.19.1",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.1",
@@ -117,6 +118,7 @@
     "@types/webpack-dev-server": "^3.9.0",
     "@types/webpack-merge": "^4.1.5",
     "@types/webpackbar": "^2.6.0",
+    "husky": "^4.2.1",
     "mockdate": "^2.0.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
