@@ -1,10 +1,9 @@
 import fs from 'fs-extra';
 import { runCmd, joinWithRootPath } from '../utils/common';
 import path from 'path';
-import { CommanderStatic } from 'commander';
 import getRemainingArgs from 'commander-remaining-args';
 
-export const eslint = (program: CommanderStatic) => {
+export const eslint = (program: any) => {
   const { lintConfigPath, ignoreConfigPath, checkPaths } = program;
   const eslintBin = require.resolve('eslint/bin/eslint');
   let eslintConfig = path.join(__dirname, '../../.eslintrc.js');

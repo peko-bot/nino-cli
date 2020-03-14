@@ -36,18 +36,13 @@ describe('nino compile', () => {
   });
 
   it('compile correctly', done => {
-    compile(
-      {
-        entry: 'cases/compile',
-      },
-      () => {
-        for (const dir of outputDirPaths) {
-          for (const file of outputFilePaths) {
-            expect(getContent([dir, file])).toMatchSnapshot();
-          }
+    compile({ entry: 'cases/compile' }, () => {
+      for (const dir of outputDirPaths) {
+        for (const file of outputFilePaths) {
+          expect(getContent([dir, file])).toMatchSnapshot();
         }
-        done();
-      },
-    );
+      }
+      done();
+    });
   });
 });
