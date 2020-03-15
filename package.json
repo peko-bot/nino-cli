@@ -76,7 +76,6 @@
     "chalk": "^3.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "commander": "^5.0.0",
-    "commander-remaining-args": "^1.2.0",
     "copy-webpack-plugin": "^5.1.0",
     "core-js": "^3.4.8",
     "css-loader": "^3.3.0",
@@ -108,7 +107,6 @@
     "webpackbar": "^4.0.0"
   },
   "devDependencies": {
-    "@types/commander-remaining-args": "^1.2.0",
     "@types/enzyme": "^3.10.4",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/fs-extra": "^8.0.1",

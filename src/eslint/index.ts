@@ -1,7 +1,6 @@
 import fs from 'fs-extra';
 import { runCmd, joinWithRootPath } from '../utils/common';
 import path from 'path';
-import getRemainingArgs from 'commander-remaining-args';
 
 export const eslint = (program: any) => {
   const { lintConfigPath, ignoreConfigPath, checkPaths } = program;
@@ -12,12 +11,10 @@ export const eslint = (program: any) => {
   if (fs.existsSync(projectEslint)) {
     eslintConfig = projectEslint;
   }
-  let args = [eslintBin, checkPaths, '--config', eslintConfig];
-  const remainingArgs = getRemainingArgs(program);
+  const args = [eslintBin, checkPaths, '--config', eslintConfig];
   if (fs.existsSync(ignoreConfigPath)) {
     eslintIgnore = ignoreConfigPath;
   }
   args.push('--ignore-path', eslintIgnore);
-  args = [...args, ...remainingArgs];
   runCmd('node', args);
 };
