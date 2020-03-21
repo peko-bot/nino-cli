@@ -91,7 +91,7 @@
     "html-webpack-plugin": "^4.0.0-beta.11",
     "jest": "^25.0.0",
     "lint-staged": "^10.0.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.1",
     "toho-log-plugin": "^1.1.0",
