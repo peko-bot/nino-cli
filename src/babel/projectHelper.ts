@@ -5,7 +5,7 @@ function injectRequire() {
   if (injected) return;
   const Module = require('module');
   const oriRequire = Module.prototype.require;
-  Module.prototype.require = function(...args: string[]) {
+  Module.prototype.require = function (...args: string[]) {
     const moduleName = args[0];
     try {
       return oriRequire.apply(this, args);

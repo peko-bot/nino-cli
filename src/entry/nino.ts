@@ -17,7 +17,7 @@ program
   .command('dist [options]', 'compile to cjs')
   .parse(process.argv);
 
-process.on('SIGINT', function() {
+process.on('SIGINT', function () {
   if (proc) {
     proc.kill('SIGKILL');
   }

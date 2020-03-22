@@ -18,13 +18,7 @@ const compileJSX = (files: string[], entry: string, output: string, target: 'es2
         ...getBabelConfig(target === 'es2015+'),
       });
       if (result) {
-        fs.outputFileSync(
-          outputPath
-            .replace('.tsx', '.jsx')
-            .replace('.ts', '.js')
-            .replace('.jsx', '.js'),
-          result.code,
-        );
+        fs.outputFileSync(outputPath.replace('.tsx', '.jsx').replace('.ts', '.js').replace('.jsx', '.js'), result.code);
       }
     } else if (!file.endsWith('.map')) {
       fs.copySync(file, outputPath);

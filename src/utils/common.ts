@@ -19,7 +19,7 @@ export const walkSync = async (dir: string) =>
       result.push(root + '/' + stat.name);
       next();
     });
-    w.on('end', function() {
+    w.on('end', function () {
       resolve(result);
     });
   }).catch(err => {
