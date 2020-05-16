@@ -45,7 +45,7 @@ const getPlugins = (entry: string, output: string, copyAssets: boolean) => {
   if (copyAssets) {
     const copyFiles = getAssetPaths(entry, output);
     if (copyFiles.length !== 0) {
-      result.push(new CopyWebpackPlugin(copyFiles));
+      result.push(new CopyWebpackPlugin({ patterns: copyFiles }));
     }
   }
   return result;
