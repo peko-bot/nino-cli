@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import TohoLogPlugin from 'toho-log-plugin';
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';
-import merge from 'webpack-merge';
+const { merge } = require('webpack-merge');
 import { Configuration } from 'webpack';
 import { joinWithRootPath, getProjectTsconfig } from '../utils/common';
 
