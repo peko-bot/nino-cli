@@ -2,7 +2,7 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import TohoLogPlugin from 'toho-log-plugin';
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';
-import merge from 'webpack-merge';
+const { merge } = require('webpack-merge');
 import fs from 'fs-extra';
 import { Configuration } from 'webpack';
 import { joinWithRootPath } from '../utils/common';
