@@ -78,7 +78,7 @@
     "commander": "^6.0.0",
     "copy-webpack-plugin": "^6.0.0",
     "core-js": "^3.4.8",
-    "css-loader": "^3.3.0",
+    "css-loader": "^4.0.0",
     "date-fns": "^2.8.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
