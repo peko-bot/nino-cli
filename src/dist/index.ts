@@ -1,4 +1,4 @@
-import webpack, { Configuration } from 'webpack';
+import webpack from 'webpack';
 import { joinWithRootPath } from '../utils/common';
 import { getResolves, getModules } from '../webpack/commonConfig';
 import { error, info } from '../utils/log';
@@ -35,7 +35,7 @@ export const dist = ({ entry, output }: any) => {
         path: joinWithRootPath(output),
       },
       ...commonConfig,
-    } as Configuration,
+    },
     handleStatus,
   );
   webpack(
@@ -46,7 +46,7 @@ export const dist = ({ entry, output }: any) => {
         path: joinWithRootPath(output),
       },
       ...commonConfig,
-    } as Configuration,
+    },
     handleStatus,
   );
 };

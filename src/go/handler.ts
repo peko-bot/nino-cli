@@ -4,7 +4,6 @@ import path from 'path';
 import TohoLogPlugin from 'toho-log-plugin';
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';
 const { merge } = require('webpack-merge');
-import { Configuration } from 'webpack';
 import { joinWithRootPath, getProjectTsconfig } from '../utils/common';
 
 export const getEntry = (realEntry: string = '') => {
@@ -59,8 +58,8 @@ export const getDefaultConfig = (program: any) => {
     customizedConfig = require(joinWithRootPath('nino.go.js'));
   }
 
-  webpackConfig = merge(defaultWebpackConfig as Configuration, customizedConfig.webpack);
-  devServerConfig = merge(defaultDevServerOptions as Configuration, customizedConfig.devServer);
+  webpackConfig = merge(defaultWebpackConfig, customizedConfig.webpack);
+  devServerConfig = merge(defaultDevServerOptions, customizedConfig.devServer);
 
   return {
     webpackConfig,

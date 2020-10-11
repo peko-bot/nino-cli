@@ -4,3 +4,4 @@ declare module 'webpackbar';
 declare module 'webpack';
 declare module 'clean-webpack-plugin';
 declare module 'webpack-merge';
+declare module 'toho-log-plugin';

@@ -4,7 +4,6 @@ import TohoLogPlugin from 'toho-log-plugin';
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';
 const { merge } = require('webpack-merge');
 import fs from 'fs-extra';
-import { Configuration } from 'webpack';
 import { joinWithRootPath } from '../utils/common';
 import { getEntry } from '../go/handler';
 
@@ -48,7 +47,7 @@ export const getDefaultConfig = (program: any) => {
     customizedConfig = require(joinWithRootPath('nino.koei.js'));
   }
 
-  webpackConfig = merge(webpackConfig as Configuration, customizedConfig);
+  webpackConfig = merge(webpackConfig, customizedConfig);
 
   if (customizedConfig.entry) {
     webpackConfig.entry = customizedConfig.entry;
