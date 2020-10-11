@@ -2,3 +2,5 @@
 declare module 'webpack-dev-server';
 declare module 'webpackbar';
 declare module 'webpack';
+declare module 'clean-webpack-plugin';
+declare module 'webpack-merge';
