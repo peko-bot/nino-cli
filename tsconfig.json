@@ -15,5 +15,6 @@
     "outDir": "dist",
     "resolveJsonModule": true
   },
-  "exclude": ["dist", "es", "lib", "cases"]
+  "exclude": ["dist", "es", "lib", "cases"],
+  "typings": "./typings.d.ts"
 }
