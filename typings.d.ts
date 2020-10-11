@@ -5,3 +5,7 @@ declare module 'webpack';
 declare module 'clean-webpack-plugin';
 declare module 'webpack-merge';
 declare module 'toho-log-plugin';
+
+declare var Compilation: any;
+declare var Stats: any;
+declare var Compiler: any;
