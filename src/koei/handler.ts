@@ -13,7 +13,7 @@ const getWebpackConfig = (program: any) => {
   return Object.assign({}, defaultWebpackConfig, {
     mode: dev ? 'development' : 'production',
     resolve: defaultWebpackConfig.resolve,
-    devtool: dev ? 'source-map' : '',
+    devtool: dev ? 'source-map' : false,
     entry: {
       ninoninoni: getEntry(entry),
     },
