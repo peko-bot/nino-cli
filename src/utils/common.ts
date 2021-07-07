@@ -47,7 +47,7 @@ export const runCmd = (cmd: string, args: string[], callback?: Function) => {
     // keep color
     stdio: 'inherit',
   });
-  ls.on('close', code => {
+  ls.on('close', (code: any) => {
     if (code !== 0) {
       process.exit(code);
     }
