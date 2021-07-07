@@ -91,7 +91,7 @@
     "lint-staged": "^10.0.0",
     "prettier": "^2.0.0",
     "source-map-loader": "^1.0.0",
-    "style-loader": "^2.0.0",
+    "style-loader": "^3.0.0",
     "toho-log-plugin": "^1.1.0",
     "ts-loader": "^8.0.0",
     "tslint-config-prettier": "^1.18.0",
