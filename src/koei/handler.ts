@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import TohoLogPlugin from 'toho-log-plugin';
 import { getDefaultWebpackConfig } from '../webpack/commonConfig';
 const { merge } = require('webpack-merge');
@@ -9,19 +7,12 @@ import { joinWithRootPath } from '../utils/common';
 import { getEntry } from '../go/handler';
 
 const getWebpackConfig = (program: any) => {
-  const { dev, watch, output, entry } = program;
-  const _defaultWebpackConfig = getDefaultWebpackConfig(program);
-  const plugins = [..._defaultWebpackConfig.plugins, new TohoLogPlugin({ dev, isPray: false })];
-  if (!watch) {
-    plugins.push(
-      new CleanWebpackPlugin({
-        verbose: false,
-      }),
-    );
-  }
-  return Object.assign({}, _defaultWebpackConfig, {
+  const { dev, output, entry } = program;
+  const defaultWebpackConfig = getDefaultWebpackConfig(program);
+  const plugins = [...defaultWebpackConfig.plugins, new TohoLogPlugin({ dev, isPray: false })];
+  return Object.assign({}, defaultWebpackConfig, {
     mode: dev ? 'development' : 'production',
-    resolve: _defaultWebpackConfig.resolve,
+    resolve: defaultWebpackConfig.resolve,
     devtool: dev ? 'source-map' : '',
     entry: {
       ninoninoni: getEntry(entry),
@@ -32,7 +23,7 @@ const getWebpackConfig = (program: any) => {
       chunkFilename: 'vendor/[name].js',
     },
     plugins,
-    module: _defaultWebpackConfig.module,
+    module: defaultWebpackConfig.module,
   });
 };
 
