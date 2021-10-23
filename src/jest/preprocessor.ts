@@ -1,4 +1,4 @@
-import { createTransformer } from 'babel-jest';
+import BabelJest from 'babel-jest';
 import { getBabelConfig } from '../babel/babelCommonConfig';
 import { transformSync } from '@babel/core';
 import * as path from 'path';
@@ -51,12 +51,12 @@ function replaceImportPath() {
 
 const babelConfig = getBabelConfig();
 babelConfig.plugins.push(replaceImportPath);
-const babelJest = createTransformer(babelConfig);
+const babelJest = BabelJest.createTransformer(babelConfig);
 
 module.exports = {
   process(sourceCode: string, filePath: string) {
     return babelJest.process(sourceCode, filePath, {
       moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-    });
+    } as any);
   },
 };
