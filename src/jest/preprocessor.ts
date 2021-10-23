@@ -55,7 +55,7 @@ const babelJest = BabelJest?.createTransformer(babelConfig);
 
 module.exports = {
   process(sourceCode: string, filePath: string) {
-    return babelJest.process(sourceCode, filePath, {
+    return babelJest?.process(sourceCode, filePath, {
       moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     } as any);
   },
