@@ -8,7 +8,6 @@
     "noImplicitAny": true,
     "target": "es6",
     "lib": ["dom", "es7"],
-    "allowSyntheticDefaultImports": true,
     "module": "commonjs",
     "sourceMap": true,
     "declaration": true,
