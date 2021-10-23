@@ -51,7 +51,7 @@ function replaceImportPath() {
 
 const babelConfig = getBabelConfig();
 babelConfig.plugins.push(replaceImportPath);
-const babelJest = BabelJest!.createTransformer(babelConfig);
+const babelJest = (BabelJest as any).createTransformer(babelConfig);
 
 module.exports = {
   process(sourceCode: string, filePath: string) {
