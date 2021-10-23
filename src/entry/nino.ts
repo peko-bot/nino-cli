@@ -2,10 +2,10 @@
 
 import program from 'commander';
 import { joinWithRootPath } from '../utils/common';
-const proc = program.runningCommand;
 const info = require(joinWithRootPath('package.json'));
 
-program
+const options = (program as any).opts();
+options
   .version(info.version, '-v, --version')
   .usage('[command] [options]')
   .command('go [options]', 'to start a server, for development')
@@ -17,6 +17,7 @@ program
   .command('dist [options]', 'compile to cjs')
   .parse(process.argv);
 
+const proc = options.runningCommand;
 process.on('SIGINT', function () {
   if (proc) {
     proc.kill('SIGKILL');

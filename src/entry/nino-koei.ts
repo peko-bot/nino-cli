@@ -3,7 +3,8 @@
 import program from 'commander';
 import { koei } from '../koei';
 
-program
+const options = (program as any).opts();
+options
   .option('-c, --config <path>', 'set config path')
   .option('-w, --watch', 'turn on watch mode, defaults to false', false)
   .option('-d, --dev', 'mode of webpack, development || production, defaults to production, false', false)
