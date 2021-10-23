@@ -30,6 +30,7 @@ export const getBabelConfig = (isEs?: boolean) => {
     require.resolve('@babel/plugin-syntax-dynamic-import'),
     [require.resolve('@babel/plugin-syntax-decorators'), { legacy: true }],
     [require.resolve('@babel/plugin-proposal-private-methods'), { loose: true }],
+    [require.resolve('@babel/plugin-proposal-private-property-in-object'), { loose: true }],
   ];
   let envPreset: any = require.resolve('@babel/preset-env');
   if (isEs) {
