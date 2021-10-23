@@ -3,7 +3,8 @@
 import program from 'commander';
 import { go } from '../go';
 
-program
+const options = (program as any).opts();
+options
   .option('-c, --config <path>', 'set additional config path, and those options will be merged with defaults')
   .option('-e, --entry <path>', 'set entry path, defaults to ~/src, such as ~/src/index.js', 'src')
   .option('-o, --output <path>', 'set static path, for dev-server, defaults to ~/dist', 'dist')
