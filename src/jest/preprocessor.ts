@@ -1,4 +1,4 @@
-const { createTransformer: babelTransFormer } = require('babel-jest');
+import { createTransformer } from 'babel-jest';
 import { getBabelConfig } from '../babel/babelCommonConfig';
 import { transformSync } from '@babel/core';
 import * as path from 'path';
@@ -51,7 +51,7 @@ function replaceImportPath() {
 
 const babelConfig = getBabelConfig();
 babelConfig.plugins.push(replaceImportPath);
-const babelJest = babelTransFormer(babelConfig);
+const babelJest = createTransformer(babelConfig);
 
 module.exports = {
   process(sourceCode: string, filePath: string) {
