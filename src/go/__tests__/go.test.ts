@@ -10,11 +10,12 @@ describe('nino go', () => {
     port: 9099,
   };
 
-  it('custom config file', () => {
+  it('custom config file', done => {
     const config = getDefaultConfig({
       ...defaultOptions,
       config: 'cases/nino.go.js',
     });
+    jest.useFakeTimers('legacy');
     expect(config.devServerConfig).toEqual({
       clientLogLevel: 'error',
       contentBase: joinWithRootPath('src'),
@@ -22,5 +23,6 @@ describe('nino go', () => {
       noInfo: true,
       port: 9098,
     });
+    done();
   });
 });
