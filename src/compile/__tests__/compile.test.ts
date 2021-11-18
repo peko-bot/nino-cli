@@ -27,11 +27,11 @@ const getContent = (paths: string[]) => fs.readFileSync(joinWithRootPath(paths))
 
 describe('nino compile', () => {
   it('compile correctly', done => {
-    compile({ entry: 'cases/compile' }, () => {
+    compile({ entry: 'cases/compile' }, async () => {
       for (const dir of outputDirPaths) {
         for (const file of outputFilePaths) {
           jest.useFakeTimers('legacy');
-          expect(getContent([dir, file])).toMatchSnapshot();
+          expect(await getContent([dir, file])).toMatchSnapshot();
         }
       }
     });
