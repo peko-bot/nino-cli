@@ -1,7 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import * as Enzyme from 'enzyme';
-import Adapter = require('enzyme-adapter-react-16');
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 const g = global as any;
 g.requestAnimationFrame =
