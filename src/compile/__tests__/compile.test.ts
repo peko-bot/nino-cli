@@ -23,11 +23,9 @@ const outputFilePaths = [
   'tsx/src/assets/case-5',
 ];
 
-const getContent = (paths: string[]) => {
-  console.log(joinWithRootPath(paths));
-  return fs.readFileSync(joinWithRootPath(paths)).toString();
-};
 let contentArr: string[] = [];
+
+const getContent = (paths: string[]) => fs.readFileSync(joinWithRootPath(paths)).toString();
 
 describe('nino compile', () => {
   beforeEach(() => {
@@ -45,7 +43,7 @@ describe('nino compile', () => {
       for (const content of contentArr) {
         expect(content).toMatchSnapshot();
       }
+      done();
     });
-    done();
   });
 });
