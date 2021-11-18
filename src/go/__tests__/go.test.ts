@@ -11,11 +11,11 @@ describe('nino go', () => {
   };
 
   it('custom config file', done => {
+    jest.useFakeTimers('legacy');
     const config = getDefaultConfig({
       ...defaultOptions,
       config: 'cases/nino.go.js',
     });
-    jest.useFakeTimers('legacy');
     expect(config.devServerConfig).toEqual({
       clientLogLevel: 'error',
       contentBase: joinWithRootPath('src'),
