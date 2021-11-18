@@ -39,11 +39,10 @@ describe('nino compile', () => {
   });
 
   it('compile correctly', done => {
-    compile({ entry: 'cases/compile' }, () => {
-      for (const content of contentArr) {
-        expect(content).toMatchSnapshot();
-      }
-      done();
-    });
+    compile({ entry: 'cases/compile' });
+    for (const content of contentArr) {
+      expect(content).toMatchSnapshot();
+    }
+    done();
   });
 });
