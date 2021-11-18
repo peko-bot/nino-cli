@@ -25,11 +25,9 @@ const outputFilePaths = [
 
 const getContent = (paths: string[]) => fs.readFileSync(joinWithRootPath(paths)).toString();
 
-describe('nino compile', () => {
-  beforeAll(() => {
-    jest.resetModules();
-  });
+jest.useFakeTimers();
 
+describe('nino compile', () => {
   it('compile correctly', () => {
     compile({ entry: 'cases/compile' }, () => {
       for (const dir of outputDirPaths) {
