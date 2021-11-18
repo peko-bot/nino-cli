@@ -30,7 +30,6 @@ const getContent = (paths: string[]) => fs.readFileSync(joinWithRootPath(paths))
 describe('nino compile', () => {
   beforeEach(() => {
     contentArr = [];
-    console.log(fs.readdirSync(joinWithRootPath('')));
     for (const dir of outputDirPaths) {
       for (const file of outputFilePaths) {
         const content = getContent([dir, file]);
@@ -40,10 +39,12 @@ describe('nino compile', () => {
   });
 
   it('compile correctly', done => {
-    compile({ entry: 'cases/compile' });
-    for (const content of contentArr) {
-      expect(content).toMatchSnapshot();
-    }
-    done();
+    compile({ entry: 'cases/compile' }, () => {
+      console.log(fs.readdirSync(joinWithRootPath('')));
+      for (const content of contentArr) {
+        expect(content).toMatchSnapshot();
+      }
+      done();
+    });
   });
 });
