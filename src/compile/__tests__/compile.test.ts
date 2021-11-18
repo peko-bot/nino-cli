@@ -30,6 +30,7 @@ const getContent = (paths: string[]) => fs.readFileSync(joinWithRootPath(paths))
 describe('nino compile', () => {
   beforeEach(() => {
     contentArr = [];
+    console.log(fs.readdirSync(joinWithRootPath('')));
     for (const dir of outputDirPaths) {
       for (const file of outputFilePaths) {
         const content = getContent([dir, file]);
