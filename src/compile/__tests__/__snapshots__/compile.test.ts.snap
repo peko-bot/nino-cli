@@ -91,9 +91,7 @@ var _dateFns = require(\\"date-fns\\");
 var _calcTsx = require(\\"./src/calc-tsx\\");
 
 var defaultFunc = function defaultFunc(prefix) {
-  // tslint:disable-next-line: no-console
   console.log(\\"\\".concat(prefix, \\": \\").concat((0, _dateFns.format)(new Date(), 'yyyy-MM-dd hh:mm:ss'))); // eslint-disable-line
-  // tslint:disable-next-line: no-console
 
   console.log((0, _calcTsx.calc)()); // eslint-disable-line
 };
@@ -224,9 +222,7 @@ exports[`nino compile compile correctly 29`] = `
 import { calc } from './src/calc-tsx';
 
 var defaultFunc = function defaultFunc(prefix) {
-  // tslint:disable-next-line: no-console
   console.log(\\"\\".concat(prefix, \\": \\").concat(format(new Date(), 'yyyy-MM-dd hh:mm:ss'))); // eslint-disable-line
-  // tslint:disable-next-line: no-console
 
   console.log(calc()); // eslint-disable-line
 };
