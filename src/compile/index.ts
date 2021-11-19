@@ -48,9 +48,12 @@ export const compile = async (program: any, callback?: () => void) => {
   const { entry = 'src', libOutput = 'lib', esOutput = 'es' } = program;
 
   trace(`少女边清理着名为 ${libOutput}/${esOutput} 的钱箱，边回顾着即将结束的多年单身生活`);
-  setTimeout(() => {
-    trace('...顺带又感慨了下自己一平如洗的身板');
-  }, 2000);
+  await new Promise(resolve => {
+    setTimeout(() => {
+      trace('...顺带又感慨了下自己一平如洗的身板');
+      resolve(null);
+    }, 2000);
+  });
 
   const entryFiles: any = await walkSync(joinWithRootPath(entry));
   await copyRestFilesToTsc(entry, libOutput);
