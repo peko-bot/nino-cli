@@ -30,7 +30,7 @@ describe('nino compile', () => {
     compile({ entry: 'cases/compile' }, () => {
       for (const dir of outputDirPaths) {
         for (const file of outputFilePaths) {
-          jest.setTimeout(10 * 1000);
+          jest.setTimeout(1 * 1000);
           expect(getContent([dir, file])).toMatchSnapshot();
           jest.useRealTimers();
         }
