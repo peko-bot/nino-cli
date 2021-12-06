@@ -3,7 +3,7 @@
 import program from 'commander';
 import { eslint } from '../eslint';
 
-const options = (program as any).opts();
+const options = program.opts();
 options
   .option('-c, --lintConfigPath <path>', 'set config path, such as .eslintrc.js')
   .option('-i, --ignoreConfigPath <path>, such as .eslintignore', 'files you want to ignore with eslint')

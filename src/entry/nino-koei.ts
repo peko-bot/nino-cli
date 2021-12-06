@@ -3,7 +3,7 @@
 import program from 'commander';
 import { koei } from '../koei';
 
-const options = (program as any).opts();
+const options = program.opts();
 options
   .option('-c, --config <path>', 'set config path')
   .option('-w, --watch', 'turn on watch mode, defaults to false', false)

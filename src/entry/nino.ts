@@ -4,7 +4,7 @@ import program from 'commander';
 import { joinWithRootPath } from '../utils/common';
 const info = require(joinWithRootPath('package.json'));
 
-const options = (program as any).opts();
+const options = program.opts();
 options
   .version(info.version, '-v, --version')
   .usage('[command] [options]')

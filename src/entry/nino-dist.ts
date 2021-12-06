@@ -3,7 +3,7 @@
 import program from 'commander';
 import { dist } from '../dist';
 
-const options = (program as any).opts();
+const options = program.opts();
 options
   .option('-e, --entry <path>', 'set entry path. defaults to ~/src', 'src')
   .option('-o, --output <path>', 'set cjs output path. defaults to ~/dist', 'dist')

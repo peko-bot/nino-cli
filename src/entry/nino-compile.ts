@@ -3,7 +3,7 @@
 import program from 'commander';
 import { compile } from '../compile';
 
-const options = (program as any).opts();
+const options = program.opts();
 options
   .option('-e, --entry <path>', 'set entry path. defaults to ~/src', 'src')
   .option('--lib-output', 'set cjs output path. defaults to ~/lib', 'lib')

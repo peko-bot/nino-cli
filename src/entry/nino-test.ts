@@ -3,7 +3,7 @@
 import program from 'commander';
 import { test } from '../jest';
 
-const options = (program as any).opts();
+const options = program.opts();
 options
   .option('-u, --update', 'to update snapshots', false)
   .option('--codecov', 'coverage using jest', false)
