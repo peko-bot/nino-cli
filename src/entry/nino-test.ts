@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import program from 'commander';
+import { Command } from 'commander';
+const program = new Command();
 import { test } from '../jest';
 
-const options = program.opts();
-options
+program
   .option('-u, --update', 'to update snapshots', false)
   .option('--codecov', 'coverage using jest', false)
   .option('-w, --watch', 'watch mode', false)
@@ -12,4 +12,4 @@ options
   .allowUnknownOption()
   .parse(process.argv);
 
-test(program);
+test(program.opts());

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-import program from 'commander';
+import { Command } from 'commander';
+const program = new Command();
 import { dist } from '../dist';
 
-const options = program.opts();
-options
+program
   .option('-e, --entry <path>', 'set entry path. defaults to ~/src', 'src')
   .option('-o, --output <path>', 'set cjs output path. defaults to ~/dist', 'dist')
-  .parse(process.argv);
+  .opts();
 
-dist(program);
+dist(program.opts());

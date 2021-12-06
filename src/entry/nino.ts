@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import program from 'commander';
+import { Command } from 'commander';
+const program = new Command();
 import { joinWithRootPath } from '../utils/common';
 const info = require(joinWithRootPath('package.json'));
 
-const options = program.opts();
-options
+program
   .version(info.version, '-v, --version')
   .usage('[command] [options]')
   .command('go [options]', 'to start a server, for development')
@@ -16,18 +16,3 @@ options
   .command('eslint [options]', 'check code style')
   .command('dist [options]', 'compile to cjs')
   .parse(process.argv);
-
-const proc = options.runningCommand;
-process.on('SIGINT', function () {
-  if (proc) {
-    proc.kill('SIGKILL');
-  }
-  process.exit(0);
-});
-
-if (proc) {
-  proc.on('error', () => {
-    process.exit(1);
-  });
-  proc.on('close', process.exit.bind(process));
-}

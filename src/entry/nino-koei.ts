@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import program from 'commander';
+import { Command } from 'commander';
+const program = new Command();
 import { koei } from '../koei';
 
-const options = program.opts();
-options
+program
   .option('-c, --config <path>', 'set config path')
   .option('-w, --watch', 'turn on watch mode, defaults to false', false)
   .option('-d, --dev', 'mode of webpack, development || production, defaults to production, false', false)
@@ -13,4 +13,4 @@ options
   .option('--copy-assets', 'whether copy all assets file in src', false)
   .parse(process.argv);
 
-koei(program);
+koei(program.opts());

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import program from 'commander';
+import { Command } from 'commander';
+const program = new Command();
 import { pretty } from '../prettier';
 
-const options = program.opts();
-options.option('-c, --config <path>', 'set config path').parse(process.argv);
+program.option('-c, --config <path>', 'set config path').parse(process.argv);
 
-pretty(program);
+pretty(program.opts());

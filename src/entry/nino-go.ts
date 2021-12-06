@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import program from 'commander';
+import { Command } from 'commander';
+const program = new Command();
 import { go } from '../go';
 
-const options = program.opts();
-options
+program
   .option('-c, --config <path>', 'set additional config path, and those options will be merged with defaults')
   .option('-e, --entry <path>', 'set entry path, defaults to ~/src, such as ~/src/index.js', 'src')
   .option('-o, --output <path>', 'set static path, for dev-server, defaults to ~/dist', 'dist')
@@ -12,4 +12,4 @@ options
   .option('--copyAssetsFrom <path>', 'set source code path, defaults to ~/src', 'src')
   .parse(process.argv);
 
-go(program);
+go(program.opts());
