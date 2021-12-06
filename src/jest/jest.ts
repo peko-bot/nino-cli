@@ -5,7 +5,7 @@ module.exports = {
   setupFiles: [path.join(__dirname, 'setup.js')],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   globals: {
-    window: true,
+    window: {},
     'ts-jest': {
       diagnostics: false,
     },
@@ -24,6 +24,7 @@ module.exports = {
     // import fnsFormat from 'date-fns/format';
     'node_modules/[^/]+?/(?!(es|node_modules)/)',
   ],
+  testEnvironment: 'jsdom',
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testURL: 'http://localhost',
   moduleNameMapper: {
