@@ -4,7 +4,7 @@ import path from 'path';
 
 export const eslint = (program: any) => {
   const { lintConfigPath, ignoreConfigPath, checkPaths } = program;
-  const eslintBin = require.resolve('eslint/bin/eslint');
+  const eslintBin = require.resolve('eslint');
   let eslintConfig = path.join(__dirname, '../../.eslintrc.js');
   let eslintIgnore = path.join(__dirname, '../../.eslintignore');
   const projectEslint = lintConfigPath && joinWithRootPath(lintConfigPath);
