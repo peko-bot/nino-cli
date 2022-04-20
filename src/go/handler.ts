@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import fs from 'fs-extra';
 import path from 'path';
 import TohoLogPlugin from 'toho-log-plugin';
@@ -29,15 +28,17 @@ export const getDefaultConfig = (program: any) => {
   const defaultDevServerOptions = {
     port,
     host: 'localhost',
-    noInfo: true,
-    clientLogLevel: 'error',
-    contentBase: joinWithRootPath(copyAssetsFrom),
+    static: joinWithRootPath(copyAssetsFrom),
   };
   const _defaultWebpackConfig = getDefaultWebpackConfig(program);
   const defaultWebpackConfig = Object.assign({}, _defaultWebpackConfig, {
     mode: 'development',
     watch: false,
     devtool: 'source-map',
+    infrastructureLogging: {
+      level: 'error',
+    },
+    stats: 'errors-only',
     entry: [
       'webpack-dev-server/client?http://' + defaultDevServerOptions.host + ':' + defaultDevServerOptions.port,
       getEntry(entry),

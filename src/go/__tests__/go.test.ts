@@ -17,10 +17,8 @@ describe('nino go', () => {
       config: 'cases/nino.go.js',
     });
     expect(config.devServerConfig).toEqual({
-      clientLogLevel: 'error',
-      contentBase: joinWithRootPath('src'),
+      static: joinWithRootPath('src'),
       host: 'localhost',
-      noInfo: true,
       port: 9098,
     });
     done();
