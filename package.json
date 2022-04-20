@@ -28,7 +28,7 @@
   "scripts": {
     "clean": "rimraf node_modules package-lock.json es lib dist",
     "codecov": "npm test -- --coverage",
-    "lint": "eslint '**/*.ts'",
+    "lint": "eslint --ext .ts",
     "lint-staged": "lint-staged",
     "pre-test": "tsc src/jest/jest.ts && tsc src/jest/setup.ts && tsc src/jest/preprocessor.ts",
     "prettier": "prettier -c --write '**/*.ts'",

@@ -38,7 +38,7 @@ module.exports = {
     'no-sparse-arrays': 2,
     'no-trailing-spaces': 2,
     'no-unexpected-multiline': 2,
-    'no-underscore-dangle': 2,
+    'no-underscore-dangle': 0,
     'no-unneeded-ternary': 2,
     'no-useless-call': 2,
     'no-empty': 0,
